@@ -12,7 +12,8 @@ class MNISTDataset(Dataset):
                 f"Got {purpose}."
             )
         root = os.path.join('data', 'datasets', 'MNIST', 'downloads')
-        self.core = torchvision.datasets.MNIST(root=root, train=purpose=='training', download=True)
+        download = not os.path.exists(os.path.join(root, 'MNIST', 'raw'))
+        self.core = torchvision.datasets.MNIST(root=root, train=purpose=='training', download=download)
 
     def __getitem__(self, idx):
         image, label = self.core[idx]
