@@ -1,9 +1,11 @@
 """
 MODELS APIs.
 """
-from models.LeNet.LeNet import LeNet
+from models import layers
+from models.experimental.experimental_model import ExperimentalModel
 
 
 __all__ = (
-    "LeNet",
+    "layers",
+    "ExperimentalModel",
 )
