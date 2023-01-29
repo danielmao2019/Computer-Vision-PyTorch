@@ -8,6 +8,6 @@ from data.datasets.Overfit.OverfitDataset import OverfitDataset
 
 __all__ = (
     "Dataset",
-    "MNISTDataset",
     "OverfitDataset",
+    "MNISTDataset",
 )
