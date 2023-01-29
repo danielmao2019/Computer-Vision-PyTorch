@@ -11,8 +11,10 @@ class ExperimentalModel(torch.nn.Module):
         self.task = task
         self.extractor = torch.nn.Sequential(
             self.get_conv_layer(in_channels=in_features, out_channels=128),
+            self.get_conv_layer(in_channels=128, out_channels=256),
+            self.get_conv_layer(in_channels=256, out_channels=512),
         )
-        self.predictor = self.get_predictor(in_features=128, out_features=out_features)
+        self.predictor = self.get_predictor(in_features=512, out_features=out_features)
 
     def get_conv_layer(self, in_channels, out_channels):
         conv = torch.nn.Conv2d(
