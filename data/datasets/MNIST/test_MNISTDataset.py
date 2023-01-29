@@ -18,7 +18,6 @@ def test_data_structure(purpose):
     image, label = example
     # check image
     assert type(image) == torch.Tensor, f"{type(image)=}"
-    assert len(image.shape) == 3, f"{len(image.shape)=}"
     assert image.shape == (1, 28, 28), f"{image.shape=}"
     assert image.dtype == torch.float32, f"{image.dtype=}"
     # check label

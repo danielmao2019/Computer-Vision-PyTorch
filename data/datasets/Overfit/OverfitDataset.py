@@ -7,7 +7,7 @@ class OverfitDataset(Dataset):
     TASK_OPTIONS = ['image_classification']
 
     def __init__(self, task):
-        self.image = torch.rand(1, 3, 224, 224)
+        self.image = torch.rand(3, 224, 224)
         if task not in self.TASK_OPTIONS:
             raise NotImplementedError()
         if task == 'image_classification':
