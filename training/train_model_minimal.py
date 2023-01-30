@@ -1,9 +1,8 @@
 import torch
 
 
-def train_model_minimal(model, dataloader, epochs, lr):
+def train_model_minimal(model, dataloader, epochs, lr, device):
     model.train()
-    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     model.to(device)
     criterion = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.SGD(model.parameters(), lr=lr, momentum=0.9)
