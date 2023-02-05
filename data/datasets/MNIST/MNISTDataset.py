@@ -8,8 +8,8 @@ class MNISTDataset(Dataset):
 
     NUM_CLASSES = 10
     DISTRIBUTION = {
-        'training': torch.Tensor([5923, 6742, 5958, 6131, 5842, 5421, 5918, 6265, 5851, 5949]),
-        'evaluation': torch.Tensor([980, 1135, 1032, 1010, 982, 892, 958, 1028, 974, 1009]),
+        'training': torch.Tensor([5923, 6742, 5958, 6131, 5842, 5421, 5918, 6265, 5851, 5949]).type(torch.int64),
+        'evaluation': torch.Tensor([980, 1135, 1032, 1010, 982, 892, 958, 1028, 974, 1009]).type(torch.int64),
     }
 
     def __init__(self, purpose):

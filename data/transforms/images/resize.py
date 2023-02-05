@@ -32,7 +32,7 @@ class Resize(torch.nn.Module):
         elif task == 'semantic_segmentation':
             self.label_transform = torchvision.transforms.Resize(size=self.new_size, method='nearest')
         else:
-            raise ValueError(f"Argument 'task' not handled properly.")
+            raise ValueError(f"[ERROR] Argument {task=} not handled properly.")
         return self
 
     def __call__(self, element):
