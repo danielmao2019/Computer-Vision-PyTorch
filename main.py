@@ -8,6 +8,7 @@ import evaluation
 import explanation
 
 import matplotlib.pyplot as plt
+import os
 
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
@@ -55,15 +56,21 @@ eval_dataloader = data.Dataloader(
 # )
 # print(scores)
 model.eval()
-for _ in range(3):
+num_examples = 100
+count = [0] * 10
+for idx in range(num_examples):
+    fig, axs = plt.subplots(nrows=1, ncols=3)
     image, label = next(iter(eval_dataloader))
+    image, label = image.to(device), label.to(device)
     gradient_tensor = explanation.compute_gradients(
         model=model, image=image, label=label, depth=None,
     )
-    print(f"{gradient_tensor.shape=}")
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 5))
-    explanation.utils.imshow_tensor(ax1, gradient_tensor)
-    ax1.set_title("Gradient Map")
-    explanation.utils.imshow_tensor(ax2, image)
-    ax2.set_title("Original Image")
-    plt.show()
+    explanation.utils.imshow_tensor(ax=axs[0], tensor=gradient_tensor)
+    axs[0].set_title("Gradient Map")
+    explanation.utils.imshow_tensor(ax=axs[1], tensor=image)
+    axs[1].set_title("Original Image")
+    explanation.utils.imshow_tensor(ax=axs[2], tensor=gradient_tensor*image)
+    axs[2].set_title("Elementwise Product")
+    filepath = os.path.join("saved_images", f"class_{label.item()}", f"figure_{count[label.item()]}")
+    plt.savefig(filepath)
+    count[label.item()] += 1

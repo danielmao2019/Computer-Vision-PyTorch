@@ -18,7 +18,7 @@ device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 def test_forward_pass(input_shape, output_shape):
     model = models.LeNet(in_features=input_shape[0], out_features=output_shape[0])
     batch_size = 1
-    fake_input = torch.zeros(size=(batch_size,)+input_shape)
+    fake_input = torch.zeros(size=(batch_size,)+input_shape, dtype=torch.float32)
     fake_output = model(fake_input)
     assert fake_output.shape == (batch_size,)+output_shape, f"{fake_output.shape=}, {output_shape=}"
 

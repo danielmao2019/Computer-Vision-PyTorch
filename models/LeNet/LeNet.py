@@ -33,7 +33,7 @@ class LeNet(torch.nn.Module):
         self.softmax = torch.nn.Softmax(dim=1)
 
     def forward(self, x):
-        assert x.shape[2:] == (32, 32), f"{x.shape=}"
+        assert x.shape[1:] == (self.in_features, 32, 32), f"{x.shape=}"
 
         x = self.conv1(x)
         x = self.tanh1(x)
