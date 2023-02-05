@@ -9,3 +9,9 @@ __all__ = (
     "datasets",
     "Dataloader",
 )
+
+TASK_OPTIONS = [
+    'image_classification',
+    'object_detection',
+    'semantic_segmentation',
+]
