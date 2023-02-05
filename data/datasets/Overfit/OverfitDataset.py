@@ -1,18 +1,18 @@
 from data.datasets import Dataset
 import torch
+import data
 
 
 class OverfitDataset(Dataset):
 
-    TASK_OPTIONS = ['image_classification', 'semantic_segmentation']
-
-    def __init__(self, task, image_shape, label_shape):
+    def __init__(self, task, image_shape):
         self.image = torch.rand(image_shape)
-        self.label = torch.zeros(size=label_shape)
-        if task not in self.TASK_OPTIONS:
+        if task not in data.TASK_OPTIONS:
             raise NotImplementedError()
-        if task in ['image_classification', 'semantic_segmentation']:
-            self.label = self.label.type(torch.int64)
+        if task == 'image_classification':
+            self.label = torch.zeros(size=(), dtype=torch.int64)
+        elif task == 'semantic_segmentation':
+            self.label = torch.zeros(size=(image_shape[1:]), dtype=torch.float32)
         else:
             raise RuntimeError(f"Argument {task=} not handled properly.")
         self.core = [(self.image, self.label)]
