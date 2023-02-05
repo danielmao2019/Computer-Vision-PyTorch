@@ -22,3 +22,15 @@ def test_data_structure(purpose):
     assert image.dtype == torch.float32, f"{image.dtype=}"
     # check label
     assert type(label) == int, f"{type(label)=}"
+
+
+@pytest.mark.parametrize("purpose", [
+    pytest.param('training'),
+    pytest.param('evaluation'),
+])
+def test_class_count(purpose):
+    dataset = data.datasets.MNISTDataset(purpose=purpose)
+    class_count = [0] * dataset.NUM_CLASSES
+    for image, label in dataset:
+        class_count[label] += 1
+    assert torch.equal(torch.Tensor(class_count), dataset.DISTRIBUTION[purpose]), f"{class_count=}"
