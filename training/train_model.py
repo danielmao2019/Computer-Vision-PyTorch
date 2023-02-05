@@ -24,6 +24,7 @@ def train_loop(model, dataloader, criterion, optimizer, loss_graph, score_graph,
         images, labels = data[0].to(device), data[1].to(device)
         outputs = model(images)
         loss = criterion(outputs, labels)
+        #TODO: enable metric calculation during training
         score = 0
         ###
         optimizer.zero_grad()
@@ -39,10 +40,11 @@ def train_loop(model, dataloader, criterion, optimizer, loss_graph, score_graph,
     return avg_loss, avg_score
 
 
-def train_model(specs):
+def train_model(tag, model, dataloader, epochs, criterion, optimizer,
+                save_model, load_model, device,
+                ):
     """
-    specs should be a dictionary with the following arguments:
-    {
+    Parameters:
         tag (str):
         model (torch.nn.Module):
         dataloader (torch.utils.data.DataLoader):
@@ -50,21 +52,14 @@ def train_model(specs):
         criterion (torch.nn.Module):
         optimizer (torch.optim.Optimizer):
         save_model (bool):
-    }
+        load_model (str|None):
     """
-    device = device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     logging.info(f"Using device {device}.")
-    tag = specs['tag']
     models_root = os.path.join('saved_models', tag)
-    model = specs['model']
-    dataloader = specs['dataloader']
-    epochs = specs['epochs']
-    criterion = specs['criterion']
-    optimizer = specs['optimizer']
     # get model, optimizer, and epoch
     start_epoch = 0
-    if isinstance(specs.get('load_model', None), str):
-        filepath = os.path.join(models_root, specs['load_model'])
+    if load_model is not None:
+        filepath = os.path.join(models_root, load_model)
         model, optimizer, start_epoch = training.utils.load_model(model, optimizer, filepath=filepath)
     model.train()
     model.to(device)
@@ -91,7 +86,7 @@ def train_model(specs):
         )
         logging.info("Epoch: {:03d}/{}, loss={:.6f}, score={:.6f}, time={:.2f}seconds.".format(
             cur_epoch+1, end_epoch, loss, score, time.time()-start_time))
-        if (cur_epoch+1) % save_interval == 0 and specs.get('save_model', False):
+        if save_model and (cur_epoch+1) % save_interval == 0:
             filepath = os.path.join(models_root, f'checkpoint_{cur_epoch+1:03d}.pt')
             training.utils.save_model(model=model, optimizer=optimizer, epoch=cur_epoch, filepath=filepath)
             logging.info(f"Saved model to {filepath}.")
