@@ -6,15 +6,46 @@ import models
 import training
 import evaluation
 import explanation
+import metrics
 
 import matplotlib.pyplot as plt
+import os
 
+
+class MultiTaskCriterion(torch.nn.Module):
+
+    def __init__(self):
+        super(MultiTaskCriterion, self).__init__()
+        self.sub_criteria = [
+            torch.nn.CrossEntropyLoss(),
+            torch.nn.MSELoss(),
+        ]
+        self.weights = [
+            1,
+            1,
+        ]
+
+    def forward(self, inputs, labels):
+        ans = 0
+        onehot_labels = torch.tile(torch.arange(inputs.shape[1]), dims=(inputs.shape[0], 1)).to(inputs.device)
+        onehot_labels = (onehot_labels == torch.unsqueeze(labels, dim=1)).type(torch.float32)
+        for criterion, weight in zip(self.sub_criteria, self.weights):
+            ans += weight * criterion(inputs, onehot_labels)
+        return ans
+
+
+metric = metrics.Acc()
+
+##################################################
+# model
+##################################################
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 model = models.LeNet(in_features=1, out_features=10)
+model.to(device)
 
 ##################################################
-# training
+# datasets
 ##################################################
 
 train_dataset = data.datasets.MNISTDataset(purpose='training')
@@ -22,48 +53,78 @@ train_dataloader = data.Dataloader(
     task='image_classification', dataset=train_dataset,
     batch_size=8, shuffle=True, transforms=[
         data.transforms.Resize(new_size=(32, 32)),
-])
+    ])
+eval_dataset = data.datasets.MNISTDataset(purpose='evaluation')
+eval_dataloader = data.Dataloader(
+    task='image_classification', dataset=eval_dataset,
+    batch_size=1, shuffle=True, transforms=[
+        data.transforms.Resize(new_size=(32, 32)),
+    ])
+
+##################################################
+# training
+##################################################
+
 train_specs = {
-    'tag': 'LeNet',
+    'tag': 'LeNet_MNIST_MultiTask',
     'model': model,
-    'dataloader': train_dataloader,
-    'epochs': 100,
-    'criterion': torch.nn.CrossEntropyLoss(),
-    'optimizer': torch.optim.SGD(model.parameters(), lr=1.0e-02, momentum=0.9),
+    'train_dataloader': train_dataloader,
+    'eval_dataloader': eval_dataloader,
+    'epochs': 20,
+    'criterion': MultiTaskCriterion(),
+    'optimizer': torch.optim.SGD(model.parameters(), lr=1.0e-03, momentum=0.9),
+    'metric': metric,
     'save_model': True,
-    'load_model': None#"checkpoint_010.pt",
+    'load_model': "checkpoint_020.pt",
 }
 training.train_model(
-    tag=train_specs['tag'], model=train_specs['model'], dataloader=train_specs['dataloader'], epochs=train_specs['epochs'],
-    criterion=train_specs['criterion'], optimizer=train_specs['optimizer'],
-    save_model=train_specs['save_model'], load_model=train_specs['load_model'], device=device,
+    tag=train_specs['tag'], model=train_specs['model'], epochs=train_specs['epochs'],
+    train_dataloader=train_specs['train_dataloader'], eval_dataloader=train_specs['eval_dataloader'],
+    criterion=train_specs['criterion'], optimizer=train_specs['optimizer'], metric=train_specs['metric'],
+    save_model=train_specs['save_model'], load_model=train_specs['load_model'],
 )
 
 ##################################################
 # evaluation
 ##################################################
 
-eval_dataset = data.datasets.MNISTDataset(purpose='evaluation')
-eval_dataloader = data.Dataloader(
-    task='image_classification', dataset=eval_dataset,
-    batch_size=1, shuffle=True, transforms=[
-        data.transforms.Resize(new_size=(32, 32)),
-])
-# acc = lambda output, label: torch.equal(torch.argmax(output, dim=1, keepdim=False), label)
-# scores = evaluation.eval_model(
-#     model=model, dataloader=eval_dataloader, metrics=[acc], device=device,
-# )
-# print(scores)
-model.eval()
-for _ in range(3):
-    image, label = next(iter(eval_dataloader))
-    gradient_tensor = explanation.compute_gradients(
-        model=model, image=image, label=label, depth=None,
-    )
-    print(f"{gradient_tensor.shape=}")
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 5))
-    explanation.utils.imshow_tensor(ax1, gradient_tensor)
-    ax1.set_title("Gradient Map")
-    explanation.utils.imshow_tensor(ax2, image)
-    ax2.set_title("Original Image")
-    plt.show()
+scores = evaluation.eval_model(
+    model=model, dataloader=eval_dataloader, metrics=[metric],
+)
+print(scores)
+
+
+def rescale(tensor):
+    """transforms to the range [0, 1]
+    """
+    tensor -= torch.min(tensor)
+    assert torch.min(tensor) == 0, f"{torch.min(tensor)=}"
+    assert torch.max(tensor) >= 0, f"{torch.max(tensor)=}"
+    if torch.max(tensor) != 0:
+        tensor /= torch.max(tensor)
+    return tensor
+
+
+# model.eval()
+# num_examples = 100
+# count = [0] * eval_dataset.NUM_CLASSES
+# for idx in range(num_examples):
+#     print(f"{idx=}")
+#     fig, axs = plt.subplots(nrows=1, ncols=3)
+#     image, label = next(iter(eval_dataloader))
+#     image, label = image.to(device), label.to(device)
+#     gradient_tensor = explanation.compute_gradients(
+#         model=model, image=image, label=label, depth=None,
+#     )
+#     explanation.utils.imshow_tensor(ax=axs[0], tensor=rescale(gradient_tensor))
+#     axs[0].set_title("Gradient Map")
+#     explanation.utils.imshow_tensor(ax=axs[1], tensor=image)
+#     axs[1].set_title("Original Image")
+#     explanation.utils.imshow_tensor(ax=axs[2], tensor=gradient_tensor*image)
+#     axs[2].set_title("E.w. Product")
+#     label = label.item()
+#     filepath = os.path.join("saved_images", train_specs['tag'], f"class_{label}", f"instance_{count[label]}.png")
+#     plt.savefig(filepath)
+#     count[label] += 1
+
+#TODO: multi-task, Grad-CAM

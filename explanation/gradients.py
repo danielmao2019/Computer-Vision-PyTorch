@@ -5,12 +5,23 @@ def tanh_gradient(x):
     return 1 - torch.tanh(x)**2
 
 
-def CE_gradient(input, label):
-    assert len(input.shape) == 2 and input.shape[0] == 1
-    assert type(label) == torch.Tensor
-    assert label.shape == (1,), f"{label.shape=}"
-    assert label.dtype == torch.int64, f"{label.dtype=}"
-    label = label.item()
-    ans = torch.zeros(size=input.shape).to(input.device)
-    ans[0, label] = -label/input[0, label]
+def CE_gradient(inputs, labels):
+    assert len(inputs.shape) == 2 and inputs.shape[0] == 1
+    assert type(labels) == torch.Tensor
+    assert labels.shape == (1,), f"{labels.shape=}"
+    assert labels.dtype == torch.int64, f"{labels.dtype=}"
+    labels = labels.item()
+    ans = torch.zeros(size=inputs.shape).to(inputs.device)
+    ans[0, labels] = -labels/inputs[0, labels]
+    return ans
+
+
+def MSE_gradient(inputs, labels):
+    assert len(inputs.shape) == 2 and inputs.shape[0] == 1
+    assert labels.shape == (1,), f"{labels.shape=}"
+    assert inputs.dtype == torch.float32, f"{inputs.shape=}"
+    assert labels.dtype == torch.int64, f"{labels.dtype=}"
+    ans = 2 * inputs / len(inputs)
+    labels = labels.item()
+    ans[0, labels] -= 2 / len(inputs)
     return ans

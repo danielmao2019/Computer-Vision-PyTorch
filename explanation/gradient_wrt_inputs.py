@@ -73,6 +73,7 @@ def get_backward_model(model, memory, depth):
             raise NotImplementedError(f"[ERROR] Layers of type {type(layer)} not implemented.")
         if isinstance(new_layer, torch.nn.Module):
             new_layer = new_layer.to(device)
+            new_layer.eval()
         layers[idx] = new_layer
     return layers
 
@@ -98,7 +99,7 @@ def compute_gradients(model, image, label, depth):
     output = model(image)
     # backward pass
     backward_model = get_backward_model(model=model, memory=memory, depth=depth)
-    gradient_tensor = explanation.gradients.CE_gradient(input=output, label=label)
+    gradient_tensor = explanation.gradients.CE_gradient(inputs=output, labels=label)
     assert gradient_tensor.shape == (1, model.out_features)
     for idx, layer in enumerate(backward_model):
         gradient_tensor = layer(gradient_tensor)

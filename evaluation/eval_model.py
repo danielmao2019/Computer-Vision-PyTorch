@@ -1,7 +1,8 @@
 from tqdm import tqdm
 
 
-def eval_model(model, dataloader, metrics, device):
+def eval_model(model, dataloader, metrics):
+    device = next(model.parameters()).device
     model.eval()
     tot_scores = [0] * len(metrics)
     for element in tqdm(dataloader):
