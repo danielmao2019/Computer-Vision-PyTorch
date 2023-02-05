@@ -31,6 +31,6 @@ def test_data_structure(purpose):
 def test_class_count(purpose):
     dataset = data.datasets.MNISTDataset(purpose=purpose)
     class_count = [0] * dataset.NUM_CLASSES
-    for image, label in dataset:
+    for _, label in dataset:
         class_count[label] += 1
     assert torch.equal(torch.Tensor(class_count), dataset.DISTRIBUTION[purpose]), f"{class_count=}"
