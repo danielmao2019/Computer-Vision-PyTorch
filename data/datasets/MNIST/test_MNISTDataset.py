@@ -28,9 +28,9 @@ def test_data_structure(purpose):
     pytest.param('training'),
     pytest.param('evaluation'),
 ])
-def test_class_count(purpose):
+def test_class_distribution(purpose):
     dataset = data.datasets.MNISTDataset(purpose=purpose)
-    class_count = [0] * dataset.NUM_CLASSES
+    class_count = torch.zeros(size=(dataset.NUM_CLASSES,), dtype=torch.int64)
     for _, label in dataset:
         class_count[label] += 1
-    assert torch.equal(torch.Tensor(class_count), dataset.DISTRIBUTION[purpose]), f"{class_count=}"
+    assert torch.equal(class_count, dataset.DISTRIBUTION[purpose]), f"{class_count=}"

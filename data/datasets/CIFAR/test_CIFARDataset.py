@@ -34,7 +34,7 @@ def test_data_structure(version, purpose):
 ])
 def test_class_distribution(version, purpose):
     dataset = data.datasets.CIFARDataset(version=version, purpose=purpose)
-    class_count = [0] * dataset.NUM_CLASSES
+    class_count = torch.zeros(size=(dataset.NUM_CLASSES,), dtype=torch.int64)
     for _, label in dataset:
         class_count[label] += 1
-    assert torch.equal(torch.Tensor(class_count), dataset.DISTRIBUTION[dataset.version[dataset.purpose]]), f"{class_count=}"
+    assert torch.equal(class_count, dataset.DISTRIBUTION[dataset.version][dataset.purpose]), f"{class_count=}"

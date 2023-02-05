@@ -10,12 +10,12 @@ class CIFARDataset(Dataset):
     VERSION_OPTIONS = [10, 100]
     DISTRIBUTION = {
         10: {
-            'training': torch.Tensor([]),
-            'evaluation': torch.Tensor([]),
+            'training': torch.ones(size=(10,), dtype=torch.int64) * 5000,
+            'evaluation': torch.ones(size=(10,), dtype=torch.int64) * 1000,
         },
         100: {
-            'training': torch.Tensor([]),
-            'evaluation': torch.Tensor([]),
+            'training': torch.ones(size=(100,), dtype=torch.int64) * 500,
+            'evaluation': torch.ones(size=(100,), dtype=torch.int64) * 100,
         },
     }
 
@@ -33,12 +33,13 @@ class CIFARDataset(Dataset):
                 f"Got {version}."
             )
         self.version = version
+        root = os.path.join('data', 'datasets', 'CIFAR', 'downloads')
         if version == 10:
-            root = os.path.join('data', 'datasets', 'CIFAR', 'downloads')
-            download = not os.path.exists(os.path.join(root, 'CIFAR', 'raw'))
-            self.core = torchvision.datasets.CIFAR100(root=root, train=purpose=='training', download=download)
+            download = not os.path.exists(os.path.join(root, 'cifar-10-python'))
+            self.core = torchvision.datasets.CIFAR10(root=root, train=purpose=='training', download=download)
         elif version == 100:
-            pass
+            download = not os.path.exists(os.path.join(root, 'cifar-100-python'))
+            self.core = torchvision.datasets.CIFAR100(root=root, train=purpose=='training', download=download)
         else:
             raise RuntimeError(f"[ERROR] Argument {version=} not handled properly.")
         self.NUM_CLASSES = version
