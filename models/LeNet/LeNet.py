@@ -1,4 +1,5 @@
 import torch
+import models
 
 
 class LeNet(torch.nn.Module):
@@ -21,6 +22,7 @@ class LeNet(torch.nn.Module):
             in_channels=16, out_channels=120, kernel_size=5, stride=1,
         )
         self.tanh3 = torch.nn.Tanh()
+        self.pool3 = models.layers.GlobalAveragePooling2D()
         self.linear1 = torch.nn.Linear(
             in_features=120, out_features=84,
         )
@@ -48,11 +50,14 @@ class LeNet(torch.nn.Module):
         x = self.conv3(x)
         x = self.tanh3(x)
         assert x.shape[1:] == (120, 1, 1), f"{x.shape=}"
-
-        x = torch.squeeze(torch.squeeze(x, dim=3), dim=2)
+        x = self.pool3(x)
         assert x.shape[1:] == (120,), f"{x.shape=}"
+
         x = self.linear1(x)
         x = self.tanh4(x)
+        assert x.shape[1:] == (84,), f"{x.shape=}"
+
         x = self.linear2(x)
         x = self.softmax(x)
+        assert x.shape[1:] == (self.out_features,), f"{x.shape=}"
         return x
