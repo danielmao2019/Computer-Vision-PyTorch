@@ -1,17 +1,18 @@
 import torch
 import torchvision
 
-import data
-import models
-import training
-import evaluation
-import explanation
-import losses
-import metrics
-
 import matplotlib.pyplot as plt
 import os
 from tqdm import tqdm
+
+import data
+import models
+import losses
+import metrics
+import training
+import evaluation
+import explanation
+import utils
 
 
 criterion = losses.MultiTaskCriterion(criteria=[
@@ -104,11 +105,11 @@ def rescale(tensor):
 #     gradient_tensor = explanation.compute_gradients(
 #         model=model, image=image, label=label, depth=None,
 #     )
-#     explanation.utils.imshow_tensor(ax=axs[0], tensor=rescale(gradient_tensor))
+#     utils.explanation.imshow_tensor(ax=axs[0], tensor=rescale(gradient_tensor))
 #     axs[0].set_title("Gradient Map")
-#     explanation.utils.imshow_tensor(ax=axs[1], tensor=image)
+#     utils.explanation.imshow_tensor(ax=axs[1], tensor=image)
 #     axs[1].set_title("Original Image")
-#     explanation.utils.imshow_tensor(ax=axs[2], tensor=gradient_tensor*image)
+#     utils.explanation.imshow_tensor(ax=axs[2], tensor=gradient_tensor*image)
 #     axs[2].set_title("E.w. Product")
 #     label = label.item()
 #     filepath = os.path.join("saved_images", train_specs['tag'], f"class_{label}", f"instance_{count[label]}.png")
@@ -131,10 +132,10 @@ def rescale(tensor):
 #     image, label = image.to(device), label.to(device)
 #     grad_cams = explanation.CAM.compute_grad_cam(model=model, layer_idx=4, image=image)
 #     for cls in range(model.out_features):
-#         explanation.utils.imshow_tensor(ax=axs[cls//ncols, cls%ncols], tensor=rescale(grad_cams[cls]))
+#         utils.explanation.imshow_tensor(ax=axs[cls//ncols, cls%ncols], tensor=rescale(grad_cams[cls]))
 #         axs[cls//ncols, cls%ncols].set_title(f"{cls=}")
 #     label = label.item()
-#     explanation.utils.imshow_tensor(ax=axs[model.out_features//ncols, model.out_features%ncols], tensor=rescale(image))
+#     utils.explanation.imshow_tensor(ax=axs[model.out_features//ncols, model.out_features%ncols], tensor=rescale(image))
 #     axs[model.out_features//ncols, model.out_features%ncols].set_title(f"{label=}")
 #     filepath = os.path.join("saved_images", train_specs['tag'], f"class_{label}", f"instance_{count[label]}.png")
 #     plt.savefig(filepath)
