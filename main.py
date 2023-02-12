@@ -85,13 +85,13 @@ training.train_model(
 )
 
 ##################################################
-# evaluation
+# VOG
 ##################################################
 
-scores = evaluation.eval_model(
-    model=model, dataloader=eval_dataloader, metrics=[metric],
-)
-print(scores)
+# scores = evaluation.eval_model(
+#     model=model, dataloader=eval_dataloader, metrics=[metric],
+# )
+# print(scores)
 
 
 def rescale(tensor):
@@ -127,4 +127,27 @@ def rescale(tensor):
 #     plt.savefig(filepath)
 #     count[label] += 1
 
-#TODO: multi-task, Grad-CAM
+#TODO: multi-task
+
+##################################################
+# Grad-CAM
+##################################################
+
+# model.eval()
+# num_examples = 100
+# count = [0] * eval_dataset.NUM_CLASSES
+# for idx in tqdm(range(num_examples)):
+#     nrows, ncols = 4, 3
+#     fig, axs = plt.subplots(nrows=nrows, ncols=ncols, figsize=(12, 9))
+#     image, label = next(iter(eval_dataloader))
+#     image, label = image.to(device), label.to(device)
+#     grad_cams = explanation.CAM.compute_grad_cam(model=model, layer_idx=4, image=image)
+#     for cls in range(model.out_features):
+#         explanation.utils.imshow_tensor(ax=axs[cls//ncols, cls%ncols], tensor=rescale(grad_cams[cls]))
+#         axs[cls//ncols, cls%ncols].set_title(f"{cls=}")
+#     label = label.item()
+#     explanation.utils.imshow_tensor(ax=axs[model.out_features//ncols, model.out_features%ncols], tensor=rescale(image))
+#     axs[model.out_features//ncols, model.out_features%ncols].set_title(f"{label=}")
+#     filepath = os.path.join("saved_images", train_specs['tag'], f"class_{label}", f"instance_{count[label]}.png")
+#     plt.savefig(filepath)
+#     count[label] += 1

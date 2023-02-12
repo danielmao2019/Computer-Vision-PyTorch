@@ -81,11 +81,11 @@ def get_backward_model(model, memory, depth):
 def tanh_backward(inputs):
     def new_layer(x):
         assert x.shape == inputs.shape
-        return x * explanation.gradients.tanh_gradient(inputs)
+        return x * explanation.gradient.gradients.tanh_gradient(inputs)
     return new_layer
 
 
-def compute_gradients(model, image, label, depth):
+def compute_gradients(model, image, label, criterion_gradient, depth):
     device = next(model.parameters()).device
     image = image.to(device)
     label = label.to(device)
@@ -99,7 +99,7 @@ def compute_gradients(model, image, label, depth):
     output = model(image)
     # backward pass
     backward_model = get_backward_model(model=model, memory=memory, depth=depth)
-    gradient_tensor = explanation.gradients.CE_gradient(inputs=output, labels=label)
+    gradient_tensor = criterion_gradient(inputs=output, labels=label)
     assert gradient_tensor.shape == (1, model.out_features)
     for idx, layer in enumerate(backward_model):
         gradient_tensor = layer(gradient_tensor)
