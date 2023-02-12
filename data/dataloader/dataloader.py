@@ -19,7 +19,6 @@ class Dataloader(object):
         self.core = torch.utils.data.DataLoader(
             dataset=dataset, batch_size=batch_size, shuffle=shuffle, num_workers=num_workers, sampler=sampler,
         )
-        self.iter_core = iter(self.core)
         self.batch_size = batch_size
         self.sampler = sampler
         for t in transforms:
@@ -30,6 +29,7 @@ class Dataloader(object):
         return len(self.core)
 
     def __iter__(self):
+        self.iter_core = iter(self.core)
         return self
     
     def __next__(self):

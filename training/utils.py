@@ -4,6 +4,9 @@ import logging
 logging.basicConfig(format='%(asctime)s [%(levelname)s] %(message)s', level=logging.INFO)
 
 
+INDENT = ' ' * 4
+
+
 def save_model(model, optimizer, epoch, filepath):
     checkpoint = {
         'epoch': epoch + 1,
@@ -25,13 +28,19 @@ def load_model(model, optimizer, filepath):
     return model, optimizer, checkpoint['epoch']
 
 
+def log_criterion_info(criterion):
+    logging.info(f"criterion={criterion.__class__.__name__}")
+    for name, param in criterion.named_parameters():
+        logging.info(INDENT + f"{name}={param.data}")
+
+
 def log_optimizer_info(optimizer):
-    logging.info(f"optimizer={optimizer.__class__.__name__}.")
+    logging.info(f"optimizer={optimizer.__class__.__name__}")
     assert len(optimizer.param_groups) == 1
     group = optimizer.param_groups[0]
     for key in sorted(group):
         if key != 'params':
-            logging.info(f"{key}={group[key]}.")
+            logging.info(INDENT + f"{key}={group[key]}")
 
 
 def trainable_params(model):
