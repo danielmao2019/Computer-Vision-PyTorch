@@ -30,8 +30,9 @@ def load_model(model, optimizer, filepath):
 
 def log_criterion_info(criterion):
     logging.info(f"criterion={criterion.__class__.__name__}")
-    for name, param in criterion.named_parameters():
-        logging.info(INDENT + f"{name}={param.data}")
+    string = criterion.__str__().split('\n')
+    for s in string:
+        logging.info(INDENT + s)
 
 
 def log_optimizer_info(optimizer):
