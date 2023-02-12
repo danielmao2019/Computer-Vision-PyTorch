@@ -6,34 +6,22 @@ import models
 import training
 import evaluation
 import explanation
+import losses
 import metrics
 
 import matplotlib.pyplot as plt
 import os
+from tqdm import tqdm
 
 
-class MultiTaskCriterion(torch.nn.Module):
-
-    def __init__(self):
-        super(MultiTaskCriterion, self).__init__()
-        self.sub_criteria = [
-            torch.nn.CrossEntropyLoss(),
-            torch.nn.MSELoss(),
-        ]
-        self.weights = [
-            1,
-            1,
-        ]
-
-    def forward(self, inputs, labels):
-        ans = 0
-        onehot_labels = torch.tile(torch.arange(inputs.shape[1]), dims=(inputs.shape[0], 1)).to(inputs.device)
-        onehot_labels = (onehot_labels == torch.unsqueeze(labels, dim=1)).type(torch.float32)
-        for criterion, weight in zip(self.sub_criteria, self.weights):
-            ans += weight * criterion(inputs, onehot_labels)
-        return ans
-
-
+criterion = losses.MultiTaskCriterion(criteria=[
+    losses.PermutedCrossEntropyLoss(num_classes=10, seed=0),
+    losses.PermutedCrossEntropyLoss(num_classes=10, seed=1),
+    losses.PermutedCrossEntropyLoss(num_classes=10, seed=2),
+    losses.PermutedCrossEntropyLoss(num_classes=10, seed=3),
+    losses.PermutedCrossEntropyLoss(num_classes=10, seed=4),
+])
+# criterion = torch.nn.CrossEntropyLoss()
 metric = metrics.Acc()
 
 ##################################################
@@ -66,16 +54,16 @@ eval_dataloader = data.Dataloader(
 ##################################################
 
 train_specs = {
-    'tag': 'LeNet_MNIST_MultiTask',
+    'tag': 'LeNet_MNIST_Perm_5',
+    'epochs': 100,
+    'save_model': True,
+    'load_model': "checkpoint_100.pt",
     'model': model,
     'train_dataloader': train_dataloader,
     'eval_dataloader': eval_dataloader,
-    'epochs': 20,
-    'criterion': MultiTaskCriterion(),
+    'criterion': criterion,
     'optimizer': torch.optim.SGD(model.parameters(), lr=1.0e-03, momentum=0.9),
     'metric': metric,
-    'save_model': True,
-    'load_model': "checkpoint_020.pt",
 }
 training.train_model(
     tag=train_specs['tag'], model=train_specs['model'], epochs=train_specs['epochs'],

@@ -76,7 +76,7 @@ def train_model(tag, model, train_dataloader, eval_dataloader, epochs, criterion
     # log info
     logging.info(f"Training model \"{tag}\".")
     logging.info(f"Number of trainable parameters: {training.utils.trainable_params(model)}.")
-    # training.utils.log_criterion_info(criterion)
+    training.utils.log_criterion_info(criterion)
     training.utils.log_optimizer_info(optimizer)
     logging.info(f"epochs={epochs}.")
     logging.info(f"batch_size={train_dataloader.batch_size}.")
