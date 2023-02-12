@@ -3,9 +3,9 @@ from tqdm import tqdm
 import os
 import time
 
-import training
-import evaluation
 import metrics
+import evaluation
+import utils
 
 import logging
 logging.basicConfig(format='%(asctime)s [%(levelname)s] %(message)s', level=logging.INFO)
@@ -64,7 +64,7 @@ def train_model(tag, model, train_dataloader, eval_dataloader, epochs, criterion
     start_epoch = 0
     if load_model is not None:
         filepath = os.path.join(models_root, load_model)
-        model, optimizer, start_epoch = training.utils.load_model(model, optimizer, filepath=filepath)
+        model, optimizer, start_epoch = utils.training.load_model(model, optimizer, filepath=filepath)
         logging.info(f"Loaded model from {filepath}.")
     model.train()
     end_epoch = start_epoch + epochs
@@ -75,9 +75,9 @@ def train_model(tag, model, train_dataloader, eval_dataloader, epochs, criterion
     #######################################################################
     # log info
     logging.info(f"Training model \"{tag}\".")
-    logging.info(f"Number of trainable parameters: {training.utils.trainable_params(model)}.")
-    training.utils.log_criterion_info(criterion)
-    training.utils.log_optimizer_info(optimizer)
+    logging.info(f"Number of trainable parameters: {utils.training.trainable_params(model)}.")
+    utils.training.log_criterion_info(criterion)
+    utils.training.log_optimizer_info(optimizer)
     logging.info(f"epochs={epochs}.")
     logging.info(f"batch_size={train_dataloader.batch_size}.")
     #######################################################################
@@ -95,7 +95,7 @@ def train_model(tag, model, train_dataloader, eval_dataloader, epochs, criterion
             eval_scores = [score.item() for score in eval_scores]
             logging.info(f"{eval_scores=}")
             filepath = os.path.join(models_root, f'checkpoint_{cur_epoch+1:03d}.pt')
-            training.utils.save_model(model=model, optimizer=optimizer, epoch=cur_epoch, filepath=filepath)
+            utils.training.save_model(model=model, optimizer=optimizer, epoch=cur_epoch, filepath=filepath)
             logging.info(f"Saved model to {filepath}.")
         #TODO: there are some bugs with copying data between cpu and gpu.
         # np.savetxt(

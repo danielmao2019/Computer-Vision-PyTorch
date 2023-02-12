@@ -1,5 +1,5 @@
 import torch
-import losses
+import utils
 
 
 class MultiTaskCriterion(torch.nn.Module):
@@ -21,7 +21,7 @@ class MultiTaskCriterion(torch.nn.Module):
 
     def forward(self, inputs, labels):
         tot_loss = 0
-        onehot_labels = losses.utils.onehot_encode(shape=inputs.shape, labels=labels)
+        onehot_labels = utils.losses.onehot_encode(shape=inputs.shape, labels=labels)
         for criterion, weight in zip(self.criteria, self.weights):
             tot_loss += weight * criterion(inputs, onehot_labels)
         return tot_loss
