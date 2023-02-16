@@ -6,13 +6,18 @@ INDENT = ' ' * 4
 
 def get_logger(filename):
     logger = logging.getLogger()
+    logger.setLevel(level=logging.DEBUG)
+    # formatter = logging.Formatter(
+    #     fmt=f"%(levelname)s %(asctime)s (%(relativeCreated)d) %(pathname)s F%(funcName)s L%(lineno)s - %(message)s",
+    #     datefmt="%Y-%m-%d %H:%M:%S",
+    # )
     formatter = logging.Formatter(
-        fmt=f"%(levelname)s %(asctime)s (%(relativeCreated)d) %(pathname)s F%(funcName)s L%(lineno)s - %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
+        fmt=f"[%(levelname)s] %(asctime)s - %(message)s",
+        datefmt="%m-%d %H:%M:%S",
     )
     handler = logging.FileHandler(filename=filename)
     handler.setFormatter(formatter)
-    handler.setLevel(level=logging.INFO)
+    handler.setLevel(level=logging.DEBUG)
     logger.addHandler(handler)
     return logger
 
