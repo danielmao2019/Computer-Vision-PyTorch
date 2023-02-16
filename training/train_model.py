@@ -98,11 +98,11 @@ def train_model(tag, model, train_dataloader, eval_dataloader, epochs, criterion
             utils.training.save_model(model=model, optimizer=optimizer, epoch=cur_epoch, filepath=filepath)
             logging.info(f"Saved model to {filepath}.")
         #TODO: there are some bugs with copying data between cpu and gpu.
-        # np.savetxt(
-        #     fname=os.path.join(models_root, f"loss_graph_{tag}.txt"),
-        #     X=loss_graph.cpu().numpy(),
-        # )
-        # np.savetxt(
-        #     fname=os.path.join(models_root, f"score_graph_{tag}.txt"),
-        #     X=score_graph.cpu().numpy(),
-        # )
+        np.savetxt(
+            fname=os.path.join(models_root, f"loss_graph.txt"),
+            X=loss_graph.cpu().numpy(),
+        )
+        np.savetxt(
+            fname=os.path.join(models_root, f"score_graph.txt"),
+            X=score_graph.cpu().numpy(),
+        )
