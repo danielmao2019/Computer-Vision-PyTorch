@@ -1,3 +1,9 @@
+# Experiment Notes
+
+### General Info
+
+Training batch size is 8 unless otherwise stated.
+
 ### LeNet_MNIST_0
 
 ```python
@@ -5,6 +11,14 @@ criterion = losses.MultiTaskCriterion(criteria=[
     torch.nn.CrossEntropyLoss(),
 ])
 batch_size = 1
+```
+
+### LeNet_MNIST_1
+
+```python
+criterion = losses.MultiTaskCriterion(criteria=[
+    torch.nn.CrossEntropyLoss(),
+])
 ```
 
 Training is extremely slow. Probably due to small batch size, longer for loops and less vectorization.
@@ -78,5 +92,25 @@ criterion = losses.MultiTaskCriterion(criteria=[
     torch.nn.CrossEntropyLoss(),
     losses.MappedMNISTCEL(num_classes=10, seed=0),
     ], weights=[10, 1],
+)
+```
+
+### LeNet_MNIST_Multi_3
+
+```python
+criterion = losses.MultiTaskCriterion(criteria=[
+    torch.nn.CrossEntropyLoss(),
+    losses.MappedMNISTCEL(num_classes=10, seed=0),
+    ], weights=[1, 1],
+)
+```
+
+### LeNet_MNIST_Multi_4
+
+```python
+criterion = losses.MultiTaskCriterion(criteria=[
+    torch.nn.CrossEntropyLoss(),
+    losses.MappedMNISTCEL(num_classes=10, seed=0),
+    ], weights=[5, 1],
 )
 ```
