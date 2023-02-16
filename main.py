@@ -15,14 +15,19 @@ import explanation
 import utils
 
 
+"""
+* what do we do as of network architecture (additional layer)
+* which samples (spatial location) are conflicting
+"""
+
+
 criterion = losses.MultiTaskCriterion(criteria=[
-    losses.PermutedCrossEntropyLoss(num_classes=10, seed=0),
-    losses.PermutedCrossEntropyLoss(num_classes=10, seed=1),
-    losses.PermutedCrossEntropyLoss(num_classes=10, seed=2),
-    losses.PermutedCrossEntropyLoss(num_classes=10, seed=3),
-    losses.PermutedCrossEntropyLoss(num_classes=10, seed=4),
+    torch.nn.CrossEntropyLoss(),
+    losses.MappedMNISTCEL(mapping='circle'),
+    losses.MappedMNISTCEL(mapping='horiz'),
+    losses.MappedMNISTCEL(mapping='vert'),
+    losses.MappedMNISTCEL(num_classes=10, seed=0),
 ])
-# criterion = torch.nn.CrossEntropyLoss()
 metric = metrics.Acc()
 
 ##################################################
@@ -55,10 +60,10 @@ eval_dataloader = data.Dataloader(
 ##################################################
 
 train_specs = {
-    'tag': 'LeNet_MNIST_Perm_5',
+    'tag': 'LeNet_MNIST_Multi_0',
     'epochs': 100,
     'save_model': True,
-    'load_model': "checkpoint_100.pt",
+    'load_model': None,#"checkpoint_100.pt",
     'model': model,
     'train_dataloader': train_dataloader,
     'eval_dataloader': eval_dataloader,
