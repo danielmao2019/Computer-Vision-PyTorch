@@ -73,7 +73,7 @@ def train_model(tag, model, train_dataloader, eval_dataloader, epochs, criterion
     save_interval = 5
     #######################################################################
     # log info
-    logger.info(f"Training model \"{tag}\".")
+    logger.info(f"Experiment tag: \"{tag}\".")
     logger.info(f"Number of trainable parameters: {utils.training.trainable_params(model)}.")
     utils.logging.log_criterion_info(logger=logger, criterion=criterion)
     utils.logging.log_optimizer_info(logger=logger, optimizer=optimizer)

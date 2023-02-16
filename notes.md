@@ -7,6 +7,8 @@ criterion = losses.MultiTaskCriterion(criteria=[
 batch_size = 1
 ```
 
+Training is extremely slow. Probably due to small batch size, longer for loops and less vectorization.
+
 ### LeNet_MNIST_Perm_0
 
 ```python
