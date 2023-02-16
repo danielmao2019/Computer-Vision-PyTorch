@@ -2,10 +2,10 @@
 LOSSES APIs.
 """
 from losses.MultiTaskCriterion import MultiTaskCriterion
-from losses.PermutedCrossEntropyLoss import PermutedCrossEntropyLoss
+from losses.MappedMNISTCEL import MappedMNISTCEL
 
 
 __all__ = (
     "MultiTaskCriterion",
-    "PermutedCrossEntropyLoss",
+    "MappedMNISTCEL",
 )
