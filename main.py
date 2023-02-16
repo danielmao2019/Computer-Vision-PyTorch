@@ -23,10 +23,10 @@ import utils
 
 criterion = losses.MultiTaskCriterion(criteria=[
     torch.nn.CrossEntropyLoss(),
-    losses.MappedMNISTCEL(mapping='circle'),
-    losses.MappedMNISTCEL(mapping='horiz'),
-    losses.MappedMNISTCEL(mapping='vert'),
-    losses.MappedMNISTCEL(num_classes=10, seed=0),
+    # losses.MappedMNISTCEL(mapping='circle'),
+    # losses.MappedMNISTCEL(mapping='horiz'),
+    # losses.MappedMNISTCEL(mapping='vert'),
+    # losses.MappedMNISTCEL(num_classes=10, seed=0),
 ])
 metric = metrics.Acc()
 
@@ -45,7 +45,7 @@ model.to(device)
 train_dataset = data.datasets.MNISTDataset(purpose='training')
 train_dataloader = data.Dataloader(
     task='image_classification', dataset=train_dataset,
-    batch_size=8, shuffle=True, transforms=[
+    batch_size=1, shuffle=True, transforms=[
         data.transforms.Resize(new_size=(32, 32)),
     ])
 eval_dataset = data.datasets.MNISTDataset(purpose='evaluation')
@@ -60,7 +60,7 @@ eval_dataloader = data.Dataloader(
 ##################################################
 
 train_specs = {
-    'tag': 'LeNet_MNIST_Multi_0',
+    'tag': 'LeNet_MNIST_0',
     'epochs': 100,
     'save_model': True,
     'load_model': None,#"checkpoint_100.pt",

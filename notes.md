@@ -1,3 +1,12 @@
+### LeNet_MNIST_0
+
+```python
+criterion = losses.MultiTaskCriterion(criteria=[
+    torch.nn.CrossEntropyLoss(),
+])
+batch_size = 1
+```
+
 ### LeNet_MNIST_Perm_0
 
 ```python
