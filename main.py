@@ -23,7 +23,9 @@ import utils
 
 criterion = losses.MultiTaskCriterion(criteria=[
     torch.nn.CrossEntropyLoss(),
-])
+    losses.MappedMNISTCEL(num_classes=10, seed=0),
+    ], weights=[4, 1],
+)
 metric = metrics.Acc()
 
 ##################################################
@@ -56,7 +58,7 @@ eval_dataloader = data.Dataloader(
 ##################################################
 
 train_specs = {
-    'tag': 'LeNet_MNIST_1',
+    'tag': 'LeNet_MNIST_Multi_5',
     'epochs': 100,
     'save_model': True,
     'load_model': None,#"checkpoint_100.pt",
@@ -73,6 +75,17 @@ training.train_model(
     criterion=train_specs['criterion'], optimizer=train_specs['optimizer'], metric=train_specs['metric'],
     save_model=train_specs['save_model'], load_model=train_specs['load_model'],
 )
+
+
+num_examples = 1
+for idx in range(num_examples):
+    print(f"{idx=}")
+    image, label = next(iter(eval_dataloader))
+    image, label = image.to(device), label.to(device)
+    output = model(image)
+    print(f"{label=}")
+    print(f"{output=}")
+    print(f"{criterion(output, label)=}")
 
 ##################################################
 # VOG

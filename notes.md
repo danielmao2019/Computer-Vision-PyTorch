@@ -13,27 +13,7 @@ criterion = losses.MultiTaskCriterion(criteria=[
 batch_size = 1
 ```
 
-### LeNet_MNIST_1
-
-```python
-criterion = losses.MultiTaskCriterion(criteria=[
-    torch.nn.CrossEntropyLoss(),
-])
-```
-
 Training is extremely slow. Probably due to small batch size, longer for loops and less vectorization.
-
-### LeNet_MNIST_Perm_0
-
-```python
-criterion = losses.MultiTaskCriterion(criteria=[
-    losses.MappedMNISTCEL(num_classes=10, seed=0),
-])
-```
-
-One permuted cross entropy loss, seeded to 0.
-
-Converged after epoch 35 with train score ~0.1125 and eval score ~0.1135.
 
 ### LeNet_MNIST_Perm_1
 
@@ -85,6 +65,26 @@ criterion = losses.MultiTaskCriterion(criteria=[
 ])
 ```
 
+### LeNet_MNIST_1
+
+```python
+criterion = losses.MultiTaskCriterion(criteria=[
+    torch.nn.CrossEntropyLoss(),
+])
+```
+
+### LeNet_MNIST_Perm_0
+
+```python
+criterion = losses.MultiTaskCriterion(criteria=[
+    losses.MappedMNISTCEL(num_classes=10, seed=0),
+])
+```
+
+One permuted cross entropy loss, seeded to 0.
+
+Converged after epoch 35 with train score ~0.1125 and eval score ~0.1135.
+
 ### LeNet_MNIST_Multi_2
 
 ```python
@@ -92,16 +92,6 @@ criterion = losses.MultiTaskCriterion(criteria=[
     torch.nn.CrossEntropyLoss(),
     losses.MappedMNISTCEL(num_classes=10, seed=0),
     ], weights=[10, 1],
-)
-```
-
-### LeNet_MNIST_Multi_3
-
-```python
-criterion = losses.MultiTaskCriterion(criteria=[
-    torch.nn.CrossEntropyLoss(),
-    losses.MappedMNISTCEL(num_classes=10, seed=0),
-    ], weights=[1, 1],
 )
 ```
 
@@ -132,5 +122,15 @@ criterion = losses.MultiTaskCriterion(criteria=[
     torch.nn.CrossEntropyLoss(),
     losses.MappedMNISTCEL(num_classes=10, seed=0),
     ], weights=[3, 1],
+)
+```
+
+### LeNet_MNIST_Multi_3
+
+```python
+criterion = losses.MultiTaskCriterion(criteria=[
+    torch.nn.CrossEntropyLoss(),
+    losses.MappedMNISTCEL(num_classes=10, seed=0),
+    ], weights=[1, 1],
 )
 ```
