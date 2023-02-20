@@ -1,4 +1,5 @@
 import logging
+import sys
 
 
 INDENT = ' ' * 4
@@ -16,14 +17,14 @@ def get_logger(filename):
     #     fmt=f"%(levelname)s %(asctime)s (%(relativeCreated)d) %(pathname)s F%(funcName)s L%(lineno)s - %(message)s",
     #     datefmt="%Y-%m-%d %H:%M:%S",
     # )
-    file_handler = logging.FileHandler(filename=filename)
-    file_handler.setFormatter(formatter)
-    file_handler.setLevel(level=logging.DEBUG)
-    stream_handler = logging.StreamHandler(stream=sys.stdout)
-    stream_handler.setFormatter(logStreamFormatter)
-    stream_handler.setLevel(level=logging.DEBUG)
-    logger.addHandler(file_handler)
-    logger.addHandler(stream_handler)
+    f_handler = logging.FileHandler(filename=filename)
+    f_handler.setFormatter(formatter)
+    f_handler.setLevel(level=logging.DEBUG)
+    logger.addHandler(f_handler)
+    s_handler = logging.StreamHandler(stream=sys.stdout)
+    s_handler.setFormatter(formatter)
+    s_handler.setLevel(level=logging.DEBUG)
+    logger.addHandler(s_handler)
     return logger
 
 
