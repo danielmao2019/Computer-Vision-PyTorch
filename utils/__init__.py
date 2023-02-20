@@ -5,6 +5,7 @@ from utils import logging
 from utils import losses
 from utils import training
 from utils import explanation
+from utils import tensors
 
 
 __all__ = (
@@ -12,4 +13,5 @@ __all__ = (
     "losses",
     "training",
     "explanation",
+    "tensors",
 )

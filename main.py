@@ -24,8 +24,13 @@ import utils
 criterion = losses.MultiTaskCriterion(criteria=[
     torch.nn.CrossEntropyLoss(),
     losses.MappedMNISTCEL(num_classes=10, seed=0),
-    ], weights=[3, 1],
+    ],
+    weights=[
+        1,
+        1,
+    ],
 )
+
 metric = metrics.Acc()
 
 ##################################################
@@ -58,10 +63,10 @@ eval_dataloader = data.Dataloader(
 ##################################################
 
 train_specs = {
-    'tag': 'LeNet_MNIST_Multi_6',
-    'epochs': 200,
-    'save_model': True,
-    'load_model': None,#"checkpoint_100.pt",
+    'tag': 'LeNet_MNIST_Multi_3',
+    'epochs': 0,
+    'save_model': False,
+    'load_model': "checkpoint_200.pt",
     'model': model,
     'train_dataloader': train_dataloader,
     'eval_dataloader': eval_dataloader,
@@ -75,17 +80,6 @@ training.train_model(
     criterion=train_specs['criterion'], optimizer=train_specs['optimizer'], metric=train_specs['metric'],
     save_model=train_specs['save_model'], load_model=train_specs['load_model'],
 )
-
-
-num_examples = 1
-for idx in range(num_examples):
-    print(f"{idx=}")
-    image, label = next(iter(eval_dataloader))
-    image, label = image.to(device), label.to(device)
-    output = model(image)
-    print(f"{label=}")
-    print(f"{output=}")
-    print(f"{criterion(output, label)=}")
 
 ##################################################
 # VOG
@@ -108,29 +102,30 @@ for idx in range(num_examples):
 #     return tensor
 
 
-# model.eval()
-# num_examples = 100
+model.eval()
+num_examples = 10
 # count = [0] * eval_dataset.NUM_CLASSES
-# for idx in range(num_examples):
-#     print(f"{idx=}")
-#     fig, axs = plt.subplots(nrows=1, ncols=3)
-#     image, label = next(iter(eval_dataloader))
-#     image, label = image.to(device), label.to(device)
-#     gradient_tensor = explanation.compute_gradients(
-#         model=model, image=image, label=label, depth=None,
-#     )
-#     utils.explanation.imshow_tensor(ax=axs[0], tensor=rescale(gradient_tensor))
-#     axs[0].set_title("Gradient Map")
-#     utils.explanation.imshow_tensor(ax=axs[1], tensor=image)
-#     axs[1].set_title("Original Image")
-#     utils.explanation.imshow_tensor(ax=axs[2], tensor=gradient_tensor*image)
-#     axs[2].set_title("E.w. Product")
-#     label = label.item()
-#     filepath = os.path.join("saved_images", train_specs['tag'], f"class_{label}", f"instance_{count[label]}.png")
-#     plt.savefig(filepath)
-#     count[label] += 1
-
-#TODO: multi-task
+for idx in range(num_examples):
+    print(f"{idx=}")
+    # fig, axs = plt.subplots(nrows=1, ncols=3)
+    image, label = next(iter(eval_dataloader))
+    image, label = image.to(device), label.to(device)
+    gradient_tensor_list = torch.stack([explanation.gradients.compute_gradients(
+        model=model, image=image, label=label, criterion_gradient=criterion_gradient, depth=None,
+    ) for criterion_gradient in criterion_gradient_list], dim=0)
+    assert len(gradient_tensor_list.shape) == 5, f"{gradient_tensor_list.shape=}"
+    inner_product_matrix = utils.tensors.pairwise_inner_product(gradient_tensor_list)
+    print(f"{inner_product_matrix=}")
+    # utils.explanation.imshow_tensor(ax=axs[0], tensor=rescale(gradient_tensor))
+    # axs[0].set_title("Gradient Map")
+    # utils.explanation.imshow_tensor(ax=axs[1], tensor=image)
+    # axs[1].set_title("Original Image")
+    # utils.explanation.imshow_tensor(ax=axs[2], tensor=gradient_tensor*image)
+    # axs[2].set_title("E.w. Product")
+    # label = label.item()
+    # filepath = os.path.join("saved_images", train_specs['tag'], f"class_{label}", f"instance_{count[label]}.png")
+    # plt.savefig(filepath)
+    # count[label] += 1
 
 ##################################################
 # Grad-CAM

@@ -10,6 +10,13 @@ import models
 import explanation
 
 
+def tanh_backward(inputs):
+    def new_layer(x):
+        assert x.shape == inputs.shape
+        return x * explanation.gradients.tanh_gradient(inputs)
+    return new_layer
+
+
 def get_backward_model(model, memory, depth):
     device = next(model.parameters()).device
     length = len(list(model.children()))
@@ -78,13 +85,6 @@ def get_backward_model(model, memory, depth):
     return layers
 
 
-def tanh_backward(inputs):
-    def new_layer(x):
-        assert x.shape == inputs.shape
-        return x * explanation.gradient.gradients.tanh_gradient(inputs)
-    return new_layer
-
-
 def compute_gradients(model, image, label, criterion_gradient, depth):
     device = next(model.parameters()).device
     image = image.to(device)
@@ -95,7 +95,7 @@ def compute_gradients(model, image, label, criterion_gradient, depth):
     # get pre-activations and gradients of activation functions
     length = len(list(model.children()))
     memory = [None for _ in range(length)]
-    model, hooks = explanation.hooks.register_hooks(model=model, memory=memory)
+    model, hooks = explanation.gradients.hooks.register_hooks(model=model, memory=memory)
     output = model(image)
     # backward pass
     backward_model = get_backward_model(model=model, memory=memory, depth=depth)

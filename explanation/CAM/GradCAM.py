@@ -15,14 +15,14 @@ def compute_grad_cam(model, layer_idx, image):
     length = len(list(model.children()))
     depth = length - layer_idx - 1
     memory = [None] * length
-    model, hooks = explanation.gradient.hooks.register_hooks(model=model, memory=memory)
+    model, hooks = explanation.gradients.hooks.register_hooks(model=model, memory=memory)
     def get_hook_func(_memory, _idx):
         def hook(_module, _input, _output):
             _memory[_idx] = _output
         return hook
     list(model.children())[layer_idx].register_forward_hook(get_hook_func(memory, layer_idx))
     output = model(image)
-    backward_model = explanation.gradient.get_backward_model(model=model, memory=memory, depth=depth)
+    backward_model = explanation.gradients.get_backward_model(model=model, memory=memory, depth=depth)
     activations = memory[layer_idx]
     grad_cams = [None] * model.out_features
     for cls in range(model.out_features):

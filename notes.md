@@ -107,7 +107,7 @@ criterion = losses.MultiTaskCriterion(criteria=[
 )
 ```
 
-Trained 100 epochs. Still training for 200.
+Trained 200 epochs.
 
 ### LeNet_MNIST_Multi_5
 
@@ -143,4 +143,4 @@ criterion = losses.MultiTaskCriterion(criteria=[
 )
 ```
 
-Trained 100 epochs. Still training for 200.
+Trained 200 epochs.
