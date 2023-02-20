@@ -104,5 +104,5 @@ def compute_gradients(model, image, label, criterion_gradient, depth):
     for idx, layer in enumerate(backward_model):
         gradient_tensor = layer(gradient_tensor)
     # final steps
-    explanation.hooks.remove_hooks(hooks)
+    explanation.gradients.hooks.remove_hooks(hooks)
     return gradient_tensor

@@ -7,7 +7,7 @@ INDENT = ' ' * 4
 
 def get_logger(filename):
     logger = logging.getLogger()
-    logger.setLevel(level=logging.DEBUG)
+    logger.setLevel(level=logging.INFO)
     formatter = logging.Formatter(
         fmt=f"[%(levelname)s] %(asctime)s - %(message)s",
         datefmt="%m-%d %H:%M:%S",
@@ -17,13 +17,14 @@ def get_logger(filename):
     #     fmt=f"%(levelname)s %(asctime)s (%(relativeCreated)d) %(pathname)s F%(funcName)s L%(lineno)s - %(message)s",
     #     datefmt="%Y-%m-%d %H:%M:%S",
     # )
-    f_handler = logging.FileHandler(filename=filename)
-    f_handler.setFormatter(formatter)
-    f_handler.setLevel(level=logging.DEBUG)
-    logger.addHandler(f_handler)
+    if filename is not None:
+        f_handler = logging.FileHandler(filename=filename)
+        f_handler.setFormatter(formatter)
+        f_handler.setLevel(level=logging.INFO)
+        logger.addHandler(f_handler)
     s_handler = logging.StreamHandler(stream=sys.stdout)
     s_handler.setFormatter(formatter)
-    s_handler.setLevel(level=logging.DEBUG)
+    s_handler.setLevel(level=logging.INFO)
     logger.addHandler(s_handler)
     return logger
 

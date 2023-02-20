@@ -1,6 +1,7 @@
 import torch
 import torchvision
 
+import numpy as np
 import matplotlib.pyplot as plt
 import os
 from tqdm import tqdm
@@ -30,7 +31,10 @@ criterion = losses.MultiTaskCriterion(criteria=[
         1,
     ],
 )
-
+criterion_gradient_list = [
+    explanation.gradients.CE_gradient,
+    lambda inputs, labels: explanation.gradients.CE_gradient(inputs, labels, criterion.criteria[1].mapping)
+]
 metric = metrics.Acc()
 
 ##################################################
@@ -66,7 +70,7 @@ train_specs = {
     'tag': 'LeNet_MNIST_Multi_3',
     'epochs': 0,
     'save_model': False,
-    'load_model': "checkpoint_200.pt",
+    'load_model': "checkpoint_010.pt",
     'model': model,
     'train_dataloader': train_dataloader,
     'eval_dataloader': eval_dataloader,
@@ -103,10 +107,10 @@ training.train_model(
 
 
 model.eval()
-num_examples = 10
+num_examples = len(eval_dataloader)
+inner_products = torch.zeros(size=(num_examples,))
 # count = [0] * eval_dataset.NUM_CLASSES
-for idx in range(num_examples):
-    print(f"{idx=}")
+for idx in tqdm(range(num_examples)):
     # fig, axs = plt.subplots(nrows=1, ncols=3)
     image, label = next(iter(eval_dataloader))
     image, label = image.to(device), label.to(device)
@@ -114,8 +118,7 @@ for idx in range(num_examples):
         model=model, image=image, label=label, criterion_gradient=criterion_gradient, depth=None,
     ) for criterion_gradient in criterion_gradient_list], dim=0)
     assert len(gradient_tensor_list.shape) == 5, f"{gradient_tensor_list.shape=}"
-    inner_product_matrix = utils.tensors.pairwise_inner_product(gradient_tensor_list)
-    print(f"{inner_product_matrix=}")
+    inner_products[idx] = utils.tensors.pairwise_inner_product(gradient_tensor_list)[0, 1]
     # utils.explanation.imshow_tensor(ax=axs[0], tensor=rescale(gradient_tensor))
     # axs[0].set_title("Gradient Map")
     # utils.explanation.imshow_tensor(ax=axs[1], tensor=image)
@@ -126,6 +129,10 @@ for idx in range(num_examples):
     # filepath = os.path.join("saved_images", train_specs['tag'], f"class_{label}", f"instance_{count[label]}.png")
     # plt.savefig(filepath)
     # count[label] += 1
+inner_products = inner_products.tolist()
+plt.figure()
+plt.hist(inner_products, bins=50, range=[-10, +10])
+plt.savefig('a.png')
 
 ##################################################
 # Grad-CAM

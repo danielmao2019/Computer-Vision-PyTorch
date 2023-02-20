@@ -56,7 +56,7 @@ def train_model(tag, model, train_dataloader, eval_dataloader, epochs, criterion
         load_model (str|None):
     """
     models_root = os.path.join('saved_models', tag)
-    logger = utils.logging.get_logger(filename=os.path.join(models_root, "training.log"))
+    logger = utils.logging.get_logger(filename=os.path.join(models_root, "training.log") if epochs else None)
     device = next(model.parameters()).device
     logger.info(f"Using device {device}.")
     # get model, optimizer, and epoch
