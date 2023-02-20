@@ -95,6 +95,8 @@ criterion = losses.MultiTaskCriterion(criteria=[
 )
 ```
 
+Trained 200 epochs.
+
 ### LeNet_MNIST_Multi_4
 
 ```python
@@ -104,6 +106,8 @@ criterion = losses.MultiTaskCriterion(criteria=[
     ], weights=[5, 1],
 )
 ```
+
+Trained 100 epochs. Still training for 200.
 
 ### LeNet_MNIST_Multi_5
 
@@ -115,6 +119,8 @@ criterion = losses.MultiTaskCriterion(criteria=[
 )
 ```
 
+Started.
+
 ### LeNet_MNIST_Multi_6
 
 ```python
@@ -125,6 +131,8 @@ criterion = losses.MultiTaskCriterion(criteria=[
 )
 ```
 
+Started.
+
 ### LeNet_MNIST_Multi_3
 
 ```python
@@ -134,3 +142,5 @@ criterion = losses.MultiTaskCriterion(criteria=[
     ], weights=[1, 1],
 )
 ```
+
+Trained 100 epochs. Still training for 200.

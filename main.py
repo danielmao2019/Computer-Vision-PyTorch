@@ -24,7 +24,7 @@ import utils
 criterion = losses.MultiTaskCriterion(criteria=[
     torch.nn.CrossEntropyLoss(),
     losses.MappedMNISTCEL(num_classes=10, seed=0),
-    ], weights=[4, 1],
+    ], weights=[3, 1],
 )
 metric = metrics.Acc()
 
@@ -58,8 +58,8 @@ eval_dataloader = data.Dataloader(
 ##################################################
 
 train_specs = {
-    'tag': 'LeNet_MNIST_Multi_5',
-    'epochs': 100,
+    'tag': 'LeNet_MNIST_Multi_6',
+    'epochs': 200,
     'save_model': True,
     'load_model': None,#"checkpoint_100.pt",
     'model': model,
