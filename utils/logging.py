@@ -23,7 +23,7 @@ def get_logger(filename):
     stream_handler.setFormatter(logStreamFormatter)
     stream_handler.setLevel(level=logging.DEBUG)
     logger.addHandler(file_handler)
-    logger.addHandler(stream_handler)☻
+    logger.addHandler(stream_handler)
     return logger
 
 
