@@ -1,7 +1,7 @@
 """
 Limitations:
 * Only designed for image classification tasks.
-* Output shape of softmax layer must be 1-D.
+* Output shape of softmax layer must be 2-D.
 * Does not accept batch normalization layers.
 """
 import torch
