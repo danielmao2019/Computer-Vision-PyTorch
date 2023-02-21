@@ -48,8 +48,8 @@ def main(args):
     ##################################################
 
     train_dataset = data.datasets.MNISTDataset(purpose='training')
-    train_dataset_easy = train_dataset.subset(indices=np.loadtxt("data/datasets/MNIST/easy.txt"))
-    train_dataset_hard = train_dataset.subset(indices=np.loadtxt("data/datasets/MNIST/hard.txt"))
+    # train_dataset_easy = train_dataset.subset(indices=np.loadtxt("saved_tensors/easy_cp_200_th_1.0e-09.txt"))
+    # train_dataset_hard = train_dataset.subset(indices=np.loadtxt("saved_tensors/hard_cp_200_th_1.0e-09.txt"))
     train_dataloader = data.Dataloader(
         task='image_classification', dataset=train_dataset,
         batch_size=8, shuffle=False, transforms=[
@@ -129,10 +129,9 @@ def main(args):
         ) for criterion_gradient in criterion_gradient_list], dim=0)
         assert len(gradient_tensor_list.shape) == 5, f"{gradient_tensor_list.shape=}"
         inner_products[idx] = utils.tensors.pairwise_inner_product(gradient_tensor_list)[0, 1].item()
-    # np.savetxt(fname="data/datasets/MNIST/easy.txt", X=np.where(inner_products >= 0)[0].astype(np.int64), fmt='%d')
-    # np.savetxt(fname="data/datasets/MNIST/hard.txt", X=np.where(inner_products < 0)[0].astype(np.int64), fmt='%d')
+    np.savetxt(fname=os.path.join("saved_tensors", f"inner_products_{args.checkpoint}.txt"), X=inner_products)
     plt.figure()
-    plt.hist(inner_products, bins=50, range=[-10, +10])
+    plt.hist(inner_products, bins=100, range=[-10, +10])
     plt.savefig(os.path.join("saved_images", f'{args.checkpoint}.png'))
 
     ##################################################
