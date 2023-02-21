@@ -9,6 +9,7 @@ class MappedMNISTCEL(torch.nn.Module):
             if seed is not None:
                 torch.manual_seed(seed)
             mapping = torch.randperm(num_classes)
+            # seed 0 should give [4, 1, 7, 5, 3, 9, 0, 8, 6, 2]
         elif mapping == 'circle':
             mapping = torch.Tensor([1, 0, 0, 0, 1, 0, 1, 0, 1, 1])
         elif mapping == 'horiz':

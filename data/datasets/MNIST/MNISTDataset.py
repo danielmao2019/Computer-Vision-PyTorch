@@ -21,6 +21,7 @@ class MNISTDataset(Dataset):
         root = os.path.join('data', 'datasets', 'MNIST', 'downloads')
         download = not os.path.exists(os.path.join(root, 'MNIST', 'raw'))
         self.core = torchvision.datasets.MNIST(root=root, train=purpose=='training', download=download)
+        assert isinstance(self.core, torch.utils.data.Dataset), f"{type(self.core)=}"
 
     def __getitem__(self, idx):
         image, label = self.core[idx]

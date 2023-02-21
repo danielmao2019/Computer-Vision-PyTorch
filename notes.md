@@ -144,3 +144,27 @@ criterion = losses.MultiTaskCriterion(criteria=[
 ```
 
 Trained 200 epochs.
+
+### LeNet_MNIST_Multi_3_easy
+
+```python
+criterion = losses.MultiTaskCriterion(criteria=[
+    torch.nn.CrossEntropyLoss(),
+    losses.MappedMNISTCEL(num_classes=10, seed=0),
+    ], weights=[1, 1],
+)
+```
+
+trained on easy examples.
+
+### LeNet_MNIST_Multi_3_hard
+
+```python
+criterion = losses.MultiTaskCriterion(criteria=[
+    torch.nn.CrossEntropyLoss(),
+    losses.MappedMNISTCEL(num_classes=10, seed=0),
+    ], weights=[1, 1],
+)
+```
+
+trained on hard examples.

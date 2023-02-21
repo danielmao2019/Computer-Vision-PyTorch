@@ -89,8 +89,8 @@ def compute_gradients(model, image, label, criterion_gradient, depth):
     device = next(model.parameters()).device
     image = image.to(device)
     label = label.to(device)
-    assert len(image.shape) == 4 and image.shape[0] == 1
-    assert len(label.shape) == 1 and label.shape[0] == 1
+    assert len(image.shape) == 4 and image.shape[0] == 1, f"{image.shape=}"
+    assert len(label.shape) == 1 and label.shape[0] == 1, f"{label.shape=}"
     model.eval()
     # get pre-activations and gradients of activation functions
     length = len(list(model.children()))
