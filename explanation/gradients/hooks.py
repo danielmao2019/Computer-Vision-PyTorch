@@ -21,12 +21,11 @@ def define_hook(memory, idx):
 
 
 def register_hooks(model, memory):
-    length = len(list(model.children()))
-    hooks = [None for _ in range(length)]
-    assert len(memory) == length
+    hooks = [None] * len(list(model.children()))
+    assert len(memory) == len(hooks)
     for idx, layer in enumerate(list(model.children())):
         hooks[idx] = layer.register_forward_hook(define_hook(memory, idx))
-    return model, hooks
+    return hooks
 
 
 def remove_hooks(hooks):

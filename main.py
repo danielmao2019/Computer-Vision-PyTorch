@@ -119,11 +119,11 @@ def main(args):
     model.eval()
     num_examples = len(exp_dataloader)
     inner_products = np.zeros(shape=(num_examples,))
-    # count = [0] * eval_dataset.NUM_CLASSES
     for idx in tqdm(range(num_examples)):
         # fig, axs = plt.subplots(nrows=1, ncols=3)
         image, label = next(iter(exp_dataloader))
         image, label = image.to(device), label.to(device)
+        # TODO: this is creating a new instance of a backwards model each time. lift this part out.
         gradient_tensor_list = torch.stack([explanation.gradients.compute_gradients(
             model=model, image=image, label=label, criterion_gradient=criterion_gradient, depth=None,
         ) for criterion_gradient in criterion_gradient_list], dim=0)

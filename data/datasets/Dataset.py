@@ -17,7 +17,6 @@ class Dataset(object):
         assert type(indices) in [list, np.ndarray, torch.Tensor], f"{type(indices)=}"
         indices = torch.Tensor(indices).type(torch.int64)
         assert len(indices.shape) == 1, f"{indices.shape=}"
-        assert indices.dtype == torch.int64, f"{indices.dtype=}"
         new_dataset = copy.deepcopy(self)
         new_dataset.core = torch.utils.data.Subset(dataset=new_dataset.core, indices=indices)
         return new_dataset
