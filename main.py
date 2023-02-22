@@ -52,14 +52,14 @@ def main(args):
     ##################################################
 
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-    model = models.LeNet(in_features=3, out_features=10)
+    model = models.LeNet(in_features=1, out_features=10)
     model.to(device)
 
     ##################################################
     # datasets
     ##################################################
 
-    train_dataset = data.datasets.CIFARDataset(version=10, purpose='training')
+    train_dataset = data.datasets.MNISTDataset(purpose='training')
     # train_dataset_easy = train_dataset.subset(indices=np.loadtxt("saved_tensors/easy_cp_200_th_1.0e-09.txt"))
     # train_dataset_hard = train_dataset.subset(indices=np.loadtxt("saved_tensors/hard_cp_200_th_1.0e-09.txt"))
     train_dataloader = data.Dataloader(
@@ -68,7 +68,7 @@ def main(args):
             data.transforms.Resize(new_size=(32, 32)),
         ])
 
-    eval_dataset = data.datasets.CIFARDataset(version=10, purpose='evaluation')
+    eval_dataset = data.datasets.MNISTDataset(purpose='evaluation')
     eval_dataloader = data.Dataloader(
         task='image_classification', dataset=eval_dataset,
         batch_size=1, shuffle=False, transforms=[
@@ -80,10 +80,10 @@ def main(args):
     ##################################################
 
     train_specs = {
-        'tag': 'LeNet_CIFAR10',
+        'tag': 'LeNet_MNIST_1',
         'epochs': 0,
         'save_model': False,
-        'load_model': "checkpoint_200.pt",
+        'load_model': "checkpoint_100.pt",
         'model': model,
         'train_dataloader': train_dataloader,
         'eval_dataloader': eval_dataloader,
@@ -160,7 +160,7 @@ def main(args):
         image_ax = axs[eval_dataset.NUM_CLASSES//ncols, eval_dataset.NUM_CLASSES%ncols]
         utils.explanation.imshow_tensor(ax=image_ax, tensor=rescale(image))
         image_ax.set_title(f"{label=}")
-        filepath = os.path.join("saved_images", train_specs['tag'], f"class_{label}", f"instance_{count[label]}.png")
+        filepath = os.path.join("saved_images", f"{train_specs['tag']}_Grad_CAM", f"class_{label}", f"instance_{count[label]}.png")
         plt.savefig(filepath)
         count[label] += 1
 
