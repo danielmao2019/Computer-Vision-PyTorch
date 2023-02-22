@@ -64,14 +64,14 @@ def main(args):
     # train_dataset_hard = train_dataset.subset(indices=np.loadtxt("saved_tensors/hard_cp_200_th_1.0e-09.txt"))
     train_dataloader = data.Dataloader(
         task='image_classification', dataset=train_dataset,
-        batch_size=8, shuffle=False, transforms=[
+        batch_size=8, shuffle=True, transforms=[
             data.transforms.Resize(new_size=(32, 32)),
         ])
 
     eval_dataset = data.datasets.MNISTDataset(purpose='evaluation')
     eval_dataloader = data.Dataloader(
         task='image_classification', dataset=eval_dataset,
-        batch_size=1, shuffle=False, transforms=[
+        batch_size=1, shuffle=True, transforms=[
             data.transforms.Resize(new_size=(32, 32)),
         ])
 
@@ -152,7 +152,7 @@ def main(args):
         fig, axs = plt.subplots(nrows=nrows, ncols=ncols, figsize=(12, 9))
         image, label = next(iter(eval_dataloader))
         image, label = image.to(device), label.to(device)
-        grad_cams = explanation.CAM.compute_grad_cam(model=model, layer_idx=0, image=image)
+        grad_cams = explanation.CAM.compute_grad_cam(model=model, layer_idx=5, image=image)
         for cls in range(eval_dataset.NUM_CLASSES):
             utils.explanation.imshow_tensor(ax=axs[cls//ncols, cls%ncols], tensor=rescale(grad_cams[cls]))
             axs[cls//ncols, cls%ncols].set_title(f"{cls=}")

@@ -96,6 +96,7 @@ class GradientModelInputs(torch.nn.Module):
             return x * explanation.gradients.tanh_gradient(inputs)
         return new_layer
 
+    # TODO: test this function using for loops
     def _softmax_backward(self, outputs):
         def new_layer(x):
             assert x.shape == outputs.shape
