@@ -1,5 +1,8 @@
 __pycache__
+venv
+*.sh
 downloads
 saved_models
 saved_images
-venv
+saved_tensors
+saved_inner_products

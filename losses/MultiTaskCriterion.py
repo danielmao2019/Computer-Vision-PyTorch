@@ -15,7 +15,8 @@ class MultiTaskCriterion(torch.nn.Module):
                 f"[ERROR] Argument 'criteria' and 'weights' should have the same length. "
                 f"Got {len(criteria)=} and {len(weights)=}."
             )
-        weights = [w / len(weights) for w in weights]
+        weights = torch.Tensor(weights).type(torch.float32)
+        weights /= torch.sum(weights)
         self.criteria = criteria
         self.weights = weights
 

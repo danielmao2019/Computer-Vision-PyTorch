@@ -1,3 +1,7 @@
+"""
+Limitations:
+* only supports batch size = 1.
+"""
 import torch
 
 
@@ -5,11 +9,13 @@ def tanh_gradient(x):
     return 1 - torch.tanh(x)**2
 
 
-def CE_gradient(inputs, labels):
+def CE_gradient(inputs, labels, mapping=None):
     assert len(inputs.shape) == 2 and inputs.shape[0] == 1
     assert type(labels) == torch.Tensor
     assert labels.shape == (1,), f"{labels.shape=}"
     assert labels.dtype == torch.int64, f"{labels.dtype=}"
+    if mapping is not None:
+        labels = mapping[labels]
     labels = labels.item()
     ans = torch.zeros(size=inputs.shape).to(inputs.device)
     ans[0, labels] = -labels/inputs[0, labels]

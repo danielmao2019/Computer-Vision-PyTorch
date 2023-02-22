@@ -17,6 +17,10 @@ I started implementing these in Jan 2023 when working at the Vision and Image Pr
 
 ## Code base implementation notes
 
+### Variable naming
+
+* My convention is to use `size` for the 
+
 ### Assumptions for the tasks
 
 * Image type: always `torch.Tensor`.
