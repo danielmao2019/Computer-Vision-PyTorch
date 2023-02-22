@@ -12,28 +12,36 @@ import explanation
 class GradientModelInputs(torch.nn.Module):
 
     def __init__(self, model, layer_idx):
+        """
+        layer_idx (int): Forward pass computes the gradient of the loss function
+            w.r.t. the input tensor to the layer with index `layer_idx`.
+        """
         super(GradientModelInputs, self).__init__()
         model.eval()
-        self.device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
         self.model = model
+        self.device = next(self.model.parameters()).device
         self.layer_idx = layer_idx
         self.length = len(list(self.model.children()))
         self.memory = [None] * self.length
         self.hooks = explanation.gradients.hooks.register_hooks(
-            model=self.model, memory=self.memory, layer_idx=layer_idx,
+            model=self.model, memory=self.memory, layer_idx=self.layer_idx,
         )
 
-    def forward(self, images, labels, criterion_gradient_func):
-        outputs = self.model(images)
-        gradients = criterion_gradient_func(inputs=outputs, labels=labels)
+    def forward(self, gradients):
         assert len(gradients.shape) == 2, f"{gradients.shape=}"
         for idx in range(self.length-1, self.layer_idx-1, -1):
             layer = list(self.model.children())[idx]
-            new_layer = self.get_new_layer(layer, idx)
+            new_layer = self._get_new_layer(layer, idx)
             gradients = new_layer(gradients)
         return gradients
 
-    def get_new_layer(self, layer, idx):
+    def register_forward_hook(self, layer_idx, hook):
+        layer = list(self.model.children())[layer_idx]
+        assert len(layer._forward_hooks) == 0, f"{layer_idx=}, {layer._forward_hooks=}"
+        self.hooks[layer_idx] = layer.register_forward_hook(hook)
+        return self
+
+    def _get_new_layer(self, layer, idx):
         if type(layer) == torch.nn.Conv2d:
             new_weights = layer.weight.data.clone()
             assert len(new_weights.shape) == 4
@@ -58,7 +66,6 @@ class GradientModelInputs(torch.nn.Module):
         ##################################################
         elif type(layer) == torch.nn.AvgPool2d:
             kernel_size = layer.kernel_size
-            print(f"{kernel_size=}")
             new_layer = lambda x: torch.tile(x, dims=(2 ,2)) / kernel_size**2
         elif type(layer) == models.layers.GlobalAveragePooling2D:
             input_size = self.memory[idx]
@@ -71,28 +78,29 @@ class GradientModelInputs(torch.nn.Module):
         elif type(layer) == torch.nn.Tanh:
             inputs = self.memory[idx]
             assert inputs is not None, f"{idx=}"
-            new_layer = self.tanh_backward(inputs)
+            new_layer = self._tanh_backward(inputs)
         elif type(layer) == torch.nn.Softmax:
             outputs = self.memory[idx]
             assert outputs is not None, f"{idx=}"
-            new_layer = self.softmax_backward(outputs)
+            new_layer = self._softmax_backward(outputs)
         else:
             raise NotImplementedError(f"[ERROR] Layers of type {type(layer)} not implemented.")
         if isinstance(new_layer, torch.nn.Module):
             new_layer.eval()
             new_layer = new_layer.to(self.device)
+        return new_layer
 
-    def tanh_backward(self, inputs):
+    def _tanh_backward(self, inputs):
         def new_layer(x):
-            assert x.shape == inputs.shape
+            assert x.shape == inputs.shape, f"{x.shape=}, {inputs.shape=}"
             return x * explanation.gradients.tanh_gradient(inputs)
         return new_layer
 
-    def softmax_backward(self, outputs):
+    def _softmax_backward(self, outputs):
         def new_layer(x):
             assert x.shape == outputs.shape
             new_weights = (torch.bmm(torch.unsqueeze(outputs, dim=1), torch.unsqueeze(outputs, dim=2))
                            - torch.diag_embed(outputs))
             assert new_weights.shape == (outputs.shape[0], outputs.shape[1], outputs.shape[1])
-            return torch.bmm(new_weights, torch.unsqueeze(x, dim=2))
+            return torch.squeeze(torch.bmm(new_weights, torch.unsqueeze(x, dim=2)), dim=2)
         return new_layer
