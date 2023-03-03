@@ -2,26 +2,34 @@
 
 ## Table of Contents <!-- omit in toc -->
 
-- [General info](#general-info)
-- [Code base implementation notes](#code-base-implementation-notes)
-  - [Assumptions for the tasks](#assumptions-for-the-tasks)
-  - [When checks are applied](#when-checks-are-applied)
-- [Contributors](#contributors)
-- [See also](#see-also)
+- [1. General info](#1-general-info)
+- [2. Setup guide](#2-setup-guide)
+- [3. Implementation notes](#3-implementation-notes)
+  - [3.1. Variable naming](#31-variable-naming)
+  - [3.2. Assumptions for the tasks](#32-assumptions-for-the-tasks)
+  - [3.3. When checks are applied](#33-when-checks-are-applied)
+- [4. Contributors](#4-contributors)
+- [5. See also](#5-see-also)
 
-## General info
+## 1. General info
 
 This is a code base that aims for production-level implementations of the data input pipeline, definition of popular models, and training and evaluation pipelines. The framework of choice is PyTorch.
 
 I started implementing these in Jan 2023 when working at the Vision and Image Processing Lab at the University of Waterloo, under supervision of Prof. Alexander Wong. Code in this repo are somehow related to my research work but mostly a representation of my understanding of computer vision.
 
-## Code base implementation notes
+## 2. Setup guide
 
-### Variable naming
+1. Install `conda` via [this]() link.
+2. Create and activate a virtual environment.
+3. Install packages from `requirements.txt`.
 
-* My convention is to use `size` for the 
+## 3. Implementation notes
 
-### Assumptions for the tasks
+### 3.1. Variable naming
+
+* My convention is to use `size` for the 2-tuple (H, W) and `shape` for the 4-tuple (N, C, H, W).
+
+### 3.2. Assumptions for the tasks
 
 * Image type: always `torch.Tensor`.
 * Image shape: 3-D in raw datasets and 4-D after dataloader due to batching.
@@ -36,16 +44,16 @@ I started implementing these in Jan 2023 when working at the Vision and Image Pr
     * object detection: `torch.float32`
     * semantic segmentation: `torch.int64`
 
-### When checks are applied
+### 3.3. When checks are applied
 
 * For raw datasets using `pytest`.
 * Immediately before return in dataloader, as part of program.
 
-## Contributors
+## 4. Contributors
 
 * Daniel Mao, University of Waterloo, [danielmao2019@gmail.com](danielmao2019@gmail.com)
 
-## See also
+## 5. See also
 
 * Machine-Learning-Knowledge-Base [[GitHub](https://github.com/danielmao2019/Machine-Learning-Knowledge-Base)]
 * Computer-Vision-TensorFlow [[GitHub](https://github.com/danielmao2019/Computer-Vision-TensorFlow)]
