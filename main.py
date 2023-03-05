@@ -121,9 +121,10 @@ def main(args):
     inner_products = np.zeros(shape=(num_examples,))
     # gmi = explanation.gradients.GradientModelInputs(model=model, layer_idx=0)
     gmw = explanation.gradients.GradientModelWeights(model=model)
+    iterator = iter(exp_dataloader)
     for idx in tqdm(range(num_examples)):
         # fig, axs = plt.subplots(nrows=1, ncols=3)
-        image, label = next(iter(exp_dataloader))
+        image, label = next(iterator)
         image, label = image.to(device), label.to(device)
         # gradient_tensor_list = torch.stack([gmi(criterion_gradient(image, label))
         #     for criterion_gradient in criterion_gradient_list], dim=0)
@@ -136,7 +137,7 @@ def main(args):
     np.savetxt(fname=os.path.join("saved_tensors", "inner_products_weights", f"inner_products_{args.checkpoint}.txt"),
         X=inner_products)
     plt.figure()
-    plt.hist(inner_products, bins=100, range=[-10, +10])
+    plt.hist(inner_products, bins=100)
     plt.savefig(os.path.join("saved_images", "inner_products_weights", f'{args.checkpoint}.png'))
 
     ##################################################
