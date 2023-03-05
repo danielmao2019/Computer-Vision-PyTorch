@@ -19,15 +19,31 @@ class GradientModelInputs(torch.nn.Module):
         super(GradientModelInputs, self).__init__()
         model.eval()
         self.model = model
-        self.device = next(self.model.parameters()).device
         self.layer_idx = layer_idx
+        self.device = next(self.model.parameters()).device
         self.length = len(list(self.model.children()))
         self.memory = [None] * self.length
         self.hooks = explanation.gradients.hooks.register_hooks(
             model=self.model, memory=self.memory, layer_idx=self.layer_idx,
         )
 
+    def update(self, image):
+        # TODO: integrate the get_layers method here to reuse the layers between two updates.
+        self.model(image)
+        return self
+
     def forward(self, gradients):
+        """
+        Forward pass of the gradient model is the backward pass of the entire computation.
+        Forward pass of the underlying model should be called externally prior to calling this method
+        to correctly update the internal memory.
+        This is similar to the U-Net architecture.
+
+        Args:
+            gradients (torch.Tensor): 2D tensor of initial gradient to start with (input to the backward pass).
+        Returns:
+            gradients (torch.Tensor): 2D tensor of final gradient (output of the backward pass).
+        """
         assert len(gradients.shape) == 2, f"{gradients.shape=}"
         for idx in range(self.length-1, self.layer_idx-1, -1):
             layer = list(self.model.children())[idx]
@@ -42,6 +58,10 @@ class GradientModelInputs(torch.nn.Module):
         return self
 
     def _get_new_layer(self, layer, idx):
+        ##################################################
+        # trainable layers
+        # the gradients through these layers depend only on their trainable weights and not on inputs.
+        ##################################################
         if type(layer) == torch.nn.Conv2d:
             new_weights = layer.weight.data.clone()
             assert len(new_weights.shape) == 4
@@ -63,6 +83,8 @@ class GradientModelInputs(torch.nn.Module):
             new_layer.weights = torch.nn.Parameter(new_weights)
         ##################################################
         # pooling layers
+        # these layers are applicable to all images with the size, which usually is the case if images
+        # come out of the same data pipeline.
         ##################################################
         elif type(layer) == torch.nn.AvgPool2d:
             kernel_size = layer.kernel_size
@@ -74,6 +96,7 @@ class GradientModelInputs(torch.nn.Module):
             ) / (input_size[0] * input_size[1])
         ##################################################
         # activation layers
+        # these layers are image-specific and is the reason why we need to do the forward pass for each image.
         ##################################################
         elif type(layer) == torch.nn.Tanh:
             inputs = self.memory[idx]

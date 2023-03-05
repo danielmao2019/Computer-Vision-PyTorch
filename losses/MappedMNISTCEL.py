@@ -24,10 +24,18 @@ class MappedMNISTCEL(torch.nn.Module):
         self.criterion = torch.nn.CrossEntropyLoss()
     
     def forward(self, inputs, labels):
-        device = labels.device
-        labels = torch.argmax(labels, dim=1, keepdims=False)
-        labels = self.mapping[labels].to(device)
-        return self.criterion(inputs, labels)
+        """
+        Args:
+            inputs (torch.Tensor): 4D tensor of dtype torch.float32.
+            labels (torch.Tensor): 2D tensor of dtype torch.int64.
+        Returns:
+            loss (torch.Tensor): 0D tensor of dtype torch.float32.
+        """
+        labels = self.mapping[labels].to(labels.device)
+        loss = self.criterion(inputs, labels)
+        assert type(loss) == torch.Tensor
+        assert len(loss.shape) == 0
+        return loss
 
     def __str__(self):
         return f"MappedMNISTCEL({self.mapping.tolist()})."

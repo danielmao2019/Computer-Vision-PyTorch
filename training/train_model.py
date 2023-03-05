@@ -70,7 +70,6 @@ def train_model(tag, model, train_dataloader, eval_dataloader, epochs, criterion
     #######################################################################
     loss_graph = []
     score_graph = []
-    save_interval = 5
     #######################################################################
     # log info
     logger.info(f"Experiment tag: \"{tag}\".")
@@ -89,7 +88,7 @@ def train_model(tag, model, train_dataloader, eval_dataloader, epochs, criterion
         )
         logger.info("Epoch {:03d}/{}, loss={:.6f}, score={:.6f}, time={:.2f}sec.".format(
             cur_epoch+1, end_epoch, train_loss, train_score, time.time()-start_time))
-        if save_model and (cur_epoch+1) % save_interval == 0:
+        if save_model and (cur_epoch+1) % (5 ** np.floor(np.log10(cur_epoch+1))) == 0:
             eval_scores = evaluation.eval_model(model, dataloader=eval_dataloader, metrics=[metrics.Acc()])
             eval_scores = [score.item() for score in eval_scores]
             logger.info(f"{eval_scores=}")

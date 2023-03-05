@@ -7,6 +7,7 @@ import explanation
 
 
 def compute_grad_cam(model, layer_idx, image):
+    # setup the gradient model.
     gmi = explanation.gradients.GradientModelInputs(model=model, layer_idx=layer_idx)
     device = next(model.parameters()).device
     def get_hook_func(memory, idx):
@@ -17,6 +18,7 @@ def compute_grad_cam(model, layer_idx, image):
             memory[idx] = input
         return hook
     gmi = gmi.register_forward_hook(layer_idx=layer_idx, hook=get_hook_func(gmi.memory, layer_idx))
+    # compute GradCAM.
     gmi.model(image)
     activations = gmi.memory[layer_idx]
     grad_cams = [None] * model.out_features

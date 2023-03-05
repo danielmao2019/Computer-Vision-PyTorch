@@ -80,10 +80,10 @@ def main(args):
     ##################################################
 
     train_specs = {
-        'tag': 'LeNet_MNIST_1',
+        'tag': 'LeNet_MNIST_Multi_3',
         'epochs': 0,
         'save_model': False,
-        'load_model': "checkpoint_100.pt",
+        'load_model': args.checkpoint,
         'model': model,
         'train_dataloader': train_dataloader,
         'eval_dataloader': eval_dataloader,
@@ -111,28 +111,33 @@ def main(args):
     # )
     # print(scores)
 
-    # exp_dataloader = data.Dataloader(
-    #     task='image_classification', dataset=train_dataset,
-    #     batch_size=1, shuffle=False, transforms=[
-    #         data.transforms.Resize(new_size=(32, 32)),
-    #     ])
-    # model.eval()
-    # num_examples = len(exp_dataloader)
-    # inner_products = np.zeros(shape=(num_examples,))
-    # for idx in tqdm(range(num_examples)):
-    #     # fig, axs = plt.subplots(nrows=1, ncols=3)
-    #     image, label = next(iter(exp_dataloader))
-    #     image, label = image.to(device), label.to(device)
-    #     # TODO: this is creating a new instance of a backwards model each time. lift this part out.
-    #     gradient_tensor_list = torch.stack([explanation.gradients.compute_gradients(
-    #         model=model, image=image, label=label, criterion_gradient=criterion_gradient, depth=None,
-    #     ) for criterion_gradient in criterion_gradient_list], dim=0)
-    #     assert len(gradient_tensor_list.shape) == 5, f"{gradient_tensor_list.shape=}"
-    #     inner_products[idx] = utils.tensors.pairwise_inner_product(gradient_tensor_list)[0, 1].item()
-    # np.savetxt(fname=os.path.join("saved_tensors", f"inner_products_{args.checkpoint}.txt"), X=inner_products)
-    # plt.figure()
-    # plt.hist(inner_products, bins=100, range=[-10, +10])
-    # plt.savefig(os.path.join("saved_images", f'{args.checkpoint}.png'))
+    exp_dataloader = data.Dataloader(
+        task='image_classification', dataset=train_dataset,
+        batch_size=1, shuffle=False, transforms=[
+            data.transforms.Resize(new_size=(32, 32)),
+        ])
+    model.eval()
+    num_examples = len(exp_dataloader)
+    inner_products = np.zeros(shape=(num_examples,))
+    # gmi = explanation.gradients.GradientModelInputs(model=model, layer_idx=0)
+    gmw = explanation.gradients.GradientModelWeights(model=model)
+    for idx in tqdm(range(num_examples)):
+        # fig, axs = plt.subplots(nrows=1, ncols=3)
+        image, label = next(iter(exp_dataloader))
+        image, label = image.to(device), label.to(device)
+        # gradient_tensor_list = torch.stack([gmi(criterion_gradient(image, label))
+        #     for criterion_gradient in criterion_gradient_list], dim=0)
+        gradient_tensor_list = torch.stack([gmw(image, label, cri)
+            for cri in criterion.criteria], dim=0)
+        assert len(gradient_tensor_list.shape) == 2, f"{gradient_tensor_list.shape=}"
+        inner_products[idx] = utils.tensors.pairwise_inner_product(gradient_tensor_list)[0, 1].item()
+        assert abs(inner_products[idx] - torch.sum(gradient_tensor_list[0] * gradient_tensor_list[1]).item()) / inner_products[idx] < 1.0e-03, \
+            f"{inner_products[idx]=}, {torch.sum(gradient_tensor_list[0] * gradient_tensor_list[1]).item()=}"
+    np.savetxt(fname=os.path.join("saved_tensors", "inner_products_weights", f"inner_products_{args.checkpoint}.txt"),
+        X=inner_products)
+    plt.figure()
+    plt.hist(inner_products, bins=100, range=[-10, +10])
+    plt.savefig(os.path.join("saved_images", "inner_products_weights", f'{args.checkpoint}.png'))
 
     ##################################################
     # Grad-CAM
@@ -142,27 +147,27 @@ def main(args):
     print('### grad-cam')
     print('#' * 50)
 
-    model.eval()
-    num_examples = 100
-    count = [0] * eval_dataset.NUM_CLASSES
-    total = eval_dataset.NUM_CLASSES + 1
-    nrows = int(math.sqrt(total))
-    ncols = math.ceil(total / nrows)
-    for idx in tqdm(range(num_examples)):
-        fig, axs = plt.subplots(nrows=nrows, ncols=ncols, figsize=(12, 9))
-        image, label = next(iter(eval_dataloader))
-        image, label = image.to(device), label.to(device)
-        grad_cams = explanation.CAM.compute_grad_cam(model=model, layer_idx=5, image=image)
-        for cls in range(eval_dataset.NUM_CLASSES):
-            utils.explanation.imshow_tensor(ax=axs[cls//ncols, cls%ncols], tensor=rescale(grad_cams[cls]))
-            axs[cls//ncols, cls%ncols].set_title(f"{cls=}")
-        label = label.item()
-        image_ax = axs[eval_dataset.NUM_CLASSES//ncols, eval_dataset.NUM_CLASSES%ncols]
-        utils.explanation.imshow_tensor(ax=image_ax, tensor=rescale(image))
-        image_ax.set_title(f"{label=}")
-        filepath = os.path.join("saved_images", f"{train_specs['tag']}_Grad_CAM", f"class_{label}", f"instance_{count[label]}.png")
-        plt.savefig(filepath)
-        count[label] += 1
+    # model.eval()
+    # num_examples = 100
+    # count = [0] * eval_dataset.NUM_CLASSES
+    # total = eval_dataset.NUM_CLASSES + 1
+    # nrows = int(math.sqrt(total))
+    # ncols = math.ceil(total / nrows)
+    # for idx in tqdm(range(num_examples)):
+    #     fig, axs = plt.subplots(nrows=nrows, ncols=ncols, figsize=(12, 9))
+    #     image, label = next(iter(eval_dataloader))
+    #     image, label = image.to(device), label.to(device)
+    #     grad_cams = explanation.CAM.compute_grad_cam(model=model, layer_idx=5, image=image)
+    #     for cls in range(eval_dataset.NUM_CLASSES):
+    #         utils.explanation.imshow_tensor(ax=axs[cls//ncols, cls%ncols], tensor=rescale(grad_cams[cls]))
+    #         axs[cls//ncols, cls%ncols].set_title(f"{cls=}")
+    #     label = label.item()
+    #     image_ax = axs[eval_dataset.NUM_CLASSES//ncols, eval_dataset.NUM_CLASSES%ncols]
+    #     utils.explanation.imshow_tensor(ax=image_ax, tensor=rescale(image))
+    #     image_ax.set_title(f"{label=}")
+    #     filepath = os.path.join("saved_images", f"{train_specs['tag']}_Grad_CAM", f"class_{label}", f"instance_{count[label]}.png")
+    #     plt.savefig(filepath)
+    #     count[label] += 1
 
 
 if __name__ == "__main__":
