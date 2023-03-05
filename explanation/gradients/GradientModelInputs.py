@@ -29,8 +29,7 @@ class GradientModelInputs(torch.nn.Module):
 
     def update(self, image):
         # TODO: integrate the get_layers method here to reuse the layers between two updates.
-        self.model(image)
-        return self
+        return self.model(image)
 
     def forward(self, gradients):
         """

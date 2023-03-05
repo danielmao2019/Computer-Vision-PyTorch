@@ -72,12 +72,13 @@ def train_model(tag, model, train_dataloader, eval_dataloader, epochs, criterion
     score_graph = []
     #######################################################################
     # log info
-    logger.info(f"Experiment tag: \"{tag}\".")
-    logger.info(f"Number of trainable parameters: {utils.training.trainable_params(model)}.")
-    utils.logging.log_criterion_info(logger=logger, criterion=criterion)
-    utils.logging.log_optimizer_info(logger=logger, optimizer=optimizer)
-    logger.info(f"epochs={epochs}.")
-    logger.info(f"batch_size={train_dataloader.batch_size}.")
+    if epochs:
+        logger.info(f"Experiment tag: \"{tag}\".")
+        logger.info(f"Number of trainable parameters: {utils.training.trainable_params(model)}.")
+        utils.logging.log_criterion_info(logger=logger, criterion=criterion)
+        utils.logging.log_optimizer_info(logger=logger, optimizer=optimizer)
+        logger.info(f"epochs={epochs}.")
+        logger.info(f"batch_size={train_dataloader.batch_size}.")
     #######################################################################
     # main loop
     for cur_epoch in range(start_epoch, end_epoch):

@@ -10,7 +10,7 @@ def tanh_gradient(x):
 
 
 def CE_gradient(inputs, labels, mapping=None):
-    assert len(inputs.shape) == 2 and inputs.shape[0] == 1
+    assert len(inputs.shape) == 2 and inputs.shape[0] == 1, f"{inputs.shape=}"
     assert type(labels) == torch.Tensor
     assert labels.shape == (1,), f"{labels.shape=}"
     assert labels.dtype == torch.int64, f"{labels.dtype=}"

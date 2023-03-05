@@ -119,20 +119,17 @@ def main(args):
     model.eval()
     num_examples = len(exp_dataloader)
     inner_products = np.zeros(shape=(num_examples,))
-    # gmi = explanation.gradients.GradientModelInputs(model=model, layer_idx=0)
+
     gmw = explanation.gradients.GradientModelWeights(model=model)
     iterator = iter(exp_dataloader)
     for idx in tqdm(range(num_examples)):
-        # fig, axs = plt.subplots(nrows=1, ncols=3)
         image, label = next(iterator)
         image, label = image.to(device), label.to(device)
-        # gradient_tensor_list = torch.stack([gmi(criterion_gradient(image, label))
-        #     for criterion_gradient in criterion_gradient_list], dim=0)
         gradient_tensor_list = torch.stack([gmw(image, label, cri)
             for cri in criterion.criteria], dim=0)
         assert len(gradient_tensor_list.shape) == 2, f"{gradient_tensor_list.shape=}"
         inner_products[idx] = utils.tensors.pairwise_inner_product(gradient_tensor_list)[0, 1].item()
-        assert abs(inner_products[idx] - torch.sum(gradient_tensor_list[0] * gradient_tensor_list[1]).item()) / inner_products[idx] < 1.0e-03, \
+        assert abs(inner_products[idx] - torch.sum(gradient_tensor_list[0] * gradient_tensor_list[1]).item()) / (abs(inner_products[idx])+1.0e-10) < 1.0e-03, \
             f"{inner_products[idx]=}, {torch.sum(gradient_tensor_list[0] * gradient_tensor_list[1]).item()=}"
     np.savetxt(fname=os.path.join("saved_tensors", "inner_products_weights", f"inner_products_{args.checkpoint}.txt"),
         X=inner_products)
@@ -140,13 +137,31 @@ def main(args):
     plt.hist(inner_products, bins=100)
     plt.savefig(os.path.join("saved_images", "inner_products_weights", f'{args.checkpoint}.png'))
 
+    gmi = explanation.gradients.GradientModelInputs(model=model, layer_idx=0)
+    iterator = iter(exp_dataloader)
+    for idx in tqdm(range(num_examples)):
+        image, label = next(iterator)
+        image, label = image.to(device), label.to(device)
+        output = gmi.update(image)
+        gradient_tensor_list = torch.stack([gmi(criterion_gradient(inputs=output, labels=label))
+            for criterion_gradient in criterion_gradient_list], dim=0)
+        assert len(gradient_tensor_list.shape) == 5, f"{gradient_tensor_list.shape=}"
+        inner_products[idx] = utils.tensors.pairwise_inner_product(gradient_tensor_list)[0, 1].item()
+        assert abs(inner_products[idx] - torch.sum(gradient_tensor_list[0] * gradient_tensor_list[1]).item()) / (abs(inner_products[idx])+1.0e-10) < 1.0e-03, \
+            f"{inner_products[idx]=}, {torch.sum(gradient_tensor_list[0] * gradient_tensor_list[1]).item()=}"
+    np.savetxt(fname=os.path.join("saved_tensors", "inner_products_inputs", f"inner_products_{args.checkpoint}.txt"),
+        X=inner_products)
+    plt.figure()
+    plt.hist(inner_products, bins=100)
+    plt.savefig(os.path.join("saved_images", "inner_products_inputs", f'{args.checkpoint}.png'))
+
     ##################################################
     # Grad-CAM
     ##################################################
 
-    print('#' * 50)
-    print('### grad-cam')
-    print('#' * 50)
+    # print('#' * 50)
+    # print('### grad-cam')
+    # print('#' * 50)
 
     # model.eval()
     # num_examples = 100
