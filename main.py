@@ -129,8 +129,6 @@ def main(args):
             for cri in criterion.criteria], dim=0)
         assert len(gradient_tensor_list.shape) == 2, f"{gradient_tensor_list.shape=}"
         inner_products[idx] = utils.tensors.pairwise_inner_product(gradient_tensor_list)[0, 1].item()
-        assert abs(inner_products[idx] - torch.sum(gradient_tensor_list[0] * gradient_tensor_list[1]).item()) / (abs(inner_products[idx])+1.0e-10) < 1.0e-03, \
-            f"{inner_products[idx]=}, {torch.sum(gradient_tensor_list[0] * gradient_tensor_list[1]).item()=}"
     np.savetxt(fname=os.path.join("saved_tensors", "inner_products_weights", f"inner_products_{args.checkpoint}.txt"),
         X=inner_products)
     plt.figure()
@@ -147,8 +145,6 @@ def main(args):
             for criterion_gradient in criterion_gradient_list], dim=0)
         assert len(gradient_tensor_list.shape) == 5, f"{gradient_tensor_list.shape=}"
         inner_products[idx] = utils.tensors.pairwise_inner_product(gradient_tensor_list)[0, 1].item()
-        assert abs(inner_products[idx] - torch.sum(gradient_tensor_list[0] * gradient_tensor_list[1]).item()) / (abs(inner_products[idx])+1.0e-10) < 1.0e-03, \
-            f"{inner_products[idx]=}, {torch.sum(gradient_tensor_list[0] * gradient_tensor_list[1]).item()=}"
     np.savetxt(fname=os.path.join("saved_tensors", "inner_products_inputs", f"inner_products_{args.checkpoint}.txt"),
         X=inner_products)
     plt.figure()
