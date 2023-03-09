@@ -39,7 +39,7 @@ def main(args):
     criterion = losses.MultiTaskCriterion(criteria=[
         torch.nn.CrossEntropyLoss(),
         losses.MappedMNISTCEL(num_classes=10, seed=0),
-        ], weights=[1, 1],
+        ], weights=[5, 1],
     )
     criterion_gradient_list = [
         explanation.gradients.CE_gradient,
@@ -80,7 +80,7 @@ def main(args):
     ##################################################
 
     train_specs = {
-        'tag': 'LeNet_MNIST_Multi_3',
+        'tag': 'LeNet_MNIST_Multi_4',
         'epochs': 0,
         'save_model': False,
         'load_model': args.checkpoint,
