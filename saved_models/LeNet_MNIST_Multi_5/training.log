@@ -1,0 +1,261 @@
+[INFO] 02-20 12:01:51 - Using device cuda:0.
+[INFO] 02-20 12:01:51 - Experiment tag: "LeNet_MNIST_Multi_5".
+[INFO] 02-20 12:01:51 - Number of trainable parameters: 61706.
+[INFO] 02-20 12:01:51 - criterion=MultiTaskCriterion
+[INFO] 02-20 12:01:51 -     weight=0.8000, criterion=CrossEntropyLoss()
+[INFO] 02-20 12:01:51 -     weight=0.2000, criterion=MappedMNISTCEL([4, 1, 7, 5, 3, 9, 0, 8, 6, 2]).
+[INFO] 02-20 12:01:51 - optimizer=SGD
+[INFO] 02-20 12:01:51 -     dampening=0
+[INFO] 02-20 12:01:51 -     foreach=None
+[INFO] 02-20 12:01:51 -     lr=0.001
+[INFO] 02-20 12:01:51 -     maximize=False
+[INFO] 02-20 12:01:51 -     momentum=0.9
+[INFO] 02-20 12:01:51 -     nesterov=False
+[INFO] 02-20 12:01:51 -     weight_decay=0
+[INFO] 02-20 12:01:51 - epochs=200.
+[INFO] 02-20 12:01:51 - batch_size=8.
+[INFO] 02-20 12:02:21 - Epoch 001/200, loss=2.266124, score=0.179567, time=29.97sec.
+[INFO] 02-20 12:02:49 - Epoch 002/200, loss=1.887790, score=0.730600, time=28.26sec.
+[INFO] 02-20 12:03:19 - Epoch 003/200, loss=1.737683, score=0.896750, time=29.85sec.
+[INFO] 02-20 12:03:52 - Epoch 004/200, loss=1.711677, score=0.919900, time=32.58sec.
+[INFO] 02-20 12:04:25 - Epoch 005/200, loss=1.697791, score=0.934433, time=32.94sec.
+[INFO] 02-20 12:04:38 - eval_scores=[0.9452999830245972]
+[INFO] 02-20 12:04:38 - Saved model to saved_models/LeNet_MNIST_Multi_5/checkpoint_005.pt.
+[INFO] 02-20 12:05:11 - Epoch 006/200, loss=1.687878, score=0.945667, time=32.89sec.
+[INFO] 02-20 12:05:45 - Epoch 007/200, loss=1.680224, score=0.954500, time=32.81sec.
+[INFO] 02-20 12:06:21 - Epoch 008/200, loss=1.674142, score=0.961233, time=35.71sec.
+[INFO] 02-20 12:06:57 - Epoch 009/200, loss=1.669611, score=0.966783, time=36.06sec.
+[INFO] 02-20 12:07:34 - Epoch 010/200, loss=1.665833, score=0.971300, time=36.33sec.
+[INFO] 02-20 12:07:50 - eval_scores=[0.9724999666213989]
+[INFO] 02-20 12:07:50 - Saved model to saved_models/LeNet_MNIST_Multi_5/checkpoint_010.pt.
+[INFO] 02-20 12:08:27 - Epoch 011/200, loss=1.663128, score=0.974100, time=36.70sec.
+[INFO] 02-20 12:09:04 - Epoch 012/200, loss=1.661009, score=0.976150, time=36.23sec.
+[INFO] 02-20 12:09:41 - Epoch 013/200, loss=1.659162, score=0.978000, time=36.47sec.
+[INFO] 02-20 12:10:19 - Epoch 014/200, loss=1.657735, score=0.979833, time=36.31sec.
+[INFO] 02-20 12:10:56 - Epoch 015/200, loss=1.656317, score=0.981617, time=36.35sec.
+[INFO] 02-20 12:11:11 - eval_scores=[0.9828999638557434]
+[INFO] 02-20 12:11:11 - Saved model to saved_models/LeNet_MNIST_Multi_5/checkpoint_015.pt.
+[INFO] 02-20 12:11:49 - Epoch 016/200, loss=1.655174, score=0.983017, time=36.26sec.
+[INFO] 02-20 12:12:26 - Epoch 017/200, loss=1.654167, score=0.984167, time=36.41sec.
+[INFO] 02-20 12:13:04 - Epoch 018/200, loss=1.653401, score=0.984717, time=36.39sec.
+[INFO] 02-20 12:13:41 - Epoch 019/200, loss=1.652551, score=0.985867, time=36.32sec.
+[INFO] 02-20 12:14:19 - Epoch 020/200, loss=1.651840, score=0.986567, time=36.20sec.
+[INFO] 02-20 12:14:34 - eval_scores=[0.9842000007629395]
+[INFO] 02-20 12:14:34 - Saved model to saved_models/LeNet_MNIST_Multi_5/checkpoint_020.pt.
+[INFO] 02-20 12:15:11 - Epoch 021/200, loss=1.651169, score=0.987400, time=36.07sec.
+[INFO] 02-20 12:15:49 - Epoch 022/200, loss=1.650577, score=0.988033, time=36.33sec.
+[INFO] 02-20 12:16:27 - Epoch 023/200, loss=1.649965, score=0.988883, time=36.30sec.
+[INFO] 02-20 12:17:05 - Epoch 024/200, loss=1.649581, score=0.989233, time=36.32sec.
+[INFO] 02-20 12:17:43 - Epoch 025/200, loss=1.649132, score=0.989733, time=36.35sec.
+[INFO] 02-20 12:17:58 - eval_scores=[0.9861999750137329]
+[INFO] 02-20 12:17:58 - Saved model to saved_models/LeNet_MNIST_Multi_5/checkpoint_025.pt.
+[INFO] 02-20 12:18:36 - Epoch 026/200, loss=1.648641, score=0.990067, time=35.99sec.
+[INFO] 02-20 12:19:14 - Epoch 027/200, loss=1.648189, score=0.990733, time=36.16sec.
+[INFO] 02-20 12:19:52 - Epoch 028/200, loss=1.647954, score=0.990867, time=36.26sec.
+[INFO] 02-20 12:20:30 - Epoch 029/200, loss=1.647581, score=0.991117, time=36.02sec.
+[INFO] 02-20 12:21:08 - Epoch 030/200, loss=1.647283, score=0.991800, time=35.88sec.
+[INFO] 02-20 12:21:23 - eval_scores=[0.9865999817848206]
+[INFO] 02-20 12:21:23 - Saved model to saved_models/LeNet_MNIST_Multi_5/checkpoint_030.pt.
+[INFO] 02-20 12:22:01 - Epoch 031/200, loss=1.646965, score=0.991950, time=36.13sec.
+[INFO] 02-20 12:22:39 - Epoch 032/200, loss=1.646724, score=0.992333, time=36.00sec.
+[INFO] 02-20 12:23:18 - Epoch 033/200, loss=1.646500, score=0.992467, time=36.21sec.
+[INFO] 02-20 12:23:56 - Epoch 034/200, loss=1.646268, score=0.992650, time=35.84sec.
+[INFO] 02-20 12:24:34 - Epoch 035/200, loss=1.645992, score=0.992850, time=35.90sec.
+[INFO] 02-20 12:24:49 - eval_scores=[0.9865999817848206]
+[INFO] 02-20 12:24:49 - Saved model to saved_models/LeNet_MNIST_Multi_5/checkpoint_035.pt.
+[INFO] 02-20 12:25:28 - Epoch 036/200, loss=1.645846, score=0.992983, time=35.90sec.
+[INFO] 02-20 12:26:06 - Epoch 037/200, loss=1.645560, score=0.993300, time=35.87sec.
+[INFO] 02-20 12:26:45 - Epoch 038/200, loss=1.645395, score=0.993650, time=36.10sec.
+[INFO] 02-20 12:27:23 - Epoch 039/200, loss=1.645192, score=0.993633, time=35.92sec.
+[INFO] 02-20 12:28:02 - Epoch 040/200, loss=1.645077, score=0.993817, time=35.87sec.
+[INFO] 02-20 12:28:17 - eval_scores=[0.9883999824523926]
+[INFO] 02-20 12:28:17 - Saved model to saved_models/LeNet_MNIST_Multi_5/checkpoint_040.pt.
+[INFO] 02-20 12:28:56 - Epoch 041/200, loss=1.644894, score=0.993900, time=35.95sec.
+[INFO] 02-20 12:29:35 - Epoch 042/200, loss=1.644721, score=0.994217, time=35.88sec.
+[INFO] 02-20 12:30:14 - Epoch 043/200, loss=1.644555, score=0.994367, time=35.77sec.
+[INFO] 02-20 12:30:52 - Epoch 044/200, loss=1.644426, score=0.994400, time=35.83sec.
+[INFO] 02-20 12:31:31 - Epoch 045/200, loss=1.644309, score=0.994500, time=35.82sec.
+[INFO] 02-20 12:31:46 - eval_scores=[0.9874999523162842]
+[INFO] 02-20 12:31:46 - Saved model to saved_models/LeNet_MNIST_Multi_5/checkpoint_045.pt.
+[INFO] 02-20 12:32:25 - Epoch 046/200, loss=1.644204, score=0.994667, time=35.70sec.
+[INFO] 02-20 12:33:05 - Epoch 047/200, loss=1.644049, score=0.994850, time=35.49sec.
+[INFO] 02-20 12:33:45 - Epoch 048/200, loss=1.643962, score=0.994817, time=36.43sec.
+[INFO] 02-20 12:34:23 - Epoch 049/200, loss=1.643777, score=0.994900, time=35.61sec.
+[INFO] 02-20 12:35:02 - Epoch 050/200, loss=1.643650, score=0.995217, time=35.37sec.
+[INFO] 02-20 12:35:17 - eval_scores=[0.9875999689102173]
+[INFO] 02-20 12:35:17 - Saved model to saved_models/LeNet_MNIST_Multi_5/checkpoint_050.pt.
+[INFO] 03-09 15:52:27 - Using device cuda:0.
+[INFO] 03-09 15:52:27 - Loaded model from saved_models/LeNet_MNIST_Multi_5/checkpoint_050.pt.
+[INFO] 03-09 15:52:27 - Experiment tag: "LeNet_MNIST_Multi_5".
+[INFO] 03-09 15:52:27 - Number of trainable parameters: 61706.
+[INFO] 03-09 15:52:27 - criterion=MultiTaskCriterion
+[INFO] 03-09 15:52:27 -     weight=0.8000, criterion=CrossEntropyLoss()
+[INFO] 03-09 15:52:27 -     weight=0.2000, criterion=MappedMNISTCEL([4, 1, 7, 5, 3, 9, 0, 8, 6, 2]).
+[INFO] 03-09 15:52:27 - optimizer=SGD
+[INFO] 03-09 15:52:27 -     dampening=0
+[INFO] 03-09 15:52:27 -     foreach=None
+[INFO] 03-09 15:52:27 -     lr=0.001
+[INFO] 03-09 15:52:27 -     maximize=False
+[INFO] 03-09 15:52:27 -     momentum=0.9
+[INFO] 03-09 15:52:27 -     nesterov=False
+[INFO] 03-09 15:52:27 -     weight_decay=0
+[INFO] 03-09 15:52:27 - epochs=150.
+[INFO] 03-09 15:52:27 - batch_size=8.
+[INFO] 03-09 15:52:57 - Epoch 051/200, loss=1.643592, score=0.995183, time=30.37sec.
+[INFO] 03-09 15:53:25 - Epoch 052/200, loss=1.643506, score=0.995250, time=28.05sec.
+[INFO] 03-09 15:53:53 - Epoch 053/200, loss=1.643379, score=0.995450, time=27.87sec.
+[INFO] 03-09 15:54:21 - Epoch 054/200, loss=1.643322, score=0.995383, time=27.77sec.
+[INFO] 03-09 15:54:49 - Epoch 055/200, loss=1.643226, score=0.995533, time=27.68sec.
+[INFO] 03-09 15:55:00 - eval_scores=[0.988599956035614]
+[INFO] 03-09 15:55:00 - Saved model to saved_models/LeNet_MNIST_Multi_5/checkpoint_055.pt.
+[INFO] 03-09 15:55:28 - Epoch 056/200, loss=1.643125, score=0.995667, time=27.82sec.
+[INFO] 03-09 15:55:56 - Epoch 057/200, loss=1.643066, score=0.995683, time=27.68sec.
+[INFO] 03-09 15:56:24 - Epoch 058/200, loss=1.642996, score=0.995700, time=27.66sec.
+[INFO] 03-09 15:56:52 - Epoch 059/200, loss=1.642913, score=0.995833, time=27.57sec.
+[INFO] 03-09 15:57:21 - Epoch 060/200, loss=1.642844, score=0.995783, time=28.44sec.
+[INFO] 03-09 15:57:33 - eval_scores=[0.9893999695777893]
+[INFO] 03-09 15:57:33 - Saved model to saved_models/LeNet_MNIST_Multi_5/checkpoint_060.pt.
+[INFO] 03-09 15:58:03 - Epoch 061/200, loss=1.642712, score=0.996033, time=29.48sec.
+[INFO] 03-09 15:58:33 - Epoch 062/200, loss=1.642687, score=0.995983, time=29.57sec.
+[INFO] 03-09 15:59:02 - Epoch 063/200, loss=1.642601, score=0.996100, time=28.41sec.
+[INFO] 03-09 15:59:31 - Epoch 064/200, loss=1.642543, score=0.996200, time=28.04sec.
+[INFO] 03-09 16:00:01 - Epoch 065/200, loss=1.642501, score=0.996200, time=29.02sec.
+[INFO] 03-09 16:00:11 - eval_scores=[0.9884999990463257]
+[INFO] 03-09 16:00:11 - Saved model to saved_models/LeNet_MNIST_Multi_5/checkpoint_065.pt.
+[INFO] 03-09 16:00:40 - Epoch 066/200, loss=1.642445, score=0.996250, time=28.00sec.
+[INFO] 03-09 16:01:09 - Epoch 067/200, loss=1.642359, score=0.996300, time=27.49sec.
+[INFO] 03-09 16:01:38 - Epoch 068/200, loss=1.642301, score=0.996450, time=28.11sec.
+[INFO] 03-09 16:02:09 - Epoch 069/200, loss=1.642271, score=0.996433, time=29.39sec.
+[INFO] 03-09 16:02:39 - Epoch 070/200, loss=1.642191, score=0.996500, time=29.10sec.
+[INFO] 03-09 16:02:50 - eval_scores=[0.9884999990463257]
+[INFO] 03-09 16:02:50 - Saved model to saved_models/LeNet_MNIST_Multi_5/checkpoint_070.pt.
+[INFO] 03-09 16:03:20 - Epoch 071/200, loss=1.642164, score=0.996617, time=28.26sec.
+[INFO] 03-09 16:03:51 - Epoch 072/200, loss=1.642104, score=0.996600, time=29.59sec.
+[INFO] 03-09 16:04:24 - Epoch 073/200, loss=1.642080, score=0.996583, time=31.66sec.
+[INFO] 03-09 16:04:59 - Epoch 074/200, loss=1.642022, score=0.996683, time=33.61sec.
+[INFO] 03-09 16:05:34 - Epoch 075/200, loss=1.641983, score=0.996683, time=33.25sec.
+[INFO] 03-09 16:05:47 - eval_scores=[0.9888999462127686]
+[INFO] 03-09 16:05:47 - Saved model to saved_models/LeNet_MNIST_Multi_5/checkpoint_075.pt.
+[INFO] 03-09 16:06:23 - Epoch 076/200, loss=1.641936, score=0.996717, time=33.75sec.
+[INFO] 03-09 16:06:58 - Epoch 077/200, loss=1.641895, score=0.996800, time=33.37sec.
+[INFO] 03-09 16:07:33 - Epoch 078/200, loss=1.641843, score=0.996817, time=33.41sec.
+[INFO] 03-09 16:08:08 - Epoch 079/200, loss=1.641798, score=0.996850, time=33.39sec.
+[INFO] 03-09 16:08:43 - Epoch 080/200, loss=1.641755, score=0.996883, time=33.16sec.
+[INFO] 03-09 16:08:55 - eval_scores=[0.9890999794006348]
+[INFO] 03-09 16:08:55 - Saved model to saved_models/LeNet_MNIST_Multi_5/checkpoint_080.pt.
+[INFO] 03-09 16:09:25 - Epoch 081/200, loss=1.641719, score=0.996883, time=27.89sec.
+[INFO] 03-09 16:09:59 - Epoch 082/200, loss=1.641692, score=0.996967, time=31.96sec.
+[INFO] 03-09 16:10:35 - Epoch 083/200, loss=1.641687, score=0.996950, time=33.85sec.
+[INFO] 03-09 16:11:11 - Epoch 084/200, loss=1.641627, score=0.996950, time=33.97sec.
+[INFO] 03-09 16:11:49 - Epoch 085/200, loss=1.641621, score=0.997000, time=35.18sec.
+[INFO] 03-09 16:12:04 - eval_scores=[0.9892999529838562]
+[INFO] 03-09 16:12:04 - Saved model to saved_models/LeNet_MNIST_Multi_5/checkpoint_085.pt.
+[INFO] 03-09 16:12:41 - Epoch 086/200, loss=1.641572, score=0.997000, time=34.64sec.
+[INFO] 03-09 16:13:17 - Epoch 087/200, loss=1.641541, score=0.997000, time=33.50sec.
+[INFO] 03-09 16:13:57 - Epoch 088/200, loss=1.641519, score=0.997017, time=37.54sec.
+[INFO] 03-09 16:14:34 - Epoch 089/200, loss=1.641492, score=0.997017, time=34.60sec.
+[INFO] 03-09 16:15:11 - Epoch 090/200, loss=1.641471, score=0.997017, time=34.45sec.
+[INFO] 03-09 16:15:25 - eval_scores=[0.988599956035614]
+[INFO] 03-09 16:15:25 - Saved model to saved_models/LeNet_MNIST_Multi_5/checkpoint_090.pt.
+[INFO] 03-09 16:16:01 - Epoch 091/200, loss=1.641476, score=0.997050, time=33.69sec.
+[INFO] 03-09 16:16:39 - Epoch 092/200, loss=1.641444, score=0.997083, time=34.39sec.
+[INFO] 03-09 16:17:14 - Epoch 093/200, loss=1.641403, score=0.997083, time=33.11sec.
+[INFO] 03-09 16:17:51 - Epoch 094/200, loss=1.641396, score=0.997083, time=33.94sec.
+[INFO] 03-09 16:18:28 - Epoch 095/200, loss=1.641377, score=0.997083, time=33.95sec.
+[INFO] 03-09 16:18:42 - eval_scores=[0.9889999628067017]
+[INFO] 03-09 16:18:42 - Saved model to saved_models/LeNet_MNIST_Multi_5/checkpoint_095.pt.
+[INFO] 03-09 16:19:19 - Epoch 096/200, loss=1.641372, score=0.997100, time=33.64sec.
+[INFO] 03-09 16:19:56 - Epoch 097/200, loss=1.641339, score=0.997183, time=33.66sec.
+[INFO] 03-09 16:20:32 - Epoch 098/200, loss=1.641325, score=0.997150, time=33.00sec.
+[INFO] 03-09 16:21:10 - Epoch 099/200, loss=1.641292, score=0.997167, time=35.09sec.
+[INFO] 03-09 16:21:48 - Epoch 100/200, loss=1.641269, score=0.997150, time=34.56sec.
+[INFO] 03-09 16:22:02 - eval_scores=[0.9892999529838562]
+[INFO] 03-09 16:22:02 - Saved model to saved_models/LeNet_MNIST_Multi_5/checkpoint_100.pt.
+[INFO] 03-09 16:22:40 - Epoch 101/200, loss=1.641266, score=0.997217, time=34.00sec.
+[INFO] 03-09 16:23:17 - Epoch 102/200, loss=1.641258, score=0.997183, time=33.47sec.
+[INFO] 03-09 16:23:51 - Epoch 103/200, loss=1.641247, score=0.997217, time=30.30sec.
+[INFO] 03-09 16:24:26 - Epoch 104/200, loss=1.641200, score=0.997250, time=30.54sec.
+[INFO] 03-09 16:25:00 - Epoch 105/200, loss=1.641181, score=0.997250, time=28.44sec.
+[INFO] 03-09 16:25:32 - Epoch 106/200, loss=1.641178, score=0.997267, time=27.96sec.
+[INFO] 03-09 16:26:04 - Epoch 107/200, loss=1.641155, score=0.997283, time=28.00sec.
+[INFO] 03-09 16:26:36 - Epoch 108/200, loss=1.641153, score=0.997267, time=28.17sec.
+[INFO] 03-09 16:27:07 - Epoch 109/200, loss=1.641127, score=0.997317, time=27.54sec.
+[INFO] 03-09 16:27:39 - Epoch 110/200, loss=1.641114, score=0.997317, time=27.65sec.
+[INFO] 03-09 16:28:12 - Epoch 111/200, loss=1.641105, score=0.997283, time=27.13sec.
+[INFO] 03-09 16:28:51 - Epoch 112/200, loss=1.641094, score=0.997317, time=33.49sec.
+[INFO] 03-09 16:29:27 - Epoch 113/200, loss=1.641079, score=0.997333, time=30.91sec.
+[INFO] 03-09 16:30:00 - Epoch 114/200, loss=1.641068, score=0.997333, time=28.39sec.
+[INFO] 03-09 16:30:33 - Epoch 115/200, loss=1.641052, score=0.997333, time=28.31sec.
+[INFO] 03-09 16:31:05 - Epoch 116/200, loss=1.641044, score=0.997333, time=28.16sec.
+[INFO] 03-09 16:31:38 - Epoch 117/200, loss=1.641026, score=0.997333, time=27.91sec.
+[INFO] 03-09 16:32:11 - Epoch 118/200, loss=1.641024, score=0.997333, time=27.98sec.
+[INFO] 03-09 16:32:43 - Epoch 119/200, loss=1.641015, score=0.997350, time=27.65sec.
+[INFO] 03-09 16:33:15 - Epoch 120/200, loss=1.641000, score=0.997367, time=27.02sec.
+[INFO] 03-09 16:33:47 - Epoch 121/200, loss=1.640986, score=0.997400, time=26.66sec.
+[INFO] 03-09 16:34:18 - Epoch 122/200, loss=1.640986, score=0.997383, time=26.74sec.
+[INFO] 03-09 16:34:50 - Epoch 123/200, loss=1.640974, score=0.997383, time=26.35sec.
+[INFO] 03-09 16:35:23 - Epoch 124/200, loss=1.640966, score=0.997383, time=26.50sec.
+[INFO] 03-09 16:35:55 - Epoch 125/200, loss=1.640954, score=0.997400, time=26.34sec.
+[INFO] 03-09 16:36:04 - eval_scores=[0.9892999529838562]
+[INFO] 03-09 16:36:04 - Saved model to saved_models/LeNet_MNIST_Multi_5/checkpoint_125.pt.
+[INFO] 03-09 16:36:35 - Epoch 126/200, loss=1.640951, score=0.997417, time=26.26sec.
+[INFO] 03-09 16:37:08 - Epoch 127/200, loss=1.640943, score=0.997433, time=27.09sec.
+[INFO] 03-09 16:37:40 - Epoch 128/200, loss=1.640927, score=0.997467, time=26.01sec.
+[INFO] 03-09 16:38:11 - Epoch 129/200, loss=1.640919, score=0.997450, time=25.99sec.
+[INFO] 03-09 16:38:43 - Epoch 130/200, loss=1.640912, score=0.997467, time=26.02sec.
+[INFO] 03-09 16:39:14 - Epoch 131/200, loss=1.640895, score=0.997467, time=25.71sec.
+[INFO] 03-09 16:39:46 - Epoch 132/200, loss=1.640890, score=0.997483, time=25.95sec.
+[INFO] 03-09 16:40:17 - Epoch 133/200, loss=1.640874, score=0.997483, time=25.72sec.
+[INFO] 03-09 16:40:49 - Epoch 134/200, loss=1.640871, score=0.997483, time=25.77sec.
+[INFO] 03-09 16:41:21 - Epoch 135/200, loss=1.640861, score=0.997500, time=25.74sec.
+[INFO] 03-09 16:41:53 - Epoch 136/200, loss=1.640851, score=0.997500, time=25.72sec.
+[INFO] 03-09 16:42:24 - Epoch 137/200, loss=1.640841, score=0.997500, time=25.90sec.
+[INFO] 03-09 16:42:57 - Epoch 138/200, loss=1.640839, score=0.997500, time=25.74sec.
+[INFO] 03-09 16:43:28 - Epoch 139/200, loss=1.640840, score=0.997500, time=25.70sec.
+[INFO] 03-09 16:44:00 - Epoch 140/200, loss=1.640828, score=0.997500, time=25.71sec.
+[INFO] 03-09 16:44:32 - Epoch 141/200, loss=1.640824, score=0.997500, time=25.70sec.
+[INFO] 03-09 16:45:05 - Epoch 142/200, loss=1.640818, score=0.997500, time=25.65sec.
+[INFO] 03-09 16:45:37 - Epoch 143/200, loss=1.640814, score=0.997500, time=25.73sec.
+[INFO] 03-09 16:46:09 - Epoch 144/200, loss=1.640814, score=0.997500, time=25.70sec.
+[INFO] 03-09 16:46:41 - Epoch 145/200, loss=1.640807, score=0.997500, time=25.64sec.
+[INFO] 03-09 16:47:14 - Epoch 146/200, loss=1.640807, score=0.997500, time=25.71sec.
+[INFO] 03-09 16:47:46 - Epoch 147/200, loss=1.640799, score=0.997517, time=25.60sec.
+[INFO] 03-09 16:48:19 - Epoch 148/200, loss=1.640796, score=0.997517, time=25.72sec.
+[INFO] 03-09 16:48:51 - Epoch 149/200, loss=1.640790, score=0.997517, time=25.62sec.
+[INFO] 03-09 16:49:24 - Epoch 150/200, loss=1.640788, score=0.997517, time=25.59sec.
+[INFO] 03-09 16:49:34 - eval_scores=[0.9891999959945679]
+[INFO] 03-09 16:49:34 - Saved model to saved_models/LeNet_MNIST_Multi_5/checkpoint_150.pt.
+[INFO] 03-09 16:50:07 - Epoch 151/200, loss=1.640783, score=0.997517, time=25.44sec.
+[INFO] 03-09 16:50:39 - Epoch 152/200, loss=1.640783, score=0.997517, time=25.53sec.
+[INFO] 03-09 16:51:12 - Epoch 153/200, loss=1.640778, score=0.997517, time=25.47sec.
+[INFO] 03-09 16:51:45 - Epoch 154/200, loss=1.640777, score=0.997517, time=25.32sec.
+[INFO] 03-09 16:52:19 - Epoch 155/200, loss=1.640781, score=0.997500, time=25.66sec.
+[INFO] 03-09 16:52:52 - Epoch 156/200, loss=1.640768, score=0.997517, time=25.46sec.
+[INFO] 03-09 16:53:25 - Epoch 157/200, loss=1.640762, score=0.997533, time=25.47sec.
+[INFO] 03-09 16:53:58 - Epoch 158/200, loss=1.640763, score=0.997533, time=25.46sec.
+[INFO] 03-09 16:54:31 - Epoch 159/200, loss=1.640758, score=0.997550, time=25.48sec.
+[INFO] 03-09 16:55:04 - Epoch 160/200, loss=1.640749, score=0.997567, time=25.47sec.
+[INFO] 03-09 16:55:38 - Epoch 161/200, loss=1.640738, score=0.997550, time=25.39sec.
+[INFO] 03-09 16:56:11 - Epoch 162/200, loss=1.640738, score=0.997567, time=25.36sec.
+[INFO] 03-09 16:56:44 - Epoch 163/200, loss=1.640716, score=0.997583, time=25.48sec.
+[INFO] 03-09 16:57:18 - Epoch 164/200, loss=1.640715, score=0.997600, time=25.36sec.
+[INFO] 03-09 16:57:52 - Epoch 165/200, loss=1.640712, score=0.997583, time=25.45sec.
+[INFO] 03-09 16:58:25 - Epoch 166/200, loss=1.640701, score=0.997600, time=25.62sec.
+[INFO] 03-09 16:58:59 - Epoch 167/200, loss=1.640697, score=0.997600, time=25.72sec.
+[INFO] 03-09 16:59:34 - Epoch 168/200, loss=1.640694, score=0.997600, time=26.86sec.
+[INFO] 03-09 17:00:09 - Epoch 169/200, loss=1.640695, score=0.997600, time=26.10sec.
+[INFO] 03-09 17:00:44 - Epoch 170/200, loss=1.640692, score=0.997600, time=26.09sec.
+[INFO] 03-09 17:01:18 - Epoch 171/200, loss=1.640689, score=0.997600, time=26.22sec.
+[INFO] 03-09 17:01:53 - Epoch 172/200, loss=1.640684, score=0.997600, time=26.44sec.
+[INFO] 03-09 17:02:29 - Epoch 173/200, loss=1.640680, score=0.997600, time=26.62sec.
+[INFO] 03-09 17:03:05 - Epoch 174/200, loss=1.640678, score=0.997600, time=26.56sec.
+[INFO] 03-09 17:03:40 - Epoch 175/200, loss=1.640676, score=0.997600, time=26.64sec.
+[INFO] 03-09 17:03:49 - eval_scores=[0.9893999695777893]
+[INFO] 03-09 17:03:49 - Saved model to saved_models/LeNet_MNIST_Multi_5/checkpoint_175.pt.
+[INFO] 03-09 17:04:23 - Epoch 176/200, loss=1.640675, score=0.997600, time=25.17sec.
+[INFO] 03-09 17:04:57 - Epoch 177/200, loss=1.640671, score=0.997600, time=25.25sec.
+[INFO] 03-09 17:05:33 - Epoch 178/200, loss=1.640669, score=0.997600, time=27.10sec.
+[INFO] 03-09 17:06:09 - Epoch 179/200, loss=1.640666, score=0.997600, time=26.89sec.
+[INFO] 03-09 17:06:46 - Epoch 180/200, loss=1.640665, score=0.997600, time=26.77sec.
+[INFO] 03-09 17:07:22 - Epoch 181/200, loss=1.640664, score=0.997600, time=26.76sec.
+[INFO] 03-09 17:07:59 - Epoch 182/200, loss=1.640659, score=0.997600, time=27.78sec.

@@ -38,12 +38,13 @@ def rescale(tensor):
 def main(args):
     criterion = losses.MultiTaskCriterion(criteria=[
         torch.nn.CrossEntropyLoss(),
-        losses.MappedMNISTCEL(num_classes=10, seed=0),
-        ], weights=[5, 1],
+        torch.nn.CrossEntropyLoss(),
+        ], weights=[1, 1],
     )
     criterion_gradient_list = [
         explanation.gradients.CE_gradient,
-        lambda inputs, labels: explanation.gradients.CE_gradient(inputs, labels, criterion.criteria[1].mapping)
+        explanation.gradients.CE_gradient,
+        # lambda inputs, labels: explanation.gradients.CE_gradient(inputs, labels, criterion.criteria[1].mapping)
     ]
     metric = metrics.Acc()
 
@@ -80,7 +81,7 @@ def main(args):
     ##################################################
 
     train_specs = {
-        'tag': 'LeNet_MNIST_Multi_4',
+        'tag': 'LeNet_MNIST_1',
         'epochs': 0,
         'save_model': False,
         'load_model': args.checkpoint,
@@ -128,7 +129,7 @@ def main(args):
         gradient_tensor_list = torch.stack([gmw(image, label, cri)
             for cri in criterion.criteria], dim=0)
         assert len(gradient_tensor_list.shape) == 2, f"{gradient_tensor_list.shape=}"
-        inner_products[idx] = utils.tensors.pairwise_inner_product(gradient_tensor_list)[0, 1].item()
+        inner_products[idx] = utils.tensor_ops.pairwise_inner_product(gradient_tensor_list)[0, 1].item()
     np.savetxt(fname=os.path.join("saved_tensors", "inner_products_weights", f"inner_products_{args.checkpoint}.txt"),
         X=inner_products)
     plt.figure()
@@ -144,7 +145,7 @@ def main(args):
         gradient_tensor_list = torch.stack([gmi(criterion_gradient(inputs=output, labels=label))
             for criterion_gradient in criterion_gradient_list], dim=0)
         assert len(gradient_tensor_list.shape) == 5, f"{gradient_tensor_list.shape=}"
-        inner_products[idx] = utils.tensors.pairwise_inner_product(gradient_tensor_list)[0, 1].item()
+        inner_products[idx] = utils.tensor_ops.pairwise_inner_product(gradient_tensor_list)[0, 1].item()
     np.savetxt(fname=os.path.join("saved_tensors", "inner_products_inputs", f"inner_products_{args.checkpoint}.txt"),
         X=inner_products)
     plt.figure()

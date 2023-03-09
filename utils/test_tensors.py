@@ -14,5 +14,5 @@ def test_p_inner(tensor):
     for i in range(len(tensor)):
         for j in range(len(tensor)):
             expected[i, j] = torch.sum(tensor[i]*tensor[j])
-    output = utils.tensors.pairwise_inner_product(tensor)
+    output = utils.tensor_ops.pairwise_inner_product(tensor)
     assert torch.allclose(output, expected), f"{output=}, {expected=}"

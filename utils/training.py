@@ -9,9 +9,9 @@ def save_model(model, optimizer, epoch, filepath):
         'optimizer': optimizer.state_dict(),
     }
     if os.path.exists(filepath):
-        os.chmod(filepath, '0o600')
+        os.chmod(filepath, 0o600)
     torch.save(checkpoint, filepath)
-    os.chmod(filepath, '0o400')
+    os.chmod(filepath, 0o400)
 
 
 def load_model(model, optimizer, filepath):
