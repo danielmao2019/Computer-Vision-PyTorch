@@ -1,5 +1,7 @@
 __pycache__
-downloads
-saved_models
-saved_images
 venv
+*.sh
+downloads
+*.pt
+loss_graph.txt
+score_graph.txt

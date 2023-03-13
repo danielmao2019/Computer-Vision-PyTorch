@@ -1,11 +1,11 @@
 """
 EXPLANATION APIs.
 """
-from explanation import gradient
+from explanation import gradients
 from explanation import CAM
 
 
 __all__ = (
-    "gradient",
+    "gradients",
     "CAM",
 )
