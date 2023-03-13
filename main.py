@@ -24,27 +24,15 @@ import utils
 """
 
 
-def rescale(tensor):
-    """transforms to the range [0, 1]
-    """
-    tensor -= torch.min(tensor)
-    assert torch.min(tensor) == 0, f"{torch.min(tensor)=}"
-    assert torch.max(tensor) >= 0, f"{torch.max(tensor)=}"
-    if torch.max(tensor) != 0:
-        tensor /= torch.max(tensor)
-    return tensor
-
-
 def main(args):
     criterion = losses.MultiTaskCriterion(criteria=[
         torch.nn.CrossEntropyLoss(),
-        torch.nn.CrossEntropyLoss(),
+        losses.MappedMNISTCEL(num_classes=10, seed=0),
         ], weights=[1, 1],
     )
     criterion_gradient_list = [
         explanation.gradients.CE_gradient,
-        explanation.gradients.CE_gradient,
-        # lambda inputs, labels: explanation.gradients.CE_gradient(inputs, labels, criterion.criteria[1].mapping)
+        lambda inputs, labels: explanation.gradients.CE_gradient(inputs, labels, criterion.criteria[1].mapping)
     ]
     metric = metrics.Acc()
 
@@ -81,7 +69,7 @@ def main(args):
     ##################################################
 
     train_specs = {
-        'tag': 'LeNet_MNIST_1',
+        'tag': 'LeNet_MNIST_Multi_3',
         'epochs': 0,
         'save_model': False,
         'load_model': args.checkpoint,
@@ -114,27 +102,43 @@ def main(args):
 
     exp_dataloader = data.Dataloader(
         task='image_classification', dataset=train_dataset,
-        batch_size=1, shuffle=False, transforms=[
+        batch_size=1, shuffle=True, transforms=[
             data.transforms.Resize(new_size=(32, 32)),
         ])
     model.eval()
-    num_examples = len(exp_dataloader)
-    inner_products = np.zeros(shape=(num_examples,))
+    num_examples = 100
+    # inner_products = np.zeros(shape=(num_examples,))
 
-    gmw = explanation.gradients.GradientModelWeights(model=model)
-    iterator = iter(exp_dataloader)
-    for idx in tqdm(range(num_examples)):
-        image, label = next(iterator)
-        image, label = image.to(device), label.to(device)
-        gradient_tensor_list = torch.stack([gmw(image, label, cri)
-            for cri in criterion.criteria], dim=0)
-        assert len(gradient_tensor_list.shape) == 2, f"{gradient_tensor_list.shape=}"
-        inner_products[idx] = utils.tensor_ops.pairwise_inner_product(gradient_tensor_list)[0, 1].item()
-    np.savetxt(fname=os.path.join("saved_tensors", "inner_products_weights", f"inner_products_{args.checkpoint}.txt"),
-        X=inner_products)
-    plt.figure()
-    plt.hist(inner_products, bins=100)
-    plt.savefig(os.path.join("saved_images", "inner_products_weights", f'{args.checkpoint}.png'))
+    # gmw = explanation.gradients.GradientModelWeights(model=model)
+    # iterator = iter(exp_dataloader)
+    # for idx in tqdm(range(num_examples)):
+    #     image, label = next(iterator)
+    #     image, label = image.to(device), label.to(device)
+    #     gradient_tensor_list = torch.stack([gmw(image, label, cri)
+    #         for cri in criterion.criteria], dim=0)
+    #     assert len(gradient_tensor_list.shape) == 2, f"{gradient_tensor_list.shape=}"
+    #     inner_products[idx] = utils.tensor_ops.pairwise_inner_product(gradient_tensor_list)[0, 1].item()
+    # np.savetxt(fname=os.path.join("saved_tensors", "inner_products_weights", f"inner_products_{args.checkpoint}.txt"),
+    #     X=inner_products)
+    # plt.figure()
+    # plt.hist(inner_products, bins=100)
+    # plt.savefig(os.path.join("saved_images", "inner_products_weights", f'{args.checkpoint}.png'))
+
+    # gmi = explanation.gradients.GradientModelInputs(model=model, layer_idx=0)
+    # iterator = iter(exp_dataloader)
+    # for idx in tqdm(range(num_examples)):
+    #     image, label = next(iterator)
+    #     image, label = image.to(device), label.to(device)
+    #     output = gmi.update(image)
+    #     gradient_tensor_list = torch.stack([gmi(criterion_gradient(inputs=output, labels=label))
+    #         for criterion_gradient in criterion_gradient_list], dim=0)
+    #     assert len(gradient_tensor_list.shape) == 5, f"{gradient_tensor_list.shape=}"
+    #     inner_products[idx] = utils.tensor_ops.pairwise_inner_product(gradient_tensor_list)[0, 1].item()
+    # np.savetxt(fname=os.path.join("saved_tensors", "inner_products_inputs", f"inner_products_{args.checkpoint}.txt"),
+    #     X=inner_products)
+    # plt.figure()
+    # plt.hist(inner_products, bins=100)
+    # plt.savefig(os.path.join("saved_images", "inner_products_inputs", f'{args.checkpoint}.png'))
 
     gmi = explanation.gradients.GradientModelInputs(model=model, layer_idx=0)
     iterator = iter(exp_dataloader)
@@ -144,13 +148,14 @@ def main(args):
         output = gmi.update(image)
         gradient_tensor_list = torch.stack([gmi(criterion_gradient(inputs=output, labels=label))
             for criterion_gradient in criterion_gradient_list], dim=0)
-        assert len(gradient_tensor_list.shape) == 5, f"{gradient_tensor_list.shape=}"
-        inner_products[idx] = utils.tensor_ops.pairwise_inner_product(gradient_tensor_list)[0, 1].item()
-    np.savetxt(fname=os.path.join("saved_tensors", "inner_products_inputs", f"inner_products_{args.checkpoint}.txt"),
-        X=inner_products)
-    plt.figure()
-    plt.hist(inner_products, bins=100)
-    plt.savefig(os.path.join("saved_images", "inner_products_inputs", f'{args.checkpoint}.png'))
+        inner_product_map = torch.prod(gradient_tensor_list, dim=0)
+        assert len(inner_product_map.shape) == 4, f"{inner_product_map.shape=}"
+        fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(20, 10))
+        im1 = utils.plot.imshow_tensor(ax=ax1, tensor=image)
+        im2 = utils.plot.imshow_tensor(ax=ax2, tensor=inner_product_map)
+        fig.colorbar(im2)
+        filepath = os.path.join("saved_images", "inner_product_maps", f"class_{label.item()}", f"example_{idx:03d}.png")
+        plt.savefig(filepath)
 
     ##################################################
     # Grad-CAM

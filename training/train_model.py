@@ -62,7 +62,7 @@ def train_model(tag, model, train_dataloader, eval_dataloader, epochs, criterion
     # get model, optimizer, and epoch
     start_epoch = 0
     if load_model is not None:
-        filepath = os.path.join(models_root, load_model)
+        filepath = os.path.join(models_root, "checkpoints", load_model)
         model, optimizer, start_epoch = utils.training.load_model(model, optimizer, filepath=filepath)
         logger.info(f"Loaded model from {filepath}.")
     model.train()
@@ -93,7 +93,7 @@ def train_model(tag, model, train_dataloader, eval_dataloader, epochs, criterion
             eval_scores = evaluation.eval_model(model, dataloader=eval_dataloader, metrics=[metrics.Acc()])
             eval_scores = [score.item() for score in eval_scores]
             logger.info(f"{eval_scores=}")
-            filepath = os.path.join(models_root, f'checkpoint_{cur_epoch+1:03d}.pt')
+            filepath = os.path.join(models_root, "checkpoints", f'checkpoint_{cur_epoch+1:03d}.pt')
             utils.training.save_model(model=model, optimizer=optimizer, epoch=cur_epoch, filepath=filepath)
             logger.info(f"Saved model to {filepath}.")
         np.savetxt(
