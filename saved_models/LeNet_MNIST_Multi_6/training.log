@@ -256,3 +256,26 @@
 [INFO] 03-09 17:06:46 - Epoch 177/200, loss=1.684840, score=0.997750, time=26.76sec.
 [INFO] 03-09 17:07:23 - Epoch 178/200, loss=1.684835, score=0.997750, time=26.78sec.
 [INFO] 03-09 17:08:01 - Epoch 179/200, loss=1.684832, score=0.997750, time=27.96sec.
+[INFO] 03-09 17:08:43 - Epoch 180/200, loss=1.684828, score=0.997750, time=31.74sec.
+[INFO] 03-09 17:09:30 - Epoch 181/200, loss=1.684824, score=0.997750, time=34.80sec.
+[INFO] 03-09 17:10:13 - Epoch 182/200, loss=1.684815, score=0.997783, time=33.19sec.
+[INFO] 03-09 17:10:56 - Epoch 183/200, loss=1.684811, score=0.997767, time=33.33sec.
+[INFO] 03-09 17:11:40 - Epoch 184/200, loss=1.684806, score=0.997783, time=33.16sec.
+[INFO] 03-09 17:12:23 - Epoch 185/200, loss=1.684802, score=0.997783, time=33.25sec.
+[INFO] 03-09 17:13:10 - Epoch 186/200, loss=1.684801, score=0.997783, time=36.99sec.
+[INFO] 03-09 17:13:57 - Epoch 187/200, loss=1.684794, score=0.997783, time=35.70sec.
+[INFO] 03-09 17:14:43 - Epoch 188/200, loss=1.684791, score=0.997783, time=35.08sec.
+[INFO] 03-09 17:15:32 - Epoch 189/200, loss=1.684789, score=0.997783, time=38.24sec.
+[INFO] 03-09 17:16:19 - Epoch 190/200, loss=1.684787, score=0.997783, time=35.20sec.
+[INFO] 03-09 17:17:07 - Epoch 191/200, loss=1.684783, score=0.997783, time=36.86sec.
+[INFO] 03-09 17:17:51 - Epoch 192/200, loss=1.684783, score=0.997783, time=33.32sec.
+[INFO] 03-09 17:18:37 - Epoch 193/200, loss=1.684781, score=0.997783, time=34.16sec.
+[INFO] 03-09 17:19:21 - Epoch 194/200, loss=1.684778, score=0.997783, time=32.05sec.
+[INFO] 03-09 17:20:04 - Epoch 195/200, loss=1.684774, score=0.997783, time=31.94sec.
+[INFO] 03-09 17:20:49 - Epoch 196/200, loss=1.684772, score=0.997783, time=32.99sec.
+[INFO] 03-09 17:21:35 - Epoch 197/200, loss=1.684772, score=0.997783, time=35.03sec.
+[INFO] 03-09 17:22:18 - Epoch 198/200, loss=1.684769, score=0.997783, time=31.48sec.
+[INFO] 03-09 17:22:59 - Epoch 199/200, loss=1.684768, score=0.997783, time=29.76sec.
+[INFO] 03-09 17:23:43 - Epoch 200/200, loss=1.684766, score=0.997783, time=31.70sec.
+[INFO] 03-09 17:23:55 - eval_scores=[0.9898999929428101]
+[INFO] 03-09 17:23:55 - Saved model to saved_models/LeNet_MNIST_Multi_6/checkpoint_200.pt.
