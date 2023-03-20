@@ -168,3 +168,13 @@ criterion = losses.MultiTaskCriterion(criteria=[
 ```
 
 trained on hard examples.
+
+### LeNetLarge_STL10_Multi_1
+
+```python
+criterion = losses.MultiTaskCriterion(criteria=[
+    torch.nn.CrossEntropyLoss(),
+    losses.MappedMNISTCEL(num_classes=10, seed=0),
+    ], weights=[1, 1],
+)
+```
