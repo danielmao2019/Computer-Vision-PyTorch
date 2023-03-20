@@ -13,7 +13,7 @@ class LeNetLarge(torch.nn.Module):
         )
         self.tanh1 = torch.nn.Tanh()
         self.conv2 = torch.nn.Conv2d(
-            in_channels=in_features, out_channels=12, kernel_size=5, stride=1,
+            in_channels=12, out_channels=12, kernel_size=5, stride=1, padding='same',
         )
         self.tanh2 = torch.nn.Tanh()
         self.pool1 = torch.nn.AvgPool2d(kernel_size=2, stride=2)
@@ -23,7 +23,7 @@ class LeNetLarge(torch.nn.Module):
         )
         self.tanh3 = torch.nn.Tanh()
         self.conv4 = torch.nn.Conv2d(
-            in_channels=12, out_channels=32, kernel_size=5, stride=1,
+            in_channels=32, out_channels=32, kernel_size=5, stride=1, padding='same',
         )
         self.tanh4 = torch.nn.Tanh()
         self.pool2 = torch.nn.AvgPool2d(kernel_size=2, stride=2)
@@ -33,7 +33,7 @@ class LeNetLarge(torch.nn.Module):
         )
         self.tanh5 = torch.nn.Tanh()
         self.conv6 = torch.nn.Conv2d(
-            in_channels=32, out_channels=240, kernel_size=5, stride=1,
+            in_channels=240, out_channels=240, kernel_size=5, stride=1, padding='same',
         )
         self.tanh6 = torch.nn.Tanh()
         self.pool3 = models.layers.GlobalAveragePooling2D()
@@ -48,7 +48,6 @@ class LeNetLarge(torch.nn.Module):
         self.softmax = torch.nn.Softmax(dim=1)
 
     def forward(self, x):
-        assert x.shape[2:] == (32, 32), f"{x.shape=}"
 
         x = self.conv1(x)
         x = self.tanh1(x)

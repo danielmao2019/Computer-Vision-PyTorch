@@ -59,14 +59,17 @@ def main(args):
     train_dataloader = data.Dataloader(
         task='image_classification', dataset=train_dataset,
         batch_size=8, shuffle=True, transforms=[
-            data.transforms.Resize(new_size=(32, 32)),
+            # data.transforms.Resize(new_size=(32, 32)),
         ])
 
-    eval_dataset = data.datasets.MNISTDataset(purpose='evaluation')
+    eval_dataset = torchvision.datasets.STL10(
+        root=root, split='test', download=download,
+        transform=torchvision.transforms.ToTensor(),
+    )
     eval_dataloader = data.Dataloader(
         task='image_classification', dataset=eval_dataset,
         batch_size=1, shuffle=True, transforms=[
-            data.transforms.Resize(new_size=(32, 32)),
+            # data.transforms.Resize(new_size=(32, 32)),
         ])
 
     ##################################################
@@ -75,9 +78,9 @@ def main(args):
 
     train_specs = {
         'tag': 'LeNetLarge_STL10_Multi_1',
-        'epochs': 200,
-        'save_model': True,
-        'load_model': None,#args.checkpoint,
+        'epochs': 0,
+        'save_model': False,
+        'load_model': args.checkpoint,
         'model': model,
         'train_dataloader': train_dataloader,
         'eval_dataloader': eval_dataloader,
@@ -105,13 +108,13 @@ def main(args):
     # )
     # print(scores)
 
-    # exp_dataloader = data.Dataloader(
-    #     task='image_classification', dataset=train_dataset,
-    #     batch_size=1, shuffle=True, transforms=[
-    #         data.transforms.Resize(new_size=(32, 32)),
-    #     ])
-    # model.eval()
-    # num_examples = 100
+    exp_dataloader = data.Dataloader(
+        task='image_classification', dataset=train_dataset,
+        batch_size=1, shuffle=True, transforms=[
+            data.transforms.Resize(new_size=(32, 32)),
+        ])
+    model.eval()
+    num_examples = 100
     # inner_products = np.zeros(shape=(num_examples,))
 
     # gmw = explanation.gradients.GradientModelWeights(model=model)
@@ -162,32 +165,33 @@ def main(args):
     #     filepath = os.path.join("saved_images", "inner_product_maps", f"class_{label.item()}", f"example_{idx:03d}.png")
     #     plt.savefig(filepath)
 
-    # gmi = explanation.gradients.GradientModelInputs(model=model, layer_idx=3)
-    # def forward_hook(module, inputs, outputs):
-    #     gmi.memory[3] = inputs[0].detach()
-    # gmi.register_forward_hook(layer_idx=3, hook=forward_hook)
-    # iterator = iter(exp_dataloader)
-    # for idx in tqdm(range(num_examples)):
-    #     image, label = next(iterator)
-    #     image, label = image.to(device), label.to(device)
-    #     output = gmi.update(image)
-    #     gradient_tensor_list = torch.stack([gmi(criterion_gradient(inputs=output, labels=label))
-    #         for criterion_gradient in criterion_gradient_list], dim=0)
-    #     coefficients = torch.prod(gradient_tensor_list, dim=0, keepdim=True)
-    #     assert len(coefficients.shape) == 5, f"{coefficients.shape=}"
-    #     coefficients = torch.sum(coefficients, dim=0, keepdim=False)
-    #     assert len(coefficients.shape) == 4, f"{coefficients.shape=}"
-    #     coefficients = torch.mean(coefficients, dim=[2, 3], keepdim=False)
-    #     activations = gmi.memory[3]
-    #     assert activations.shape[:2] == coefficients.shape
-    #     comb = torch.sum(activations * torch.unsqueeze(torch.unsqueeze(coefficients, dim=2), dim=3), dim=1, keepdim=True)
-    #     assert len(comb.shape) == 4 and comb.shape[0] == comb.shape[1] == 1
-    #     fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(20, 10))
-    #     im1 = utils.plot.imshow_tensor(ax=ax1, tensor=image)
-    #     im2 = utils.plot.imshow_tensor(ax=ax2, tensor=comb)
-    #     fig.colorbar(im2)
-    #     filepath = os.path.join("saved_images", "comb", f"class_{label.item()}", f"example_{idx:03d}.png")
-    #     plt.savefig(filepath)
+    layer_idx = 0
+    gmi = explanation.gradients.GradientModelInputs(model=model, layer_idx=layer_idx)
+    def forward_hook(module, inputs, outputs):
+        gmi.memory[layer_idx] = inputs[0].detach()
+    gmi.register_forward_hook(layer_idx=layer_idx, hook=forward_hook)
+    iterator = iter(exp_dataloader)
+    for idx in tqdm(range(num_examples)):
+        image, label = next(iterator)
+        image, label = image.to(device), label.to(device)
+        output = gmi.update(image)
+        gradient_tensor_list = torch.stack([gmi(criterion_gradient(inputs=output, labels=label))
+            for criterion_gradient in criterion_gradient_list], dim=0)
+        coefficients = torch.prod(gradient_tensor_list, dim=0, keepdim=True)
+        assert len(coefficients.shape) == 5, f"{coefficients.shape=}"
+        coefficients = torch.sum(coefficients, dim=0, keepdim=False)
+        assert len(coefficients.shape) == 4, f"{coefficients.shape=}"
+        coefficients = torch.mean(coefficients, dim=[2, 3], keepdim=False)
+        activations = gmi.memory[layer_idx]
+        assert activations.shape[:2] == coefficients.shape
+        comb = torch.sum(activations * torch.unsqueeze(torch.unsqueeze(coefficients, dim=2), dim=3), dim=1, keepdim=True)
+        assert len(comb.shape) == 4 and comb.shape[0] == comb.shape[1] == 1
+        fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(20, 10))
+        im1 = utils.plot.imshow_tensor(ax=ax1, tensor=image)
+        im2 = utils.plot.imshow_tensor(ax=ax2, tensor=comb)
+        fig.colorbar(im2)
+        filepath = os.path.join("saved_images", "comb", f"class_{label.item()}", f"example_{idx:03d}.png")
+        plt.savefig(filepath)
 
     ##################################################
     # Grad-CAM
