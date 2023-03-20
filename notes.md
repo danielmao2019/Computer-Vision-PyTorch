@@ -177,4 +177,5 @@ criterion = losses.MultiTaskCriterion(criteria=[
     losses.MappedMNISTCEL(num_classes=10, seed=0),
     ], weights=[1, 1],
 )
+'optimizer': torch.optim.SGD(model.parameters(), lr=1.0e-02, momentum=0.9),
 ```
