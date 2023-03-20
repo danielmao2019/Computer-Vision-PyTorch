@@ -85,7 +85,7 @@ def main(args):
         'train_dataloader': train_dataloader,
         'eval_dataloader': eval_dataloader,
         'criterion': criterion,
-        'optimizer': torch.optim.SGD(model.parameters(), lr=1.0e-03, momentum=0.9),
+        'optimizer': torch.optim.SGD(model.parameters(), lr=1.0e-02, momentum=0.9),
         'metric': metric,
     }
     training.train_model(
@@ -111,7 +111,7 @@ def main(args):
     exp_dataloader = data.Dataloader(
         task='image_classification', dataset=train_dataset,
         batch_size=1, shuffle=True, transforms=[
-            data.transforms.Resize(new_size=(32, 32)),
+            # data.transforms.Resize(new_size=(32, 32)),
         ])
     model.eval()
     num_examples = 100
@@ -165,7 +165,7 @@ def main(args):
     #     filepath = os.path.join("saved_images", "inner_product_maps", f"class_{label.item()}", f"example_{idx:03d}.png")
     #     plt.savefig(filepath)
 
-    layer_idx = 0
+    layer_idx = 5
     gmi = explanation.gradients.GradientModelInputs(model=model, layer_idx=layer_idx)
     def forward_hook(module, inputs, outputs):
         gmi.memory[layer_idx] = inputs[0].detach()
@@ -190,7 +190,7 @@ def main(args):
         im1 = utils.plot.imshow_tensor(ax=ax1, tensor=image)
         im2 = utils.plot.imshow_tensor(ax=ax2, tensor=comb)
         fig.colorbar(im2)
-        filepath = os.path.join("saved_images", "comb", f"class_{label.item()}", f"example_{idx:03d}.png")
+        filepath = os.path.join("saved_images", "comb_layer_idx_5", f"class_{label.item()}", f"example_{idx:03d}.png")
         plt.savefig(filepath)
 
     ##################################################

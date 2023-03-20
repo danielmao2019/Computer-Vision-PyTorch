@@ -1,381 +1,364 @@
-[INFO] 03-20 11:24:03 - Using device cuda:0.
-[INFO] 03-20 11:24:03 - Experiment tag: "LeNetLarge_STL10_Multi_1".
-[INFO] 03-20 11:24:03 - Number of trainable parameters: 426662.
-[INFO] 03-20 11:24:03 - criterion=MultiTaskCriterion
-[INFO] 03-20 11:24:03 -     weight=0.5000, criterion=CrossEntropyLoss()
-[INFO] 03-20 11:24:03 -     weight=0.5000, criterion=MappedMNISTCEL([4, 1, 7, 5, 3, 9, 0, 8, 6, 2]).
-[INFO] 03-20 11:24:03 - optimizer=SGD
-[INFO] 03-20 11:24:03 -     dampening=0
-[INFO] 03-20 11:24:03 -     foreach=None
-[INFO] 03-20 11:24:03 -     lr=0.001
-[INFO] 03-20 11:24:03 -     maximize=False
-[INFO] 03-20 11:24:03 -     momentum=0.9
-[INFO] 03-20 11:24:03 -     nesterov=False
-[INFO] 03-20 11:24:03 -     weight_decay=0
-[INFO] 03-20 11:24:03 - epochs=200.
-[INFO] 03-20 11:24:03 - batch_size=8.
-[INFO] 03-20 11:26:45 - Using device cuda:0.
-[INFO] 03-20 11:26:45 - Experiment tag: "LeNetLarge_STL10_Multi_1".
-[INFO] 03-20 11:26:45 - Number of trainable parameters: 1693362.
-[INFO] 03-20 11:26:45 - criterion=MultiTaskCriterion
-[INFO] 03-20 11:26:45 -     weight=0.5000, criterion=CrossEntropyLoss()
-[INFO] 03-20 11:26:45 -     weight=0.5000, criterion=MappedMNISTCEL([4, 1, 7, 5, 3, 9, 0, 8, 6, 2]).
-[INFO] 03-20 11:26:45 - optimizer=SGD
-[INFO] 03-20 11:26:45 -     dampening=0
-[INFO] 03-20 11:26:45 -     foreach=None
-[INFO] 03-20 11:26:45 -     lr=0.001
-[INFO] 03-20 11:26:45 -     maximize=False
-[INFO] 03-20 11:26:45 -     momentum=0.9
-[INFO] 03-20 11:26:45 -     nesterov=False
-[INFO] 03-20 11:26:45 -     weight_decay=0
-[INFO] 03-20 11:26:45 - epochs=200.
-[INFO] 03-20 11:26:45 - batch_size=8.
-[INFO] 03-20 11:27:49 - Using device cuda:0.
-[INFO] 03-20 11:27:49 - Experiment tag: "LeNetLarge_STL10_Multi_1".
-[INFO] 03-20 11:27:49 - Number of trainable parameters: 1693362.
-[INFO] 03-20 11:27:49 - criterion=MultiTaskCriterion
-[INFO] 03-20 11:27:49 -     weight=0.5000, criterion=CrossEntropyLoss()
-[INFO] 03-20 11:27:49 -     weight=0.5000, criterion=MappedMNISTCEL([4, 1, 7, 5, 3, 9, 0, 8, 6, 2]).
-[INFO] 03-20 11:27:49 - optimizer=SGD
-[INFO] 03-20 11:27:49 -     dampening=0
-[INFO] 03-20 11:27:49 -     foreach=None
-[INFO] 03-20 11:27:49 -     lr=0.001
-[INFO] 03-20 11:27:49 -     maximize=False
-[INFO] 03-20 11:27:49 -     momentum=0.9
-[INFO] 03-20 11:27:49 -     nesterov=False
-[INFO] 03-20 11:27:49 -     weight_decay=0
-[INFO] 03-20 11:27:49 - epochs=200.
-[INFO] 03-20 11:27:49 - batch_size=8.
-[INFO] 03-20 11:27:56 - Epoch 001/200, loss=2.302605, score=0.100000, time=6.74sec.
-[INFO] 03-20 11:28:38 - Using device cuda:0.
-[INFO] 03-20 11:28:38 - Experiment tag: "LeNetLarge_STL10_Multi_1".
-[INFO] 03-20 11:28:38 - Number of trainable parameters: 1693362.
-[INFO] 03-20 11:28:38 - criterion=MultiTaskCriterion
-[INFO] 03-20 11:28:38 -     weight=0.5000, criterion=CrossEntropyLoss()
-[INFO] 03-20 11:28:38 -     weight=0.5000, criterion=MappedMNISTCEL([4, 1, 7, 5, 3, 9, 0, 8, 6, 2]).
-[INFO] 03-20 11:28:38 - optimizer=SGD
-[INFO] 03-20 11:28:38 -     dampening=0
-[INFO] 03-20 11:28:38 -     foreach=None
-[INFO] 03-20 11:28:38 -     lr=0.001
-[INFO] 03-20 11:28:38 -     maximize=False
-[INFO] 03-20 11:28:38 -     momentum=0.9
-[INFO] 03-20 11:28:38 -     nesterov=False
-[INFO] 03-20 11:28:38 -     weight_decay=0
-[INFO] 03-20 11:28:38 - epochs=200.
-[INFO] 03-20 11:28:38 - batch_size=8.
-[INFO] 03-20 11:28:43 - Epoch 001/200, loss=2.302605, score=0.100000, time=5.21sec.
-[INFO] 03-20 11:30:53 - Using device cuda:0.
-[INFO] 03-20 11:30:53 - Experiment tag: "LeNetLarge_STL10_Multi_1".
-[INFO] 03-20 11:30:53 - Number of trainable parameters: 1693362.
-[INFO] 03-20 11:30:53 - criterion=MultiTaskCriterion
-[INFO] 03-20 11:30:53 -     weight=0.5000, criterion=CrossEntropyLoss()
-[INFO] 03-20 11:30:53 -     weight=0.5000, criterion=MappedMNISTCEL([4, 1, 7, 5, 3, 9, 0, 8, 6, 2]).
-[INFO] 03-20 11:30:53 - optimizer=SGD
-[INFO] 03-20 11:30:53 -     dampening=0
-[INFO] 03-20 11:30:53 -     foreach=None
-[INFO] 03-20 11:30:53 -     lr=0.001
-[INFO] 03-20 11:30:53 -     maximize=False
-[INFO] 03-20 11:30:53 -     momentum=0.9
-[INFO] 03-20 11:30:53 -     nesterov=False
-[INFO] 03-20 11:30:53 -     weight_decay=0
-[INFO] 03-20 11:30:53 - epochs=200.
-[INFO] 03-20 11:30:53 - batch_size=8.
-[INFO] 03-20 11:31:00 - Epoch 001/200, loss=2.302606, score=0.100000, time=6.67sec.
-[INFO] 03-20 11:32:04 - Using device cuda:0.
-[INFO] 03-20 11:32:04 - Experiment tag: "LeNetLarge_STL10_Multi_1".
-[INFO] 03-20 11:32:04 - Number of trainable parameters: 1693362.
-[INFO] 03-20 11:32:04 - criterion=MultiTaskCriterion
-[INFO] 03-20 11:32:04 -     weight=0.5000, criterion=CrossEntropyLoss()
-[INFO] 03-20 11:32:04 -     weight=0.5000, criterion=MappedMNISTCEL([4, 1, 7, 5, 3, 9, 0, 8, 6, 2]).
-[INFO] 03-20 11:32:04 - optimizer=SGD
-[INFO] 03-20 11:32:04 -     dampening=0
-[INFO] 03-20 11:32:04 -     foreach=None
-[INFO] 03-20 11:32:04 -     lr=0.001
-[INFO] 03-20 11:32:04 -     maximize=False
-[INFO] 03-20 11:32:04 -     momentum=0.9
-[INFO] 03-20 11:32:04 -     nesterov=False
-[INFO] 03-20 11:32:04 -     weight_decay=0
-[INFO] 03-20 11:32:04 - epochs=200.
-[INFO] 03-20 11:32:04 - batch_size=8.
-[INFO] 03-20 11:32:11 - Epoch 001/200, loss=2.302606, score=0.100000, time=6.63sec.
-[INFO] 03-20 11:32:21 - eval_scores=[0.10000000149011612]
-[INFO] 03-20 11:32:45 - Using device cuda:0.
-[INFO] 03-20 11:32:45 - Experiment tag: "LeNetLarge_STL10_Multi_1".
-[INFO] 03-20 11:32:45 - Number of trainable parameters: 1693362.
-[INFO] 03-20 11:32:45 - criterion=MultiTaskCriterion
-[INFO] 03-20 11:32:45 -     weight=0.5000, criterion=CrossEntropyLoss()
-[INFO] 03-20 11:32:45 -     weight=0.5000, criterion=MappedMNISTCEL([4, 1, 7, 5, 3, 9, 0, 8, 6, 2]).
-[INFO] 03-20 11:32:45 - optimizer=SGD
-[INFO] 03-20 11:32:45 -     dampening=0
-[INFO] 03-20 11:32:45 -     foreach=None
-[INFO] 03-20 11:32:45 -     lr=0.001
-[INFO] 03-20 11:32:45 -     maximize=False
-[INFO] 03-20 11:32:45 -     momentum=0.9
-[INFO] 03-20 11:32:45 -     nesterov=False
-[INFO] 03-20 11:32:45 -     weight_decay=0
-[INFO] 03-20 11:32:45 - epochs=200.
-[INFO] 03-20 11:32:45 - batch_size=8.
-[INFO] 03-20 11:32:51 - Epoch 001/200, loss=2.302606, score=0.100000, time=6.66sec.
-[INFO] 03-20 11:33:02 - eval_scores=[0.10000000149011612]
-[INFO] 03-20 11:33:02 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_001.pt.
-[INFO] 03-20 11:33:07 - Epoch 002/200, loss=2.302595, score=0.100000, time=5.13sec.
-[INFO] 03-20 11:33:18 - eval_scores=[0.10000000149011612]
-[INFO] 03-20 11:33:18 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_002.pt.
-[INFO] 03-20 11:33:23 - Epoch 003/200, loss=2.302583, score=0.100000, time=5.13sec.
-[INFO] 03-20 11:33:33 - eval_scores=[0.10000000149011612]
-[INFO] 03-20 11:33:34 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_003.pt.
-[INFO] 03-20 11:33:39 - Epoch 004/200, loss=2.302569, score=0.100000, time=5.15sec.
-[INFO] 03-20 11:33:49 - eval_scores=[0.10000000149011612]
-[INFO] 03-20 11:33:49 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_004.pt.
-[INFO] 03-20 11:33:55 - Epoch 005/200, loss=2.302556, score=0.100000, time=5.15sec.
-[INFO] 03-20 11:34:05 - eval_scores=[0.10000000149011612]
-[INFO] 03-20 11:34:05 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_005.pt.
-[INFO] 03-20 11:34:11 - Epoch 006/200, loss=2.302541, score=0.100000, time=5.15sec.
-[INFO] 03-20 11:34:21 - eval_scores=[0.10000000149011612]
-[INFO] 03-20 11:34:21 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_006.pt.
-[INFO] 03-20 11:34:26 - Epoch 007/200, loss=2.302524, score=0.100000, time=5.15sec.
-[INFO] 03-20 11:34:37 - eval_scores=[0.10000000149011612]
-[INFO] 03-20 11:34:37 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_007.pt.
-[INFO] 03-20 11:34:42 - Epoch 008/200, loss=2.302501, score=0.100000, time=5.15sec.
-[INFO] 03-20 11:34:53 - eval_scores=[0.10000000149011612]
-[INFO] 03-20 11:34:53 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_008.pt.
-[INFO] 03-20 11:34:58 - Epoch 009/200, loss=2.302476, score=0.100000, time=5.16sec.
-[INFO] 03-20 11:35:09 - eval_scores=[0.10000000149011612]
-[INFO] 03-20 11:35:09 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_009.pt.
-[INFO] 03-20 11:35:14 - Epoch 010/200, loss=2.302442, score=0.099600, time=5.17sec.
-[INFO] 03-20 11:35:25 - eval_scores=[0.10000000149011612]
-[INFO] 03-20 11:35:25 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_010.pt.
-[INFO] 03-20 11:35:30 - Epoch 011/200, loss=2.302399, score=0.100000, time=5.16sec.
-[INFO] 03-20 11:35:36 - Epoch 012/200, loss=2.302345, score=0.100000, time=5.17sec.
-[INFO] 03-20 11:35:41 - Epoch 013/200, loss=2.302276, score=0.100400, time=5.14sec.
-[INFO] 03-20 11:35:46 - Epoch 014/200, loss=2.302188, score=0.099400, time=5.14sec.
-[INFO] 03-20 11:35:51 - Epoch 015/200, loss=2.302087, score=0.099800, time=5.15sec.
-[INFO] 03-20 11:36:02 - eval_scores=[0.10200000554323196]
-[INFO] 03-20 11:36:02 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_015.pt.
-[INFO] 03-20 11:36:07 - Epoch 016/200, loss=2.301971, score=0.100000, time=5.16sec.
-[INFO] 03-20 11:36:12 - Epoch 017/200, loss=2.301838, score=0.099600, time=5.15sec.
-[INFO] 03-20 11:36:18 - Epoch 018/200, loss=2.301667, score=0.100000, time=5.17sec.
-[INFO] 03-20 11:36:23 - Epoch 019/200, loss=2.301447, score=0.099600, time=5.16sec.
-[INFO] 03-20 11:36:28 - Epoch 020/200, loss=2.301130, score=0.099400, time=5.20sec.
-[INFO] 03-20 11:36:39 - eval_scores=[0.10087500512599945]
-[INFO] 03-20 11:36:39 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_020.pt.
-[INFO] 03-20 11:36:44 - Epoch 021/200, loss=2.300561, score=0.100800, time=5.18sec.
-[INFO] 03-20 11:36:50 - Epoch 022/200, loss=2.299437, score=0.105400, time=5.18sec.
-[INFO] 03-20 11:36:55 - Epoch 023/200, loss=2.297122, score=0.110600, time=5.17sec.
-[INFO] 03-20 11:37:00 - Epoch 024/200, loss=2.293436, score=0.117400, time=5.16sec.
-[INFO] 03-20 11:37:06 - Epoch 025/200, loss=2.291273, score=0.119200, time=5.18sec.
-[INFO] 03-20 11:37:17 - eval_scores=[0.12300000339746475]
-[INFO] 03-20 11:37:17 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_025.pt.
-[INFO] 03-20 11:37:22 - Epoch 026/200, loss=2.289378, score=0.118400, time=5.21sec.
-[INFO] 03-20 11:37:27 - Epoch 027/200, loss=2.287340, score=0.127600, time=5.16sec.
-[INFO] 03-20 11:37:33 - Epoch 028/200, loss=2.285019, score=0.139800, time=5.17sec.
-[INFO] 03-20 11:37:38 - Epoch 029/200, loss=2.283418, score=0.139200, time=5.21sec.
-[INFO] 03-20 11:37:43 - Epoch 030/200, loss=2.281556, score=0.146800, time=5.16sec.
-[INFO] 03-20 11:37:54 - eval_scores=[0.14687500894069672]
-[INFO] 03-20 11:37:54 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_030.pt.
-[INFO] 03-20 11:37:59 - Epoch 031/200, loss=2.279011, score=0.153800, time=5.15sec.
-[INFO] 03-20 11:38:05 - Epoch 032/200, loss=2.275533, score=0.157800, time=5.21sec.
-[INFO] 03-20 11:38:10 - Epoch 033/200, loss=2.272405, score=0.166600, time=5.15sec.
-[INFO] 03-20 11:38:15 - Epoch 034/200, loss=2.265195, score=0.156400, time=5.16sec.
-[INFO] 03-20 11:38:21 - Epoch 035/200, loss=2.257889, score=0.158000, time=5.18sec.
-[INFO] 03-20 11:38:32 - eval_scores=[0.1587500125169754]
-[INFO] 03-20 11:38:32 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_035.pt.
-[INFO] 03-20 11:38:37 - Epoch 036/200, loss=2.253438, score=0.159800, time=5.18sec.
-[INFO] 03-20 11:38:42 - Epoch 037/200, loss=2.250191, score=0.164400, time=5.16sec.
-[INFO] 03-20 11:38:48 - Epoch 038/200, loss=2.247944, score=0.165000, time=5.15sec.
-[INFO] 03-20 11:38:53 - Epoch 039/200, loss=2.245243, score=0.169600, time=5.17sec.
-[INFO] 03-20 11:38:58 - Epoch 040/200, loss=2.243245, score=0.175800, time=5.16sec.
-[INFO] 03-20 11:39:09 - eval_scores=[0.16562500596046448]
-[INFO] 03-20 11:39:09 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_040.pt.
-[INFO] 03-20 11:39:15 - Epoch 041/200, loss=2.240471, score=0.178400, time=5.19sec.
-[INFO] 03-20 11:39:20 - Epoch 042/200, loss=2.238398, score=0.185800, time=5.17sec.
-[INFO] 03-20 11:39:25 - Epoch 043/200, loss=2.236851, score=0.187800, time=5.21sec.
-[INFO] 03-20 11:39:31 - Epoch 044/200, loss=2.236267, score=0.196000, time=5.16sec.
-[INFO] 03-20 11:39:36 - Epoch 045/200, loss=2.234429, score=0.200000, time=5.18sec.
-[INFO] 03-20 11:39:47 - eval_scores=[0.20087501406669617]
-[INFO] 03-20 11:39:47 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_045.pt.
-[INFO] 03-20 11:39:52 - Epoch 046/200, loss=2.233065, score=0.205000, time=5.18sec.
-[INFO] 03-20 11:39:58 - Epoch 047/200, loss=2.231372, score=0.207400, time=5.17sec.
-[INFO] 03-20 11:40:03 - Epoch 048/200, loss=2.229653, score=0.206600, time=5.17sec.
-[INFO] 03-20 11:40:09 - Epoch 049/200, loss=2.229522, score=0.210000, time=5.19sec.
-[INFO] 03-20 11:40:14 - Epoch 050/200, loss=2.228471, score=0.211800, time=5.20sec.
-[INFO] 03-20 11:40:25 - eval_scores=[0.20262500643730164]
-[INFO] 03-20 11:40:25 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_050.pt.
-[INFO] 03-20 11:40:30 - Epoch 051/200, loss=2.227023, score=0.216400, time=5.21sec.
-[INFO] 03-20 11:40:36 - Epoch 052/200, loss=2.225841, score=0.214800, time=5.19sec.
-[INFO] 03-20 11:40:41 - Epoch 053/200, loss=2.225722, score=0.218800, time=5.19sec.
-[INFO] 03-20 11:40:47 - Epoch 054/200, loss=2.224615, score=0.233200, time=5.19sec.
-[INFO] 03-20 11:40:52 - Epoch 055/200, loss=2.223492, score=0.222800, time=5.18sec.
-[INFO] 03-20 11:41:03 - eval_scores=[0.22462500631809235]
-[INFO] 03-20 11:41:03 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_055.pt.
-[INFO] 03-20 11:41:09 - Epoch 056/200, loss=2.222236, score=0.223600, time=5.19sec.
-[INFO] 03-20 11:41:14 - Epoch 057/200, loss=2.222503, score=0.220800, time=5.20sec.
-[INFO] 03-20 11:41:20 - Epoch 058/200, loss=2.220508, score=0.221000, time=5.18sec.
-[INFO] 03-20 11:41:25 - Epoch 059/200, loss=2.218251, score=0.221600, time=5.19sec.
-[INFO] 03-20 11:41:31 - Epoch 060/200, loss=2.218995, score=0.225400, time=5.19sec.
-[INFO] 03-20 11:41:42 - eval_scores=[0.22587500512599945]
-[INFO] 03-20 11:41:42 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_060.pt.
-[INFO] 03-20 11:41:47 - Epoch 061/200, loss=2.219334, score=0.223000, time=5.21sec.
-[INFO] 03-20 11:41:53 - Epoch 062/200, loss=2.218045, score=0.226400, time=5.19sec.
-[INFO] 03-20 11:41:58 - Epoch 063/200, loss=2.216924, score=0.227000, time=5.19sec.
-[INFO] 03-20 11:42:04 - Epoch 064/200, loss=2.214799, score=0.228000, time=5.17sec.
-[INFO] 03-20 11:42:09 - Epoch 065/200, loss=2.215641, score=0.227200, time=5.18sec.
-[INFO] 03-20 11:42:20 - eval_scores=[0.2306250035762787]
-[INFO] 03-20 11:42:20 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_065.pt.
-[INFO] 03-20 11:42:26 - Epoch 066/200, loss=2.215860, score=0.231800, time=5.21sec.
-[INFO] 03-20 11:42:31 - Epoch 067/200, loss=2.214863, score=0.231200, time=5.18sec.
-[INFO] 03-20 11:42:37 - Epoch 068/200, loss=2.213614, score=0.226200, time=5.18sec.
-[INFO] 03-20 11:42:42 - Epoch 069/200, loss=2.212645, score=0.231400, time=5.19sec.
-[INFO] 03-20 11:42:48 - Epoch 070/200, loss=2.211870, score=0.233800, time=5.18sec.
-[INFO] 03-20 11:42:58 - eval_scores=[0.23100000619888306]
-[INFO] 03-20 11:42:58 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_070.pt.
-[INFO] 03-20 11:43:04 - Epoch 071/200, loss=2.211182, score=0.234200, time=5.21sec.
-[INFO] 03-20 11:43:10 - Epoch 072/200, loss=2.211708, score=0.235600, time=5.19sec.
-[INFO] 03-20 11:43:15 - Epoch 073/200, loss=2.212493, score=0.230200, time=5.21sec.
-[INFO] 03-20 11:43:21 - Epoch 074/200, loss=2.210661, score=0.232200, time=5.19sec.
-[INFO] 03-20 11:43:26 - Epoch 075/200, loss=2.210374, score=0.233000, time=5.21sec.
-[INFO] 03-20 11:43:37 - eval_scores=[0.24262501299381256]
-[INFO] 03-20 11:43:37 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_075.pt.
-[INFO] 03-20 11:43:43 - Epoch 076/200, loss=2.209609, score=0.230400, time=5.22sec.
-[INFO] 03-20 11:43:49 - Epoch 077/200, loss=2.209508, score=0.237200, time=5.20sec.
-[INFO] 03-20 11:43:54 - Epoch 078/200, loss=2.210737, score=0.237000, time=5.19sec.
-[INFO] 03-20 11:44:00 - Epoch 079/200, loss=2.207500, score=0.238600, time=5.23sec.
-[INFO] 03-20 11:44:06 - Epoch 080/200, loss=2.206223, score=0.242400, time=5.20sec.
-[INFO] 03-20 11:44:16 - eval_scores=[0.23975001275539398]
-[INFO] 03-20 11:44:16 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_080.pt.
-[INFO] 03-20 11:44:22 - Epoch 081/200, loss=2.207009, score=0.238200, time=5.21sec.
-[INFO] 03-20 11:44:28 - Epoch 082/200, loss=2.206181, score=0.246000, time=5.18sec.
-[INFO] 03-20 11:44:33 - Epoch 083/200, loss=2.205355, score=0.243000, time=5.21sec.
-[INFO] 03-20 11:44:39 - Epoch 084/200, loss=2.205441, score=0.244200, time=5.21sec.
-[INFO] 03-20 11:44:45 - Epoch 085/200, loss=2.204631, score=0.241600, time=5.19sec.
-[INFO] 03-20 11:44:56 - eval_scores=[0.24437500536441803]
-[INFO] 03-20 11:44:56 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_085.pt.
-[INFO] 03-20 11:45:01 - Epoch 086/200, loss=2.202120, score=0.243800, time=5.18sec.
-[INFO] 03-20 11:45:07 - Epoch 087/200, loss=2.202651, score=0.245000, time=5.19sec.
-[INFO] 03-20 11:45:12 - Epoch 088/200, loss=2.201479, score=0.245400, time=5.20sec.
-[INFO] 03-20 11:45:18 - Epoch 089/200, loss=2.200699, score=0.245400, time=5.20sec.
-[INFO] 03-20 11:45:24 - Epoch 090/200, loss=2.201177, score=0.245600, time=5.19sec.
-[INFO] 03-20 11:45:34 - eval_scores=[0.249750018119812]
-[INFO] 03-20 11:45:34 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_090.pt.
-[INFO] 03-20 11:45:40 - Epoch 091/200, loss=2.199885, score=0.251000, time=5.20sec.
-[INFO] 03-20 11:45:46 - Epoch 092/200, loss=2.199446, score=0.248400, time=5.19sec.
-[INFO] 03-20 11:45:51 - Epoch 093/200, loss=2.198480, score=0.246000, time=5.19sec.
-[INFO] 03-20 11:45:57 - Epoch 094/200, loss=2.200645, score=0.250400, time=5.21sec.
-[INFO] 03-20 11:46:03 - Epoch 095/200, loss=2.198585, score=0.250200, time=5.20sec.
-[INFO] 03-20 11:46:14 - eval_scores=[0.2396250069141388]
-[INFO] 03-20 11:46:14 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_095.pt.
-[INFO] 03-20 11:46:19 - Epoch 096/200, loss=2.197541, score=0.242600, time=5.21sec.
-[INFO] 03-20 11:46:25 - Epoch 097/200, loss=2.198287, score=0.246800, time=5.20sec.
-[INFO] 03-20 11:46:31 - Epoch 098/200, loss=2.196657, score=0.247600, time=5.19sec.
-[INFO] 03-20 11:46:37 - Epoch 099/200, loss=2.195064, score=0.252000, time=5.20sec.
-[INFO] 03-20 11:46:42 - Epoch 100/200, loss=2.194945, score=0.253400, time=5.20sec.
-[INFO] 03-20 11:46:53 - eval_scores=[0.2562500238418579]
-[INFO] 03-20 11:46:53 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_100.pt.
-[INFO] 03-20 11:46:59 - Epoch 101/200, loss=2.195047, score=0.254000, time=5.22sec.
-[INFO] 03-20 11:47:05 - Epoch 102/200, loss=2.195484, score=0.251000, time=5.23sec.
-[INFO] 03-20 11:47:10 - Epoch 103/200, loss=2.194257, score=0.258800, time=5.23sec.
-[INFO] 03-20 11:47:16 - Epoch 104/200, loss=2.193156, score=0.252800, time=5.22sec.
-[INFO] 03-20 11:47:22 - Epoch 105/200, loss=2.193064, score=0.249400, time=5.20sec.
-[INFO] 03-20 11:47:28 - Epoch 106/200, loss=2.192420, score=0.252400, time=5.19sec.
-[INFO] 03-20 11:47:33 - Epoch 107/200, loss=2.190034, score=0.258600, time=5.20sec.
-[INFO] 03-20 11:47:39 - Epoch 108/200, loss=2.189417, score=0.257200, time=5.19sec.
-[INFO] 03-20 11:47:45 - Epoch 109/200, loss=2.190822, score=0.254000, time=5.21sec.
-[INFO] 03-20 11:47:51 - Epoch 110/200, loss=2.193302, score=0.253000, time=5.17sec.
-[INFO] 03-20 11:47:57 - Epoch 111/200, loss=2.188659, score=0.259600, time=5.19sec.
-[INFO] 03-20 11:48:02 - Epoch 112/200, loss=2.186230, score=0.268200, time=5.21sec.
-[INFO] 03-20 11:48:08 - Epoch 113/200, loss=2.186877, score=0.260000, time=5.21sec.
-[INFO] 03-20 11:48:14 - Epoch 114/200, loss=2.185301, score=0.263600, time=5.20sec.
-[INFO] 03-20 11:48:20 - Epoch 115/200, loss=2.185450, score=0.263200, time=5.24sec.
-[INFO] 03-20 11:48:26 - Epoch 116/200, loss=2.184768, score=0.263600, time=5.19sec.
-[INFO] 03-20 11:48:31 - Epoch 117/200, loss=2.182203, score=0.267400, time=5.20sec.
-[INFO] 03-20 11:48:37 - Epoch 118/200, loss=2.182307, score=0.262600, time=5.20sec.
-[INFO] 03-20 11:48:43 - Epoch 119/200, loss=2.182739, score=0.267400, time=5.20sec.
-[INFO] 03-20 11:48:49 - Epoch 120/200, loss=2.182823, score=0.263000, time=5.20sec.
-[INFO] 03-20 11:48:55 - Epoch 121/200, loss=2.182103, score=0.261800, time=5.22sec.
-[INFO] 03-20 11:49:01 - Epoch 122/200, loss=2.180578, score=0.266400, time=5.20sec.
-[INFO] 03-20 11:49:06 - Epoch 123/200, loss=2.179603, score=0.268000, time=5.20sec.
-[INFO] 03-20 11:49:12 - Epoch 124/200, loss=2.179134, score=0.268000, time=5.19sec.
-[INFO] 03-20 11:49:18 - Epoch 125/200, loss=2.178544, score=0.267000, time=5.21sec.
-[INFO] 03-20 11:49:29 - eval_scores=[0.265250027179718]
-[INFO] 03-20 11:49:29 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_125.pt.
-[INFO] 03-20 11:49:35 - Epoch 126/200, loss=2.178435, score=0.268800, time=5.25sec.
-[INFO] 03-20 11:49:41 - Epoch 127/200, loss=2.177626, score=0.272800, time=5.21sec.
-[INFO] 03-20 11:49:47 - Epoch 128/200, loss=2.178321, score=0.272600, time=5.19sec.
-[INFO] 03-20 11:49:53 - Epoch 129/200, loss=2.177290, score=0.267600, time=5.19sec.
-[INFO] 03-20 11:49:58 - Epoch 130/200, loss=2.175986, score=0.273600, time=5.19sec.
-[INFO] 03-20 11:50:04 - Epoch 131/200, loss=2.175731, score=0.279000, time=5.22sec.
-[INFO] 03-20 11:50:10 - Epoch 132/200, loss=2.173731, score=0.276000, time=5.19sec.
-[INFO] 03-20 11:50:16 - Epoch 133/200, loss=2.173365, score=0.277800, time=5.20sec.
-[INFO] 03-20 11:50:22 - Epoch 134/200, loss=2.172333, score=0.270400, time=5.19sec.
-[INFO] 03-20 11:50:28 - Epoch 135/200, loss=2.171417, score=0.279200, time=5.21sec.
-[INFO] 03-20 11:50:34 - Epoch 136/200, loss=2.170613, score=0.275000, time=5.19sec.
-[INFO] 03-20 11:50:40 - Epoch 137/200, loss=2.171293, score=0.269000, time=5.20sec.
-[INFO] 03-20 11:50:46 - Epoch 138/200, loss=2.169056, score=0.282000, time=5.21sec.
-[INFO] 03-20 11:50:52 - Epoch 139/200, loss=2.167373, score=0.278000, time=5.20sec.
-[INFO] 03-20 11:50:58 - Epoch 140/200, loss=2.168968, score=0.279400, time=5.20sec.
-[INFO] 03-20 11:51:04 - Epoch 141/200, loss=2.168031, score=0.278400, time=5.20sec.
-[INFO] 03-20 11:51:10 - Epoch 142/200, loss=2.165535, score=0.291600, time=5.19sec.
-[INFO] 03-20 11:51:15 - Epoch 143/200, loss=2.167381, score=0.286800, time=5.20sec.
-[INFO] 03-20 11:51:21 - Epoch 144/200, loss=2.165653, score=0.293200, time=5.21sec.
-[INFO] 03-20 11:51:27 - Epoch 145/200, loss=2.163966, score=0.291000, time=5.20sec.
-[INFO] 03-20 11:51:33 - Epoch 146/200, loss=2.165231, score=0.286600, time=5.19sec.
-[INFO] 03-20 11:51:39 - Epoch 147/200, loss=2.164214, score=0.281400, time=5.20sec.
-[INFO] 03-20 11:51:45 - Epoch 148/200, loss=2.162707, score=0.291600, time=5.20sec.
-[INFO] 03-20 11:51:51 - Epoch 149/200, loss=2.163120, score=0.286600, time=5.21sec.
-[INFO] 03-20 11:51:57 - Epoch 150/200, loss=2.159535, score=0.289000, time=5.21sec.
-[INFO] 03-20 11:52:08 - eval_scores=[0.2756250202655792]
-[INFO] 03-20 11:52:08 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_150.pt.
-[INFO] 03-20 11:52:14 - Epoch 151/200, loss=2.159431, score=0.287600, time=5.24sec.
-[INFO] 03-20 11:52:20 - Epoch 152/200, loss=2.161188, score=0.296400, time=5.21sec.
-[INFO] 03-20 11:52:26 - Epoch 153/200, loss=2.159105, score=0.296400, time=5.19sec.
-[INFO] 03-20 11:52:32 - Epoch 154/200, loss=2.161317, score=0.290800, time=5.20sec.
-[INFO] 03-20 11:52:38 - Epoch 155/200, loss=2.158978, score=0.296400, time=5.23sec.
-[INFO] 03-20 11:52:44 - Epoch 156/200, loss=2.160122, score=0.293800, time=5.19sec.
-[INFO] 03-20 11:52:50 - Epoch 157/200, loss=2.156590, score=0.300800, time=5.20sec.
-[INFO] 03-20 11:52:56 - Epoch 158/200, loss=2.156615, score=0.295800, time=5.19sec.
-[INFO] 03-20 11:53:02 - Epoch 159/200, loss=2.155254, score=0.297600, time=5.19sec.
-[INFO] 03-20 11:53:08 - Epoch 160/200, loss=2.154589, score=0.292400, time=5.21sec.
-[INFO] 03-20 11:53:14 - Epoch 161/200, loss=2.154493, score=0.295000, time=5.24sec.
-[INFO] 03-20 11:53:21 - Epoch 162/200, loss=2.152545, score=0.290800, time=5.21sec.
-[INFO] 03-20 11:53:27 - Epoch 163/200, loss=2.151181, score=0.298600, time=5.21sec.
-[INFO] 03-20 11:53:33 - Epoch 164/200, loss=2.150799, score=0.294000, time=5.24sec.
-[INFO] 03-20 11:53:39 - Epoch 165/200, loss=2.152808, score=0.291400, time=5.21sec.
-[INFO] 03-20 11:53:45 - Epoch 166/200, loss=2.150094, score=0.305800, time=5.24sec.
-[INFO] 03-20 11:53:51 - Epoch 167/200, loss=2.152010, score=0.300800, time=5.21sec.
-[INFO] 03-20 11:53:57 - Epoch 168/200, loss=2.147923, score=0.303600, time=5.21sec.
-[INFO] 03-20 11:54:03 - Epoch 169/200, loss=2.148598, score=0.298800, time=5.20sec.
-[INFO] 03-20 11:54:09 - Epoch 170/200, loss=2.148981, score=0.294000, time=5.20sec.
-[INFO] 03-20 11:54:15 - Epoch 171/200, loss=2.146087, score=0.297800, time=5.23sec.
-[INFO] 03-20 11:54:21 - Epoch 172/200, loss=2.147423, score=0.302600, time=5.24sec.
-[INFO] 03-20 11:54:28 - Epoch 173/200, loss=2.145213, score=0.302200, time=5.21sec.
-[INFO] 03-20 11:54:34 - Epoch 174/200, loss=2.144180, score=0.295600, time=5.21sec.
-[INFO] 03-20 11:54:40 - Epoch 175/200, loss=2.141496, score=0.301200, time=5.23sec.
-[INFO] 03-20 11:54:51 - eval_scores=[0.28975000977516174]
-[INFO] 03-20 11:54:51 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_175.pt.
-[INFO] 03-20 11:54:57 - Epoch 176/200, loss=2.142021, score=0.312400, time=5.25sec.
-[INFO] 03-20 11:55:03 - Epoch 177/200, loss=2.141831, score=0.296000, time=5.20sec.
-[INFO] 03-20 11:55:09 - Epoch 178/200, loss=2.141858, score=0.309000, time=5.21sec.
-[INFO] 03-20 11:55:16 - Epoch 179/200, loss=2.140315, score=0.304400, time=5.22sec.
-[INFO] 03-20 11:55:22 - Epoch 180/200, loss=2.140651, score=0.302600, time=5.23sec.
-[INFO] 03-20 11:55:28 - Epoch 181/200, loss=2.140341, score=0.313200, time=5.21sec.
-[INFO] 03-20 11:55:34 - Epoch 182/200, loss=2.138075, score=0.303400, time=5.20sec.
-[INFO] 03-20 11:55:40 - Epoch 183/200, loss=2.139183, score=0.312200, time=5.21sec.
-[INFO] 03-20 11:55:46 - Epoch 184/200, loss=2.136896, score=0.307200, time=5.20sec.
-[INFO] 03-20 11:55:53 - Epoch 185/200, loss=2.136098, score=0.309000, time=5.21sec.
-[INFO] 03-20 11:55:59 - Epoch 186/200, loss=2.135438, score=0.308400, time=5.23sec.
-[INFO] 03-20 11:56:05 - Epoch 187/200, loss=2.134234, score=0.304600, time=5.29sec.
-[INFO] 03-20 11:56:11 - Epoch 188/200, loss=2.134367, score=0.309800, time=5.23sec.
-[INFO] 03-20 11:56:18 - Epoch 189/200, loss=2.131434, score=0.311000, time=5.22sec.
-[INFO] 03-20 11:56:24 - Epoch 190/200, loss=2.133002, score=0.318000, time=5.21sec.
-[INFO] 03-20 11:56:30 - Epoch 191/200, loss=2.131976, score=0.315800, time=5.23sec.
-[INFO] 03-20 11:56:36 - Epoch 192/200, loss=2.130148, score=0.322600, time=5.22sec.
-[INFO] 03-20 11:56:42 - Epoch 193/200, loss=2.131610, score=0.316600, time=5.22sec.
-[INFO] 03-20 11:56:49 - Epoch 194/200, loss=2.131226, score=0.318200, time=5.21sec.
-[INFO] 03-20 11:56:55 - Epoch 195/200, loss=2.128193, score=0.316000, time=5.21sec.
-[INFO] 03-20 11:57:01 - Epoch 196/200, loss=2.127019, score=0.308600, time=5.21sec.
-[INFO] 03-20 11:57:07 - Epoch 197/200, loss=2.128249, score=0.297400, time=5.21sec.
-[INFO] 03-20 11:57:14 - Epoch 198/200, loss=2.127385, score=0.307600, time=5.22sec.
-[INFO] 03-20 11:57:20 - Epoch 199/200, loss=2.126797, score=0.303200, time=5.21sec.
-[INFO] 03-20 11:57:26 - Epoch 200/200, loss=2.126540, score=0.310600, time=5.23sec.
-[INFO] 03-20 11:57:37 - eval_scores=[0.29375001788139343]
-[INFO] 03-20 11:57:37 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_200.pt.
+[INFO] 03-20 14:10:43 - Using device cuda:0.
+[INFO] 03-20 14:10:43 - Experiment tag: "LeNetLarge_STL10_Multi_1".
+[INFO] 03-20 14:10:43 - Number of trainable parameters: 623474.
+[INFO] 03-20 14:10:43 - criterion=MultiTaskCriterion
+[INFO] 03-20 14:10:43 -     weight=0.5000, criterion=CrossEntropyLoss()
+[INFO] 03-20 14:10:43 -     weight=0.5000, criterion=MappedMNISTCEL([4, 1, 7, 5, 3, 9, 0, 8, 6, 2]).
+[INFO] 03-20 14:10:43 - optimizer=SGD
+[INFO] 03-20 14:10:43 -     dampening=0
+[INFO] 03-20 14:10:43 -     foreach=None
+[INFO] 03-20 14:10:43 -     lr=0.001
+[INFO] 03-20 14:10:43 -     maximize=False
+[INFO] 03-20 14:10:43 -     momentum=0.9
+[INFO] 03-20 14:10:43 -     nesterov=False
+[INFO] 03-20 14:10:43 -     weight_decay=0
+[INFO] 03-20 14:10:43 - epochs=200.
+[INFO] 03-20 14:10:43 - batch_size=8.
+[INFO] 03-20 14:10:49 - Epoch 001/200, loss=2.302601, score=0.100000, time=5.59sec.
+[INFO] 03-20 14:10:58 - eval_scores=[0.10000000149011612]
+[INFO] 03-20 14:10:58 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_001.pt.
+[INFO] 03-20 14:11:02 - Epoch 002/200, loss=2.302600, score=0.100000, time=3.87sec.
+[INFO] 03-20 14:11:12 - eval_scores=[0.10000000149011612]
+[INFO] 03-20 14:11:12 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_002.pt.
+[INFO] 03-20 14:11:16 - Epoch 003/200, loss=2.302597, score=0.100000, time=3.89sec.
+[INFO] 03-20 14:11:26 - eval_scores=[0.10000000149011612]
+[INFO] 03-20 14:11:26 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_003.pt.
+[INFO] 03-20 14:11:30 - Epoch 004/200, loss=2.302596, score=0.100000, time=3.89sec.
+[INFO] 03-20 14:11:40 - eval_scores=[0.10000000149011612]
+[INFO] 03-20 14:11:40 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_004.pt.
+[INFO] 03-20 14:11:44 - Epoch 005/200, loss=2.302593, score=0.100000, time=3.87sec.
+[INFO] 03-20 14:11:54 - eval_scores=[0.10000000149011612]
+[INFO] 03-20 14:11:54 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_005.pt.
+[INFO] 03-20 14:11:58 - Epoch 006/200, loss=2.302591, score=0.100000, time=3.87sec.
+[INFO] 03-20 14:12:08 - eval_scores=[0.10000000149011612]
+[INFO] 03-20 14:12:08 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_006.pt.
+[INFO] 03-20 14:12:11 - Epoch 007/200, loss=2.302590, score=0.100000, time=3.90sec.
+[INFO] 03-20 14:12:21 - eval_scores=[0.10000000149011612]
+[INFO] 03-20 14:12:21 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_007.pt.
+[INFO] 03-20 14:12:25 - Epoch 008/200, loss=2.302587, score=0.100000, time=3.89sec.
+[INFO] 03-20 14:12:35 - eval_scores=[0.10000000149011612]
+[INFO] 03-20 14:12:35 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_008.pt.
+[INFO] 03-20 14:12:39 - Epoch 009/200, loss=2.302585, score=0.100000, time=3.92sec.
+[INFO] 03-20 14:12:49 - eval_scores=[0.10000000149011612]
+[INFO] 03-20 14:12:49 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_009.pt.
+[INFO] 03-20 14:12:53 - Epoch 010/200, loss=2.302583, score=0.100000, time=3.86sec.
+[INFO] 03-20 14:13:03 - eval_scores=[0.10000000149011612]
+[INFO] 03-20 14:13:03 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_010.pt.
+[INFO] 03-20 14:13:07 - Epoch 011/200, loss=2.302581, score=0.100000, time=3.87sec.
+[INFO] 03-20 14:13:11 - Epoch 012/200, loss=2.302580, score=0.100000, time=3.86sec.
+[INFO] 03-20 14:13:55 - Using device cuda:0.
+[INFO] 03-20 14:13:55 - Experiment tag: "LeNetLarge_STL10_Multi_1".
+[INFO] 03-20 14:13:55 - Number of trainable parameters: 623474.
+[INFO] 03-20 14:13:55 - criterion=MultiTaskCriterion
+[INFO] 03-20 14:13:55 -     weight=1.0000, criterion=CrossEntropyLoss()
+[INFO] 03-20 14:13:55 - optimizer=SGD
+[INFO] 03-20 14:13:55 -     dampening=0
+[INFO] 03-20 14:13:55 -     foreach=None
+[INFO] 03-20 14:13:55 -     lr=0.001
+[INFO] 03-20 14:13:55 -     maximize=False
+[INFO] 03-20 14:13:55 -     momentum=0.9
+[INFO] 03-20 14:13:55 -     nesterov=False
+[INFO] 03-20 14:13:55 -     weight_decay=0
+[INFO] 03-20 14:13:55 - epochs=200.
+[INFO] 03-20 14:13:55 - batch_size=8.
+[INFO] 03-20 14:14:00 - Epoch 001/200, loss=2.302639, score=0.100000, time=5.22sec.
+[INFO] 03-20 14:14:10 - eval_scores=[0.10000000149011612]
+[INFO] 03-20 14:14:10 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_001.pt.
+[INFO] 03-20 14:14:14 - Epoch 002/200, loss=2.302626, score=0.100000, time=3.76sec.
+[INFO] 03-20 14:14:24 - eval_scores=[0.10000000149011612]
+[INFO] 03-20 14:14:24 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_002.pt.
+[INFO] 03-20 14:14:27 - Epoch 003/200, loss=2.302613, score=0.100000, time=3.74sec.
+[INFO] 03-20 14:14:37 - eval_scores=[0.10000000149011612]
+[INFO] 03-20 14:14:37 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_003.pt.
+[INFO] 03-20 14:14:41 - Epoch 004/200, loss=2.302600, score=0.100000, time=3.75sec.
+[INFO] 03-20 14:14:51 - eval_scores=[0.10000000149011612]
+[INFO] 03-20 14:14:51 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_004.pt.
+[INFO] 03-20 14:14:55 - Epoch 005/200, loss=2.302588, score=0.100000, time=3.75sec.
+[INFO] 03-20 14:15:05 - eval_scores=[0.10000000149011612]
+[INFO] 03-20 14:15:05 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_005.pt.
+[INFO] 03-20 14:15:09 - Epoch 006/200, loss=2.302575, score=0.100000, time=3.75sec.
+[INFO] 03-20 14:15:18 - eval_scores=[0.10000000149011612]
+[INFO] 03-20 14:15:18 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_006.pt.
+[INFO] 03-20 14:15:22 - Epoch 007/200, loss=2.302560, score=0.100000, time=3.75sec.
+[INFO] 03-20 14:15:32 - eval_scores=[0.10000000149011612]
+[INFO] 03-20 14:15:32 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_007.pt.
+[INFO] 03-20 14:15:57 - Using device cuda:0.
+[INFO] 03-20 14:15:57 - Experiment tag: "LeNetLarge_STL10_Multi_1".
+[INFO] 03-20 14:15:57 - Number of trainable parameters: 623474.
+[INFO] 03-20 14:15:57 - criterion=MultiTaskCriterion
+[INFO] 03-20 14:15:57 -     weight=0.5000, criterion=CrossEntropyLoss()
+[INFO] 03-20 14:15:57 -     weight=0.5000, criterion=MappedMNISTCEL([4, 1, 7, 5, 3, 9, 0, 8, 6, 2]).
+[INFO] 03-20 14:15:57 - optimizer=SGD
+[INFO] 03-20 14:15:57 -     dampening=0
+[INFO] 03-20 14:15:57 -     foreach=None
+[INFO] 03-20 14:15:57 -     lr=0.01
+[INFO] 03-20 14:15:57 -     maximize=False
+[INFO] 03-20 14:15:57 -     momentum=0.9
+[INFO] 03-20 14:15:57 -     nesterov=False
+[INFO] 03-20 14:15:57 -     weight_decay=0
+[INFO] 03-20 14:15:57 - epochs=200.
+[INFO] 03-20 14:15:57 - batch_size=8.
+[INFO] 03-20 14:16:03 - Epoch 001/200, loss=2.302638, score=0.099200, time=5.73sec.
+[INFO] 03-20 14:16:13 - eval_scores=[0.11150000244379044]
+[INFO] 03-20 14:16:13 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_001.pt.
+[INFO] 03-20 14:16:17 - Epoch 002/200, loss=2.302622, score=0.102000, time=3.91sec.
+[INFO] 03-20 14:16:27 - eval_scores=[0.10387500375509262]
+[INFO] 03-20 14:16:27 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_002.pt.
+[INFO] 03-20 14:16:31 - Epoch 003/200, loss=2.302579, score=0.108200, time=3.90sec.
+[INFO] 03-20 14:16:41 - eval_scores=[0.10037500411272049]
+[INFO] 03-20 14:16:41 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_003.pt.
+[INFO] 03-20 14:16:45 - Epoch 004/200, loss=2.302477, score=0.108400, time=3.89sec.
+[INFO] 03-20 14:16:55 - eval_scores=[0.09587500244379044]
+[INFO] 03-20 14:16:55 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_004.pt.
+[INFO] 03-20 14:16:59 - Epoch 005/200, loss=2.301831, score=0.091600, time=3.89sec.
+[INFO] 03-20 14:17:08 - eval_scores=[0.1028750017285347]
+[INFO] 03-20 14:17:09 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_005.pt.
+[INFO] 03-20 14:17:12 - Epoch 006/200, loss=2.293630, score=0.101200, time=3.92sec.
+[INFO] 03-20 14:17:23 - eval_scores=[0.09712500125169754]
+[INFO] 03-20 14:17:23 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_006.pt.
+[INFO] 03-20 14:17:26 - Epoch 007/200, loss=2.284459, score=0.101600, time=3.90sec.
+[INFO] 03-20 14:17:37 - eval_scores=[0.10900000482797623]
+[INFO] 03-20 14:17:37 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_007.pt.
+[INFO] 03-20 14:17:41 - Epoch 008/200, loss=2.281008, score=0.129800, time=3.92sec.
+[INFO] 03-20 14:17:51 - eval_scores=[0.1172500029206276]
+[INFO] 03-20 14:17:51 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_008.pt.
+[INFO] 03-20 14:17:55 - Epoch 009/200, loss=2.277773, score=0.115600, time=3.94sec.
+[INFO] 03-20 14:18:05 - eval_scores=[0.11600000411272049]
+[INFO] 03-20 14:18:05 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_009.pt.
+[INFO] 03-20 14:18:09 - Epoch 010/200, loss=2.274965, score=0.112000, time=3.93sec.
+[INFO] 03-20 14:18:19 - eval_scores=[0.12575000524520874]
+[INFO] 03-20 14:18:19 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_010.pt.
+[INFO] 03-20 14:18:23 - Epoch 011/200, loss=2.271115, score=0.133400, time=3.91sec.
+[INFO] 03-20 14:18:27 - Epoch 012/200, loss=2.263739, score=0.139800, time=3.94sec.
+[INFO] 03-20 14:18:31 - Epoch 013/200, loss=2.255342, score=0.151200, time=3.90sec.
+[INFO] 03-20 14:18:35 - Epoch 014/200, loss=2.247349, score=0.179800, time=3.92sec.
+[INFO] 03-20 14:18:39 - Epoch 015/200, loss=2.242429, score=0.171600, time=3.94sec.
+[INFO] 03-20 14:18:49 - eval_scores=[0.17000000178813934]
+[INFO] 03-20 14:18:49 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_015.pt.
+[INFO] 03-20 14:18:53 - Epoch 016/200, loss=2.236267, score=0.170600, time=3.93sec.
+[INFO] 03-20 14:18:57 - Epoch 017/200, loss=2.234525, score=0.186200, time=3.92sec.
+[INFO] 03-20 14:19:01 - Epoch 018/200, loss=2.229808, score=0.199800, time=3.89sec.
+[INFO] 03-20 14:19:05 - Epoch 019/200, loss=2.229938, score=0.218000, time=3.92sec.
+[INFO] 03-20 14:19:09 - Epoch 020/200, loss=2.223856, score=0.210800, time=3.91sec.
+[INFO] 03-20 14:19:20 - eval_scores=[0.19962501525878906]
+[INFO] 03-20 14:19:20 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_020.pt.
+[INFO] 03-20 14:19:24 - Epoch 021/200, loss=2.224418, score=0.210600, time=4.12sec.
+[INFO] 03-20 14:19:28 - Epoch 022/200, loss=2.220771, score=0.216000, time=4.23sec.
+[INFO] 03-20 14:19:32 - Epoch 023/200, loss=2.218185, score=0.226400, time=3.82sec.
+[INFO] 03-20 14:19:36 - Epoch 024/200, loss=2.215613, score=0.233800, time=3.87sec.
+[INFO] 03-20 14:19:40 - Epoch 025/200, loss=2.219591, score=0.219200, time=3.90sec.
+[INFO] 03-20 14:19:51 - eval_scores=[0.2553749978542328]
+[INFO] 03-20 14:19:51 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_025.pt.
+[INFO] 03-20 14:19:55 - Epoch 026/200, loss=2.212309, score=0.233000, time=4.04sec.
+[INFO] 03-20 14:19:59 - Epoch 027/200, loss=2.210106, score=0.242400, time=4.03sec.
+[INFO] 03-20 14:20:04 - Epoch 028/200, loss=2.209274, score=0.246800, time=4.10sec.
+[INFO] 03-20 14:20:08 - Epoch 029/200, loss=2.207221, score=0.243000, time=3.99sec.
+[INFO] 03-20 14:20:12 - Epoch 030/200, loss=2.207264, score=0.248800, time=3.87sec.
+[INFO] 03-20 14:20:22 - eval_scores=[0.2540000081062317]
+[INFO] 03-20 14:20:22 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_030.pt.
+[INFO] 03-20 14:20:26 - Epoch 031/200, loss=2.203160, score=0.251600, time=3.94sec.
+[INFO] 03-20 14:20:30 - Epoch 032/200, loss=2.202171, score=0.257800, time=3.90sec.
+[INFO] 03-20 14:20:34 - Epoch 033/200, loss=2.200962, score=0.262800, time=3.93sec.
+[INFO] 03-20 14:20:38 - Epoch 034/200, loss=2.200870, score=0.251200, time=3.92sec.
+[INFO] 03-20 14:20:43 - Epoch 035/200, loss=2.199221, score=0.259200, time=3.99sec.
+[INFO] 03-20 14:20:53 - eval_scores=[0.26512500643730164]
+[INFO] 03-20 14:20:53 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_035.pt.
+[INFO] 03-20 14:20:58 - Epoch 036/200, loss=2.197904, score=0.251000, time=4.09sec.
+[INFO] 03-20 14:21:02 - Epoch 037/200, loss=2.197454, score=0.248000, time=4.09sec.
+[INFO] 03-20 14:21:06 - Epoch 038/200, loss=2.194111, score=0.268400, time=4.09sec.
+[INFO] 03-20 14:21:11 - Epoch 039/200, loss=2.194291, score=0.258600, time=4.14sec.
+[INFO] 03-20 14:21:15 - Epoch 040/200, loss=2.189747, score=0.265600, time=4.10sec.
+[INFO] 03-20 14:21:26 - eval_scores=[0.2513750195503235]
+[INFO] 03-20 14:21:26 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_040.pt.
+[INFO] 03-20 14:21:31 - Epoch 041/200, loss=2.190519, score=0.269600, time=3.93sec.
+[INFO] 03-20 14:21:35 - Epoch 042/200, loss=2.187954, score=0.267800, time=4.01sec.
+[INFO] 03-20 14:21:39 - Epoch 043/200, loss=2.191129, score=0.271400, time=4.03sec.
+[INFO] 03-20 14:21:43 - Epoch 044/200, loss=2.188235, score=0.259600, time=3.99sec.
+[INFO] 03-20 14:21:48 - Epoch 045/200, loss=2.184376, score=0.264000, time=4.13sec.
+[INFO] 03-20 14:21:59 - eval_scores=[0.22287501394748688]
+[INFO] 03-20 14:21:59 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_045.pt.
+[INFO] 03-20 14:22:03 - Epoch 046/200, loss=2.184392, score=0.268400, time=4.12sec.
+[INFO] 03-20 14:22:08 - Epoch 047/200, loss=2.182085, score=0.271400, time=4.14sec.
+[INFO] 03-20 14:22:12 - Epoch 048/200, loss=2.180706, score=0.268000, time=4.29sec.
+[INFO] 03-20 14:22:17 - Epoch 049/200, loss=2.180840, score=0.276800, time=4.22sec.
+[INFO] 03-20 14:22:21 - Epoch 050/200, loss=2.178740, score=0.291200, time=4.15sec.
+[INFO] 03-20 14:22:31 - eval_scores=[0.2521250247955322]
+[INFO] 03-20 14:22:31 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_050.pt.
+[INFO] 03-20 14:22:36 - Epoch 051/200, loss=2.176429, score=0.267000, time=3.94sec.
+[INFO] 03-20 14:22:40 - Epoch 052/200, loss=2.179039, score=0.273800, time=3.91sec.
+[INFO] 03-20 14:22:44 - Epoch 053/200, loss=2.173193, score=0.284400, time=3.94sec.
+[INFO] 03-20 14:22:48 - Epoch 054/200, loss=2.172518, score=0.280400, time=3.95sec.
+[INFO] 03-20 14:22:53 - Epoch 055/200, loss=2.169887, score=0.278200, time=3.93sec.
+[INFO] 03-20 14:23:03 - eval_scores=[0.28075000643730164]
+[INFO] 03-20 14:23:03 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_055.pt.
+[INFO] 03-20 14:23:07 - Epoch 056/200, loss=2.170043, score=0.283000, time=4.14sec.
+[INFO] 03-20 14:23:12 - Epoch 057/200, loss=2.167414, score=0.273200, time=4.06sec.
+[INFO] 03-20 14:23:16 - Epoch 058/200, loss=2.166121, score=0.285200, time=4.16sec.
+[INFO] 03-20 14:23:20 - Epoch 059/200, loss=2.167823, score=0.281400, time=3.98sec.
+[INFO] 03-20 14:23:25 - Epoch 060/200, loss=2.161045, score=0.287600, time=3.92sec.
+[INFO] 03-20 14:23:35 - eval_scores=[0.28550001978874207]
+[INFO] 03-20 14:23:35 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_060.pt.
+[INFO] 03-20 14:23:39 - Epoch 061/200, loss=2.174948, score=0.281800, time=3.93sec.
+[INFO] 03-20 14:23:43 - Epoch 062/200, loss=2.161154, score=0.300800, time=4.03sec.
+[INFO] 03-20 14:23:48 - Epoch 063/200, loss=2.162033, score=0.288600, time=4.01sec.
+[INFO] 03-20 14:23:52 - Epoch 064/200, loss=2.163036, score=0.287600, time=3.94sec.
+[INFO] 03-20 14:23:56 - Epoch 065/200, loss=2.162382, score=0.292000, time=4.05sec.
+[INFO] 03-20 14:24:07 - eval_scores=[0.2748750150203705]
+[INFO] 03-20 14:24:07 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_065.pt.
+[INFO] 03-20 14:24:12 - Epoch 066/200, loss=2.157431, score=0.295400, time=3.95sec.
+[INFO] 03-20 14:24:16 - Epoch 067/200, loss=2.156122, score=0.300800, time=3.94sec.
+[INFO] 03-20 14:24:20 - Epoch 068/200, loss=2.156157, score=0.306600, time=3.92sec.
+[INFO] 03-20 14:24:25 - Epoch 069/200, loss=2.153395, score=0.310200, time=3.95sec.
+[INFO] 03-20 14:24:29 - Epoch 070/200, loss=2.160287, score=0.287600, time=3.91sec.
+[INFO] 03-20 14:24:40 - eval_scores=[0.2710000276565552]
+[INFO] 03-20 14:24:40 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_070.pt.
+[INFO] 03-20 14:24:44 - Epoch 071/200, loss=2.152407, score=0.298400, time=4.15sec.
+[INFO] 03-20 14:24:48 - Epoch 072/200, loss=2.152909, score=0.292200, time=3.84sec.
+[INFO] 03-20 14:24:53 - Epoch 073/200, loss=2.148517, score=0.305600, time=3.93sec.
+[INFO] 03-20 14:24:57 - Epoch 074/200, loss=2.154472, score=0.285200, time=3.94sec.
+[INFO] 03-20 14:25:01 - Epoch 075/200, loss=2.145422, score=0.311600, time=3.92sec.
+[INFO] 03-20 14:25:12 - eval_scores=[0.2723750174045563]
+[INFO] 03-20 14:25:12 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_075.pt.
+[INFO] 03-20 14:25:16 - Epoch 076/200, loss=2.145681, score=0.310000, time=3.92sec.
+[INFO] 03-20 14:25:20 - Epoch 077/200, loss=2.146147, score=0.297800, time=3.93sec.
+[INFO] 03-20 14:25:25 - Epoch 078/200, loss=2.146787, score=0.295200, time=3.93sec.
+[INFO] 03-20 14:25:29 - Epoch 079/200, loss=2.145816, score=0.301800, time=3.96sec.
+[INFO] 03-20 14:25:33 - Epoch 080/200, loss=2.142193, score=0.308400, time=3.94sec.
+[INFO] 03-20 14:25:43 - eval_scores=[0.2722500264644623]
+[INFO] 03-20 14:25:43 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_080.pt.
+[INFO] 03-20 14:25:48 - Epoch 081/200, loss=2.140953, score=0.312000, time=3.95sec.
+[INFO] 03-20 14:25:52 - Epoch 082/200, loss=2.142603, score=0.305200, time=3.95sec.
+[INFO] 03-20 14:25:57 - Epoch 083/200, loss=2.149547, score=0.301800, time=4.03sec.
+[INFO] 03-20 14:26:01 - Epoch 084/200, loss=2.139169, score=0.304600, time=4.13sec.
+[INFO] 03-20 14:26:06 - Epoch 085/200, loss=2.142748, score=0.314200, time=4.15sec.
+[INFO] 03-20 14:26:17 - eval_scores=[0.2955000102519989]
+[INFO] 03-20 14:26:17 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_085.pt.
+[INFO] 03-20 14:26:22 - Epoch 086/200, loss=2.136677, score=0.317200, time=4.13sec.
+[INFO] 03-20 14:26:26 - Epoch 087/200, loss=2.137177, score=0.313000, time=4.14sec.
+[INFO] 03-20 14:26:31 - Epoch 088/200, loss=2.140779, score=0.314200, time=4.15sec.
+[INFO] 03-20 14:26:36 - Epoch 089/200, loss=2.133252, score=0.318600, time=4.10sec.
+[INFO] 03-20 14:26:40 - Epoch 090/200, loss=2.135588, score=0.305600, time=3.87sec.
+[INFO] 03-20 14:26:50 - eval_scores=[0.320125013589859]
+[INFO] 03-20 14:26:50 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_090.pt.
+[INFO] 03-20 14:26:54 - Epoch 091/200, loss=2.129232, score=0.313600, time=3.91sec.
+[INFO] 03-20 14:26:59 - Epoch 092/200, loss=2.136665, score=0.315000, time=3.92sec.
+[INFO] 03-20 14:27:03 - Epoch 093/200, loss=2.127792, score=0.327200, time=3.95sec.
+[INFO] 03-20 14:27:08 - Epoch 094/200, loss=2.123971, score=0.317200, time=3.96sec.
+[INFO] 03-20 14:27:12 - Epoch 095/200, loss=2.124429, score=0.330600, time=3.96sec.
+[INFO] 03-20 14:27:22 - eval_scores=[0.28812500834465027]
+[INFO] 03-20 14:27:22 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_095.pt.
+[INFO] 03-20 14:27:27 - Epoch 096/200, loss=2.130955, score=0.305600, time=3.95sec.
+[INFO] 03-20 14:27:31 - Epoch 097/200, loss=2.124110, score=0.321000, time=3.93sec.
+[INFO] 03-20 14:27:36 - Epoch 098/200, loss=2.123672, score=0.320200, time=3.95sec.
+[INFO] 03-20 14:27:40 - Epoch 099/200, loss=2.119148, score=0.331000, time=3.94sec.
+[INFO] 03-20 14:27:45 - Epoch 100/200, loss=2.123404, score=0.328600, time=3.95sec.
+[INFO] 03-20 14:27:55 - eval_scores=[0.2938750088214874]
+[INFO] 03-20 14:27:55 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_100.pt.
+[INFO] 03-20 14:27:59 - Epoch 101/200, loss=2.121617, score=0.321800, time=3.94sec.
+[INFO] 03-20 14:28:04 - Epoch 102/200, loss=2.126808, score=0.313000, time=3.95sec.
+[INFO] 03-20 14:28:08 - Epoch 103/200, loss=2.130834, score=0.329400, time=3.95sec.
+[INFO] 03-20 14:28:13 - Epoch 104/200, loss=2.120313, score=0.330000, time=3.95sec.
+[INFO] 03-20 14:28:17 - Epoch 105/200, loss=2.117947, score=0.332200, time=3.95sec.
+[INFO] 03-20 14:28:22 - Epoch 106/200, loss=2.118617, score=0.318600, time=3.94sec.
+[INFO] 03-20 14:28:26 - Epoch 107/200, loss=2.118033, score=0.331000, time=3.91sec.
+[INFO] 03-20 14:28:31 - Epoch 108/200, loss=2.113512, score=0.330800, time=3.93sec.
+[INFO] 03-20 14:28:36 - Epoch 109/200, loss=2.115689, score=0.329800, time=3.99sec.
+[INFO] 03-20 14:28:40 - Epoch 110/200, loss=2.116169, score=0.326800, time=3.95sec.
+[INFO] 03-20 14:28:45 - Epoch 111/200, loss=2.113356, score=0.338200, time=3.96sec.
+[INFO] 03-20 14:28:49 - Epoch 112/200, loss=2.112576, score=0.335200, time=3.90sec.
+[INFO] 03-20 14:28:54 - Epoch 113/200, loss=2.109453, score=0.333000, time=3.93sec.
+[INFO] 03-20 14:28:58 - Epoch 114/200, loss=2.109173, score=0.334600, time=3.93sec.
+[INFO] 03-20 14:29:03 - Epoch 115/200, loss=2.107258, score=0.334000, time=3.93sec.
+[INFO] 03-20 14:29:07 - Epoch 116/200, loss=2.102857, score=0.342000, time=3.95sec.
+[INFO] 03-20 14:29:12 - Epoch 117/200, loss=2.101369, score=0.345000, time=3.94sec.
+[INFO] 03-20 14:29:17 - Epoch 118/200, loss=2.103606, score=0.338800, time=3.95sec.
+[INFO] 03-20 14:29:21 - Epoch 119/200, loss=2.101819, score=0.333600, time=3.94sec.
+[INFO] 03-20 14:29:26 - Epoch 120/200, loss=2.099508, score=0.339600, time=3.95sec.
+[INFO] 03-20 14:29:30 - Epoch 121/200, loss=2.098775, score=0.344400, time=3.95sec.
+[INFO] 03-20 14:29:35 - Epoch 122/200, loss=2.099924, score=0.349600, time=3.96sec.
+[INFO] 03-20 14:29:40 - Epoch 123/200, loss=2.111211, score=0.315600, time=3.96sec.
+[INFO] 03-20 14:29:44 - Epoch 124/200, loss=2.096475, score=0.340400, time=3.93sec.
+[INFO] 03-20 14:29:49 - Epoch 125/200, loss=2.095185, score=0.352800, time=3.95sec.
+[INFO] 03-20 14:29:59 - eval_scores=[0.3320000171661377]
+[INFO] 03-20 14:29:59 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_125.pt.
+[INFO] 03-20 14:30:04 - Epoch 126/200, loss=2.096578, score=0.353800, time=3.94sec.
+[INFO] 03-20 14:30:08 - Epoch 127/200, loss=2.089187, score=0.358000, time=3.94sec.
+[INFO] 03-20 14:30:13 - Epoch 128/200, loss=2.092757, score=0.340000, time=3.95sec.
+[INFO] 03-20 14:30:18 - Epoch 129/200, loss=2.096018, score=0.338400, time=3.92sec.
+[INFO] 03-20 14:30:22 - Epoch 130/200, loss=2.089080, score=0.349200, time=3.96sec.
+[INFO] 03-20 14:30:27 - Epoch 131/200, loss=2.084503, score=0.360000, time=3.94sec.
+[INFO] 03-20 14:30:32 - Epoch 132/200, loss=2.082856, score=0.363400, time=3.96sec.
+[INFO] 03-20 14:30:36 - Epoch 133/200, loss=2.090040, score=0.352600, time=3.95sec.
+[INFO] 03-20 14:30:41 - Epoch 134/200, loss=2.083441, score=0.361200, time=3.93sec.
+[INFO] 03-20 14:30:46 - Epoch 135/200, loss=2.084504, score=0.357000, time=3.93sec.
+[INFO] 03-20 14:30:50 - Epoch 136/200, loss=2.086465, score=0.354000, time=3.94sec.
+[INFO] 03-20 14:30:55 - Epoch 137/200, loss=2.082645, score=0.357800, time=3.95sec.
+[INFO] 03-20 14:31:00 - Epoch 138/200, loss=2.082654, score=0.368200, time=3.94sec.
+[INFO] 03-20 14:31:04 - Epoch 139/200, loss=2.078247, score=0.366000, time=3.91sec.
+[INFO] 03-20 14:31:10 - Epoch 140/200, loss=2.082335, score=0.366200, time=4.01sec.
+[INFO] 03-20 14:31:14 - Epoch 141/200, loss=2.081148, score=0.364200, time=3.95sec.
+[INFO] 03-20 14:31:19 - Epoch 142/200, loss=2.076028, score=0.363600, time=3.94sec.
+[INFO] 03-20 14:31:24 - Epoch 143/200, loss=2.079823, score=0.358800, time=3.94sec.
+[INFO] 03-20 14:31:28 - Epoch 144/200, loss=2.075300, score=0.370200, time=3.94sec.
+[INFO] 03-20 14:31:33 - Epoch 145/200, loss=2.070051, score=0.374200, time=3.93sec.
+[INFO] 03-20 14:31:38 - Epoch 146/200, loss=2.073051, score=0.377400, time=3.92sec.
+[INFO] 03-20 14:31:43 - Epoch 147/200, loss=2.070209, score=0.363400, time=3.92sec.
+[INFO] 03-20 14:31:47 - Epoch 148/200, loss=2.069221, score=0.372800, time=3.94sec.
+[INFO] 03-20 14:31:52 - Epoch 149/200, loss=2.071175, score=0.372600, time=3.95sec.
+[INFO] 03-20 14:31:57 - Epoch 150/200, loss=2.067338, score=0.373000, time=3.90sec.
+[INFO] 03-20 14:32:07 - eval_scores=[0.3227500021457672]
+[INFO] 03-20 14:32:07 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_150.pt.
+[INFO] 03-20 14:32:12 - Epoch 151/200, loss=2.065053, score=0.379200, time=3.95sec.
+[INFO] 03-20 14:32:16 - Epoch 152/200, loss=2.069460, score=0.375200, time=3.94sec.
+[INFO] 03-20 14:32:21 - Epoch 153/200, loss=2.072472, score=0.373000, time=3.94sec.
+[INFO] 03-20 14:32:26 - Epoch 154/200, loss=2.070941, score=0.361400, time=3.93sec.
+[INFO] 03-20 14:32:31 - Epoch 155/200, loss=2.063178, score=0.370800, time=3.93sec.
+[INFO] 03-20 14:32:36 - Epoch 156/200, loss=2.059461, score=0.382800, time=3.98sec.
+[INFO] 03-20 14:32:41 - Epoch 157/200, loss=2.060433, score=0.379000, time=3.95sec.
+[INFO] 03-20 14:32:45 - Epoch 158/200, loss=2.060136, score=0.373000, time=3.92sec.
+[INFO] 03-20 14:32:50 - Epoch 159/200, loss=2.061428, score=0.383400, time=3.94sec.
+[INFO] 03-20 14:32:55 - Epoch 160/200, loss=2.058201, score=0.384800, time=3.94sec.
+[INFO] 03-20 14:33:00 - Epoch 161/200, loss=2.059178, score=0.376600, time=3.95sec.
+[INFO] 03-20 14:33:05 - Epoch 162/200, loss=2.055389, score=0.394600, time=3.92sec.
+[INFO] 03-20 14:33:09 - Epoch 163/200, loss=2.056024, score=0.381400, time=3.94sec.
+[INFO] 03-20 14:33:14 - Epoch 164/200, loss=2.057998, score=0.375400, time=3.91sec.
+[INFO] 03-20 14:33:19 - Epoch 165/200, loss=2.059501, score=0.374000, time=3.96sec.
+[INFO] 03-20 14:33:24 - Epoch 166/200, loss=2.054848, score=0.386000, time=3.91sec.
+[INFO] 03-20 14:33:29 - Epoch 167/200, loss=2.054793, score=0.388600, time=3.95sec.
+[INFO] 03-20 14:33:34 - Epoch 168/200, loss=2.052631, score=0.377800, time=3.90sec.
+[INFO] 03-20 14:33:38 - Epoch 169/200, loss=2.066973, score=0.369800, time=3.93sec.
+[INFO] 03-20 14:33:43 - Epoch 170/200, loss=2.050874, score=0.390400, time=3.94sec.
+[INFO] 03-20 14:33:48 - Epoch 171/200, loss=2.049730, score=0.381600, time=3.94sec.
+[INFO] 03-20 14:33:53 - Epoch 172/200, loss=2.049009, score=0.383200, time=3.94sec.
+[INFO] 03-20 14:33:58 - Epoch 173/200, loss=2.045680, score=0.387600, time=3.94sec.
+[INFO] 03-20 14:34:03 - Epoch 174/200, loss=2.042140, score=0.399000, time=3.93sec.
+[INFO] 03-20 14:34:08 - Epoch 175/200, loss=2.050835, score=0.386800, time=3.93sec.
+[INFO] 03-20 14:34:18 - eval_scores=[0.3141250014305115]
+[INFO] 03-20 14:34:18 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_175.pt.
+[INFO] 03-20 14:34:23 - Epoch 176/200, loss=2.045255, score=0.386600, time=3.95sec.
+[INFO] 03-20 14:34:28 - Epoch 177/200, loss=2.039908, score=0.398800, time=3.97sec.
+[INFO] 03-20 14:34:33 - Epoch 178/200, loss=2.042060, score=0.399600, time=3.93sec.
+[INFO] 03-20 14:34:38 - Epoch 179/200, loss=2.044636, score=0.391800, time=3.94sec.
+[INFO] 03-20 14:34:43 - Epoch 180/200, loss=2.037482, score=0.401200, time=4.01sec.
+[INFO] 03-20 14:34:48 - Epoch 181/200, loss=2.035407, score=0.403000, time=3.95sec.
+[INFO] 03-20 14:34:53 - Epoch 182/200, loss=2.047786, score=0.393200, time=3.95sec.
+[INFO] 03-20 14:34:58 - Epoch 183/200, loss=2.049121, score=0.385600, time=3.94sec.
+[INFO] 03-20 14:35:03 - Epoch 184/200, loss=2.045051, score=0.391800, time=3.93sec.
+[INFO] 03-20 14:35:08 - Epoch 185/200, loss=2.042646, score=0.399400, time=3.94sec.
+[INFO] 03-20 14:35:13 - Epoch 186/200, loss=2.039446, score=0.403200, time=3.94sec.
+[INFO] 03-20 14:35:18 - Epoch 187/200, loss=2.037876, score=0.398200, time=3.94sec.
+[INFO] 03-20 14:35:22 - Epoch 188/200, loss=2.036106, score=0.402200, time=3.92sec.
+[INFO] 03-20 14:35:27 - Epoch 189/200, loss=2.030404, score=0.402800, time=3.92sec.
+[INFO] 03-20 14:35:32 - Epoch 190/200, loss=2.031003, score=0.406400, time=3.95sec.
+[INFO] 03-20 14:35:37 - Epoch 191/200, loss=2.034926, score=0.404800, time=3.90sec.
+[INFO] 03-20 14:35:42 - Epoch 192/200, loss=2.034645, score=0.403200, time=3.93sec.
+[INFO] 03-20 14:35:47 - Epoch 193/200, loss=2.031631, score=0.409200, time=3.94sec.
+[INFO] 03-20 14:35:52 - Epoch 194/200, loss=2.031957, score=0.407200, time=3.92sec.
+[INFO] 03-20 14:35:57 - Epoch 195/200, loss=2.025871, score=0.406000, time=3.93sec.
+[INFO] 03-20 14:36:02 - Epoch 196/200, loss=2.029920, score=0.410200, time=3.92sec.
+[INFO] 03-20 14:36:07 - Epoch 197/200, loss=2.029560, score=0.400600, time=3.91sec.
+[INFO] 03-20 14:36:13 - Epoch 198/200, loss=2.027087, score=0.406200, time=3.92sec.
+[INFO] 03-20 14:36:18 - Epoch 199/200, loss=2.027609, score=0.401000, time=3.93sec.
+[INFO] 03-20 14:36:23 - Epoch 200/200, loss=2.024340, score=0.417800, time=3.92sec.
+[INFO] 03-20 14:36:33 - eval_scores=[0.3036250174045563]
+[INFO] 03-20 14:36:33 - Saved model to saved_models/LeNetLarge_STL10_Multi_1/checkpoints/checkpoint_200.pt.
