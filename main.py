@@ -140,7 +140,24 @@ def main(args):
     # plt.hist(inner_products, bins=100)
     # plt.savefig(os.path.join("saved_images", "inner_products_inputs", f'{args.checkpoint}.png'))
 
-    gmi = explanation.gradients.GradientModelInputs(model=model, layer_idx=0)
+    # gmi = explanation.gradients.GradientModelInputs(model=model, layer_idx=0)
+    # iterator = iter(exp_dataloader)
+    # for idx in tqdm(range(num_examples)):
+    #     image, label = next(iterator)
+    #     image, label = image.to(device), label.to(device)
+    #     output = gmi.update(image)
+    #     gradient_tensor_list = torch.stack([gmi(criterion_gradient(inputs=output, labels=label))
+    #         for criterion_gradient in criterion_gradient_list], dim=0)
+    #     inner_product_map = torch.prod(gradient_tensor_list, dim=0)
+    #     assert len(inner_product_map.shape) == 4, f"{inner_product_map.shape=}"
+    #     fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(20, 10))
+    #     im1 = utils.plot.imshow_tensor(ax=ax1, tensor=image)
+    #     im2 = utils.plot.imshow_tensor(ax=ax2, tensor=inner_product_map)
+    #     fig.colorbar(im2)
+    #     filepath = os.path.join("saved_images", "inner_product_maps", f"class_{label.item()}", f"example_{idx:03d}.png")
+    #     plt.savefig(filepath)
+
+    gmi = explanation.gradients.GradientModelInputs(model=model, layer_idx=4)
     iterator = iter(exp_dataloader)
     for idx in tqdm(range(num_examples)):
         image, label = next(iterator)
@@ -148,7 +165,9 @@ def main(args):
         output = gmi.update(image)
         gradient_tensor_list = torch.stack([gmi(criterion_gradient(inputs=output, labels=label))
             for criterion_gradient in criterion_gradient_list], dim=0)
-        inner_product_map = torch.prod(gradient_tensor_list, dim=0)
+        coefficients = torch.prod(gradient_tensor_list, dim=0, keepdim=False)
+        assert len(coefficients.shape) == 4, f"{coefficients.shape=}"
+        coefficients = torch.sum(coefficients, dim=0)
         assert len(inner_product_map.shape) == 4, f"{inner_product_map.shape=}"
         fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(20, 10))
         im1 = utils.plot.imshow_tensor(ax=ax1, tensor=image)
