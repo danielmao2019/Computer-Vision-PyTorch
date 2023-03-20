@@ -52,7 +52,7 @@ class GradientModelInputs(torch.nn.Module):
 
     def register_forward_hook(self, layer_idx, hook):
         layer = list(self.model.children())[layer_idx]
-        assert len(layer._forward_hooks) == 0, f"{layer_idx=}, {layer._forward_hooks=}"
+        assert len(layer._forward_hooks) == 0, f"{layer_idx=}, {type(layer)=}, {layer._forward_hooks=}"
         self.hooks[layer_idx] = layer.register_forward_hook(hook)
         return self
 

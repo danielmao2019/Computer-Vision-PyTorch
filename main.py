@@ -157,7 +157,10 @@ def main(args):
     #     filepath = os.path.join("saved_images", "inner_product_maps", f"class_{label.item()}", f"example_{idx:03d}.png")
     #     plt.savefig(filepath)
 
-    gmi = explanation.gradients.GradientModelInputs(model=model, layer_idx=4)
+    gmi = explanation.gradients.GradientModelInputs(model=model, layer_idx=3)
+    def forward_hook(module, inputs, outputs):
+        gmi.memory[3] = inputs[0].detach()
+    gmi.register_forward_hook(layer_idx=3, hook=forward_hook)
     iterator = iter(exp_dataloader)
     for idx in tqdm(range(num_examples)):
         image, label = next(iterator)
@@ -165,15 +168,20 @@ def main(args):
         output = gmi.update(image)
         gradient_tensor_list = torch.stack([gmi(criterion_gradient(inputs=output, labels=label))
             for criterion_gradient in criterion_gradient_list], dim=0)
-        coefficients = torch.prod(gradient_tensor_list, dim=0, keepdim=False)
+        coefficients = torch.prod(gradient_tensor_list, dim=0, keepdim=True)
+        assert len(coefficients.shape) == 5, f"{coefficients.shape=}"
+        coefficients = torch.sum(coefficients, dim=0, keepdim=False)
         assert len(coefficients.shape) == 4, f"{coefficients.shape=}"
-        coefficients = torch.sum(coefficients, dim=0)
-        assert len(inner_product_map.shape) == 4, f"{inner_product_map.shape=}"
+        coefficients = torch.mean(coefficients, dim=[2, 3], keepdim=False)
+        activations = gmi.memory[3]
+        assert activations.shape[:2] == coefficients.shape
+        comb = torch.sum(activations * torch.unsqueeze(torch.unsqueeze(coefficients, dim=2), dim=3), dim=1, keepdim=True)
+        assert len(comb.shape) == 4 and comb.shape[0] == comb.shape[1] == 1
         fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(20, 10))
         im1 = utils.plot.imshow_tensor(ax=ax1, tensor=image)
-        im2 = utils.plot.imshow_tensor(ax=ax2, tensor=inner_product_map)
+        im2 = utils.plot.imshow_tensor(ax=ax2, tensor=comb)
         fig.colorbar(im2)
-        filepath = os.path.join("saved_images", "inner_product_maps", f"class_{label.item()}", f"example_{idx:03d}.png")
+        filepath = os.path.join("saved_images", "comb", f"class_{label.item()}", f"example_{idx:03d}.png")
         plt.savefig(filepath)
 
     ##################################################
