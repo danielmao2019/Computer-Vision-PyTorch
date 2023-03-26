@@ -165,7 +165,7 @@ def main(args):
     #     filepath = os.path.join("saved_images", "inner_product_maps", f"class_{label.item()}", f"example_{idx:03d}.png")
     #     plt.savefig(filepath)
 
-    layer_idx = 5
+    layer_idx = int(args.layeridx)
     gmi = explanation.gradients.GradientModelInputs(model=model, layer_idx=layer_idx)
     def forward_hook(module, inputs, outputs):
         gmi.memory[layer_idx] = inputs[0].detach()
@@ -175,22 +175,37 @@ def main(args):
         image, label = next(iterator)
         image, label = image.to(device), label.to(device)
         output = gmi.update(image)
-        gradient_tensor_list = torch.stack([gmi(criterion_gradient(inputs=output, labels=label))
+        gradient_tensor_list = torch.cat([gmi(criterion_gradient(inputs=output, labels=label))
             for criterion_gradient in criterion_gradient_list], dim=0)
+        assert len(gradient_tensor_list.shape) == 4
+        assert gradient_tensor_list.shape[0] == len(criterion_gradient_list)
         coefficients = torch.prod(gradient_tensor_list, dim=0, keepdim=True)
-        assert len(coefficients.shape) == 5, f"{coefficients.shape=}"
-        coefficients = torch.sum(coefficients, dim=0, keepdim=False)
         assert len(coefficients.shape) == 4, f"{coefficients.shape=}"
-        coefficients = torch.mean(coefficients, dim=[2, 3], keepdim=False)
+        assert coefficients.shape[0] == 1
+        coefficients = torch.mean(coefficients, dim=[2, 3], keepdim=True)
+        assert len(coefficients.shape) == 4, f"{coefficients.shape=}"
+        assert coefficients.shape[2] == coefficients.shape[3] == 1
         activations = gmi.memory[layer_idx]
-        assert activations.shape[:2] == coefficients.shape
-        comb = torch.sum(activations * torch.unsqueeze(torch.unsqueeze(coefficients, dim=2), dim=3), dim=1, keepdim=True)
+        assert activations.shape[1] == coefficients.shape[1]
+        comb = torch.sum(activations * coefficients, dim=1, keepdim=True)
         assert len(comb.shape) == 4 and comb.shape[0] == comb.shape[1] == 1
-        fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(20, 10))
-        im1 = utils.plot.imshow_tensor(ax=ax1, tensor=image)
-        im2 = utils.plot.imshow_tensor(ax=ax2, tensor=comb)
-        fig.colorbar(im2)
-        filepath = os.path.join("saved_images", "comb_layer_idx_5", f"class_{label.item()}", f"example_{idx:03d}.png")
+        fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(20, 10))
+        im1 = utils.plot.imshow_tensor(ax=axs[0, 0], tensor=image)
+        axs[0, 0].set_title("Original Image")
+        if torch.min(comb) == torch.max(comb):
+            new_origin = 0
+        else:
+            new_origin = (0 - torch.min(comb)) / (torch.max(comb) - torch.min(comb))
+            new_origin = new_origin.item()
+        im2 = utils.plot.imshow_tensor(ax=axs[0, 1], tensor=comb)
+        cb = fig.colorbar(im2)
+        cb.ax.plot([0, 1], [new_origin]*2, 'r')
+        axs[0, 1].set_title(f"Weighted Activations (origin={new_origin})")
+        im3 = utils.plot.imshow_tensor(ax=axs[1, 0], tensor=(comb >= new_origin).type(torch.int64))
+        axs[1, 0].set_title("Positive Region")
+        im4 = utils.plot.imshow_tensor(ax=axs[1, 1], tensor=(comb < new_origin).type(torch.int64))
+        axs[1, 1].set_title("Negative Region")
+        filepath = os.path.join("saved_images", f"comb_layer_idx_{layer_idx}", f"class_{label.item()}", f"example_{idx:03d}.png")
         plt.savefig(filepath)
 
     ##################################################
@@ -227,5 +242,6 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--checkpoint')
+    parser.add_argument('--layeridx')
     args = parser.parse_args()
     main(args)
