@@ -41,7 +41,8 @@ def main(args):
     ##################################################
 
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-    model = models.LeNetLarge(in_features=3, out_features=10)
+    # model = models.LeNetLarge(in_features=3, out_features=10)
+    model = models.LeNet(in_features=1, out_features=10)
     model.to(device)
 
     ##################################################
@@ -50,26 +51,26 @@ def main(args):
 
     root = os.path.join("data", "datasets", "downloads", "STL10")
     download = not os.path.exists(root)
-    train_dataset = torchvision.datasets.STL10(
-        root=root, split='train', download=download,
-        transform=torchvision.transforms.ToTensor(),
-    )
-    # train_dataset_easy = train_dataset.subset(indices=np.loadtxt("saved_tensors/easy_cp_200_th_1.0e-09.txt"))
-    # train_dataset_hard = train_dataset.subset(indices=np.loadtxt("saved_tensors/hard_cp_200_th_1.0e-09.txt"))
+    # train_dataset = torchvision.datasets.STL10(
+    #     root=root, split='train', download=download,
+    #     transform=torchvision.transforms.ToTensor(),
+    # )
+    train_dataset = data.datasets.MNISTDataset(purpose='training')
     train_dataloader = data.Dataloader(
         task='image_classification', dataset=train_dataset,
         batch_size=8, shuffle=True, transforms=[
-            # data.transforms.Resize(new_size=(32, 32)),
+            data.transforms.Resize(new_size=(32, 32)),
         ])
 
-    eval_dataset = torchvision.datasets.STL10(
-        root=root, split='test', download=download,
-        transform=torchvision.transforms.ToTensor(),
-    )
+    # eval_dataset = torchvision.datasets.STL10(
+    #     root=root, split='test', download=download,
+    #     transform=torchvision.transforms.ToTensor(),
+    # )
+    eval_dataset = data.datasets.MNISTDataset(purpose='training')
     eval_dataloader = data.Dataloader(
         task='image_classification', dataset=eval_dataset,
         batch_size=1, shuffle=True, transforms=[
-            # data.transforms.Resize(new_size=(32, 32)),
+            data.transforms.Resize(new_size=(32, 32)),
         ])
 
     ##################################################
@@ -77,7 +78,7 @@ def main(args):
     ##################################################
 
     train_specs = {
-        'tag': 'LeNetLarge_STL10_Multi_1',
+        'tag': 'LeNet_MNIST_Multi_3',
         'epochs': 0,
         'save_model': False,
         'load_model': args.checkpoint,
@@ -111,7 +112,7 @@ def main(args):
     exp_dataloader = data.Dataloader(
         task='image_classification', dataset=train_dataset,
         batch_size=1, shuffle=True, transforms=[
-            # data.transforms.Resize(new_size=(32, 32)),
+            data.transforms.Resize(new_size=(32, 32)),
         ])
     model.eval()
     num_examples = 100
