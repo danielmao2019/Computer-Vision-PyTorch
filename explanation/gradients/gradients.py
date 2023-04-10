@@ -15,6 +15,7 @@ def CE_gradient(inputs, labels, mapping=None):
     assert labels.shape == (1,), f"{labels.shape=}"
     assert labels.dtype == torch.int64, f"{labels.dtype=}"
     if mapping is not None:
+        mapping = mapping.to(labels.device)
         labels = mapping[labels]
     labels = labels.item()
     ans = torch.zeros(size=inputs.shape).to(inputs.device)

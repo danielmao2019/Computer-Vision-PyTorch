@@ -41,8 +41,8 @@ def main(args):
     ##################################################
 
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-    # model = models.LeNetLarge(in_features=3, out_features=10)
-    model = models.LeNet(in_features=1, out_features=10)
+    model = models.LeNetLarge(in_features=3, out_features=10)
+    # model = models.LeNet(in_features=1, out_features=10)
     model.to(device)
 
     ##################################################
@@ -51,26 +51,26 @@ def main(args):
 
     root = os.path.join("data", "datasets", "downloads", "STL10")
     download = not os.path.exists(root)
-    # train_dataset = torchvision.datasets.STL10(
-    #     root=root, split='train', download=download,
-    #     transform=torchvision.transforms.ToTensor(),
-    # )
-    train_dataset = data.datasets.MNISTDataset(purpose='training')
+    train_dataset = torchvision.datasets.STL10(
+        root=root, split='train', download=download,
+        transform=torchvision.transforms.ToTensor(),
+    )
+    # train_dataset = data.datasets.MNISTDataset(purpose='training')
     train_dataloader = data.Dataloader(
         task='image_classification', dataset=train_dataset,
         batch_size=8, shuffle=True, transforms=[
-            data.transforms.Resize(new_size=(32, 32)),
+            # data.transforms.Resize(new_size=(32, 32)),
         ])
 
-    # eval_dataset = torchvision.datasets.STL10(
-    #     root=root, split='test', download=download,
-    #     transform=torchvision.transforms.ToTensor(),
-    # )
-    eval_dataset = data.datasets.MNISTDataset(purpose='training')
+    eval_dataset = torchvision.datasets.STL10(
+        root=root, split='test', download=download,
+        transform=torchvision.transforms.ToTensor(),
+    )
+    # eval_dataset = data.datasets.MNISTDataset(purpose='training')
     eval_dataloader = data.Dataloader(
         task='image_classification', dataset=eval_dataset,
         batch_size=1, shuffle=True, transforms=[
-            data.transforms.Resize(new_size=(32, 32)),
+            # data.transforms.Resize(new_size=(32, 32)),
         ])
 
     ##################################################
@@ -78,7 +78,7 @@ def main(args):
     ##################################################
 
     train_specs = {
-        'tag': 'LeNet_MNIST_Multi_3',
+        'tag': 'LeNetLarge_STL10_Multi_1',
         'epochs': 0,
         'save_model': False,
         'load_model': args.checkpoint,
@@ -112,7 +112,7 @@ def main(args):
     exp_dataloader = data.Dataloader(
         task='image_classification', dataset=train_dataset,
         batch_size=1, shuffle=True, transforms=[
-            data.transforms.Resize(new_size=(32, 32)),
+            # data.transforms.Resize(new_size=(32, 32)),
         ])
     model.eval()
     num_examples = 100
@@ -180,12 +180,9 @@ def main(args):
             for criterion_gradient in criterion_gradient_list], dim=0)
         assert len(gradient_tensor_list.shape) == 4
         assert gradient_tensor_list.shape[0] == len(criterion_gradient_list)
-        coefficients = torch.prod(gradient_tensor_list, dim=0, keepdim=True)
-        assert len(coefficients.shape) == 4, f"{coefficients.shape=}"
-        assert coefficients.shape[0] == 1
-        coefficients = torch.mean(coefficients, dim=[2, 3], keepdim=True)
-        assert len(coefficients.shape) == 4, f"{coefficients.shape=}"
-        assert coefficients.shape[2] == coefficients.shape[3] == 1
+        inner_products = torch.sum(torch.prod(gradient_tensor_list, dim=0, keepdim=True), dim=[2, 3], keepdim=True)
+        norm_products = torch.prod(torch.sqrt(torch.sum(gradient_tensor_list**2, dim=[2, 3], keepdim=True)), dim=0, keepdim=True)
+        coefficients = (inner_products / norm_products) if torch.prod(norm_products) != 0 else inner_products
         activations = gmi.memory[layer_idx]
         assert activations.shape[1] == coefficients.shape[1]
         comb = torch.sum(activations * coefficients, dim=1, keepdim=True)
@@ -206,7 +203,7 @@ def main(args):
         axs[1, 0].set_title("Positive Region")
         im4 = utils.plot.imshow_tensor(ax=axs[1, 1], tensor=(comb < new_origin).type(torch.int64))
         axs[1, 1].set_title("Negative Region")
-        filepath = os.path.join("saved_images", f"comb_layer_idx_{layer_idx}", f"class_{label.item()}", f"example_{idx:03d}.png")
+        filepath = os.path.join("saved_images", f"comb_cos_layer_{layer_idx}", f"class_{label.item()}", f"example_{idx:03d}.png")
         plt.savefig(filepath)
 
     ##################################################
