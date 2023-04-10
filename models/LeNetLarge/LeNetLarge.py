@@ -65,7 +65,7 @@ class LeNetLarge(torch.nn.Module):
         x = self.tanh5(x)  # layer_idx = 11
         x = self.conv6(x)
         x = self.tanh6(x)
-        x = self.pool3(x)
+        x = self.pool3(x)  # layer_idx = 14
 
         x = self.linear1(x)
         x = self.tanh7(x)  # layer_idx = 16
