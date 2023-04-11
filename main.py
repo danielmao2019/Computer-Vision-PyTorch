@@ -176,34 +176,72 @@ def main(args):
         image, label = next(iterator)
         image, label = image.to(device), label.to(device)
         output = gmi.update(image)
+        activations = gmi.memory[layer_idx]
+        # get conflict map
         gradient_tensor_list = torch.cat([gmi(criterion_gradient(inputs=output, labels=label))
             for criterion_gradient in criterion_gradient_list], dim=0)
-        assert len(gradient_tensor_list.shape) == 4
-        assert gradient_tensor_list.shape[0] == len(criterion_gradient_list)
+        assert gradient_tensor_list.shape == (len(criterion_gradient_list),) + activations.shape[1:4], f"{gradient_tensor_list.shape=}"
         inner_products = torch.sum(torch.prod(gradient_tensor_list, dim=0, keepdim=True), dim=[2, 3], keepdim=True)
         norm_products = torch.prod(torch.sqrt(torch.sum(gradient_tensor_list**2, dim=[2, 3], keepdim=True)), dim=0, keepdim=True)
-        coefficients = (inner_products / norm_products) if torch.prod(norm_products) != 0 else inner_products
-        activations = gmi.memory[layer_idx]
-        assert activations.shape[1] == coefficients.shape[1]
-        comb = torch.sum(activations * coefficients, dim=1, keepdim=True)
-        assert len(comb.shape) == 4 and comb.shape[0] == comb.shape[1] == 1
-        fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(20, 10))
-        im1 = utils.plot.imshow_tensor(ax=axs[0, 0], tensor=image)
-        axs[0, 0].set_title("Original Image")
-        if torch.min(comb) == torch.max(comb):
-            new_origin = 0
-        else:
-            new_origin = (0 - torch.min(comb)) / (torch.max(comb) - torch.min(comb))
-            new_origin = new_origin.item()
-        im2 = utils.plot.imshow_tensor(ax=axs[0, 1], tensor=comb)
-        cb = fig.colorbar(im2)
-        cb.ax.plot([0, 1], [new_origin]*2, 'r')
-        axs[0, 1].set_title(f"Weighted Activations (origin={new_origin})")
-        im3 = utils.plot.imshow_tensor(ax=axs[1, 0], tensor=(comb >= new_origin).type(torch.int64))
-        axs[1, 0].set_title("Positive Region")
-        im4 = utils.plot.imshow_tensor(ax=axs[1, 1], tensor=(comb < new_origin).type(torch.int64))
-        axs[1, 1].set_title("Negative Region")
-        filepath = os.path.join("saved_images", f"comb_cos_layer_{layer_idx}", f"class_{label.item()}", f"example_{idx:03d}.png")
+        conflict_scores = (inner_products / norm_products) if torch.prod(norm_products) != 0 else inner_products
+        assert conflict_scores.shape == (1, activations.shape[1], 1, 1), f"{conflict_scores.shape}"
+        conflict_map = torch.sum(activations * conflict_scores, dim=1, keepdim=True)
+        assert conflict_map.shape == (1, 1) + activations.shape[2:4], f"{conflict_map.shape=}"
+        # get Grad-CAM True
+        softmax_grad = torch.zeros(size=(1, model.out_features), dtype=torch.float32).to(device)
+        softmax_grad[0, label.item()] = 1
+        softmax_grad = gmi(softmax_grad)
+        grad_weights = torch.mean(softmax_grad, dim=[2, 3], keepdim=True)
+        assert grad_weights.shape == (1, activations.shape[1], 1, 1), f"{grad_weights.shape=}, {activations.shape=}"
+        grad_cam_true = torch.sum(activations * grad_weights, dim=1, keepdim=True)
+        grad_cam_true = torch.nn.functional.relu(grad_cam_true)
+        assert grad_cam_true.shape == (1, 1) + activations.shape[2:4], f"{grad_cam_true.shape=}"
+        # get Grad-CAM Pert
+        softmax_grad = torch.zeros(size=(1, model.out_features), dtype=torch.float32).to(device)
+        softmax_grad[0, criterion.criteria[1].mapping[label.item()]] = 1
+        softmax_grad = gmi(softmax_grad)
+        grad_weights = torch.mean(softmax_grad, dim=[2, 3], keepdim=True)
+        assert grad_weights.shape == (1, activations.shape[1], 1, 1), f"{grad_weights.shape=}, {activations.shape=}"
+        grad_cam_pert = torch.sum(activations * grad_weights, dim=1, keepdim=True)
+        grad_cam_pert = torch.nn.functional.relu(grad_cam_pert)
+        assert grad_cam_pert.shape == (1, 1) + activations.shape[2:4], f"{grad_cam_pert.shape=}"
+        # mask the conflict map
+        conflict_map_true = conflict_map * grad_cam_true
+        conflict_map_pert = conflict_map * grad_cam_pert
+        # plots
+        fig, axs = plt.subplots(nrows=3, ncols=3, figsize=(45, 45))
+        utils.plot.imshow_tensor(
+            ax=axs[0, 0], tensor=image,
+            title="Original Image",
+        )
+        # utils.plot.imshow_tensor(ax=axs[1, 0], tensor=conflict_map)
+        # axs[1, 0].set_title("Conflict Map")
+        utils.plot.imshow_tensor(
+            fig=fig, ax=axs[0, 1], tensor=conflict_map_true,
+            title="Conflict Map True", show_colorbar=True, show_origin=True,
+        )
+        utils.plot.imshow_tensor(
+            ax=axs[1, 1], tensor=utils.plot.overlay_heatmap(image=image, heatmap=(conflict_map_true < 0)),
+            title="Negative Region True", show_colorbar=False, show_origin=False,
+        )
+        utils.plot.imshow_tensor(
+            fig=fig, ax=axs[2, 1], tensor=utils.plot.overlay_heatmap(image=image, heatmap=grad_cam_true),
+            title="Grad-CAM True", show_colorbar=False, show_origin=False,
+        )
+        utils.plot.imshow_tensor(
+            fig=fig, ax=axs[0, 2], tensor=conflict_map_pert,
+            title="Conflict Map Pert", show_colorbar=True, show_origin=True,
+        )
+        utils.plot.imshow_tensor(
+            ax=axs[1, 2], tensor=utils.plot.overlay_heatmap(image=image, heatmap=(conflict_map_pert < 0)),
+            title="Negative Region Pert", show_colorbar=False, show_origin=False,
+        )
+        utils.plot.imshow_tensor(
+            fig=fig, ax=axs[2, 2], tensor=utils.plot.overlay_heatmap(image=image, heatmap=grad_cam_pert),
+            title="Grad-CAM Pert", show_colorbar=False, show_origin=False,
+        )
+
+        filepath = os.path.join("saved_images", f"comb_masked_cos_layer_{layer_idx}", f"class_{label.item()}", f"example_{idx:03d}.png")
         plt.savefig(filepath)
 
     ##################################################
