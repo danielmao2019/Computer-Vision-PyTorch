@@ -209,7 +209,7 @@ def main(args):
         conflict_map_true = conflict_map * grad_cam_true
         conflict_map_pert = conflict_map * grad_cam_pert
         # plots
-        fig, axs = plt.subplots(nrows=3, ncols=3, figsize=(45, 45))
+        fig, axs = plt.subplots(nrows=3, ncols=3, figsize=(10, 10))
         utils.plot.imshow_tensor(
             ax=axs[0, 0], tensor=image,
             title="Original Image",
