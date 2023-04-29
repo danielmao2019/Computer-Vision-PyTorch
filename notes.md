@@ -179,3 +179,23 @@ criterion = losses.MultiTaskCriterion(criteria=[
 )
 'optimizer': torch.optim.SGD(model.parameters(), lr=1.0e-02, momentum=0.9),
 ```
+
+### LeNetLarge_STL10_Multi_2
+
+```python
+criterion = losses.MultiTaskCriterion(criteria=[
+    losses.MappedMNISTCEL(mapping=None, num_classes=10),  # identity mapping
+    losses.MappedMNISTCEL(mapping=torch.Tensor([0, 1, 2, 5, 4, 3, 6, 7, 8, 9])),  # swap cats and dogs
+    ], weights=[1, 1],
+)
+'optimizer': torch.optim.Adam(model.parameters()),
+```
+
+### LeNetLarge_STL10_Multi_3
+
+base line
+'optimizer': torch.optim.Adam(model.parameters()),
+
+### LeNet_STL10_0
+
+base line

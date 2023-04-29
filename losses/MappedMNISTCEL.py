@@ -6,6 +6,10 @@ class MappedMNISTCEL(torch.nn.Module):
     def __init__(self, mapping=None, num_classes=None, seed=None):
         super(MappedMNISTCEL, self).__init__()
         if mapping is None:
+            assert num_classes is not None
+            mapping = torch.arange(num_classes)
+        elif mapping == 'random':
+            assert num_classes is not None
             if seed is not None:
                 torch.manual_seed(seed)
             mapping = torch.randperm(num_classes)
@@ -21,8 +25,8 @@ class MappedMNISTCEL(torch.nn.Module):
         else:
             assert type(mapping) == torch.Tensor, f"{type(mapping)=}"
         self.mapping = mapping.type(torch.int64)
-        self.criterion = torch.nn.CrossEntropyLoss()
-    
+        self.criterion = torch.nn.CrossEntropyLoss(reduction="sum")
+
     def forward(self, inputs, labels):
         """
         Args:
@@ -31,7 +35,9 @@ class MappedMNISTCEL(torch.nn.Module):
         Returns:
             loss (torch.Tensor): 0D tensor of dtype torch.float32.
         """
-        labels = self.mapping[labels].to(labels.device)
+        assert inputs.device == labels.device
+        self.mapping = self.mapping.to(labels.device)
+        labels = self.mapping[labels]
         loss = self.criterion(inputs, labels)
         assert type(loss) == torch.Tensor
         assert len(loss.shape) == 0

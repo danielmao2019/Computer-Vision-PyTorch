@@ -1,7 +1,7 @@
 """
 Limitations:
 * Only designed for image classification tasks.
-* Output shape of softmax layer must be 2-D.
+* Output shape of last layer must be 2-D.
 * Does not accept batch normalization layers.
 """
 import torch
@@ -26,10 +26,15 @@ class GradientModelInputs(torch.nn.Module):
         self.hooks = explanation.gradients.hooks.register_hooks(
             model=self.model, memory=self.memory, layer_idx=self.layer_idx,
         )
+        self.layers = None
 
     def update(self, image):
-        # TODO: integrate the get_layers method here to reuse the layers between two updates.
-        return self.model(image)
+        self.layers = []
+        output = self.model(image)
+        for idx in range(self.length-1, self.layer_idx-1, -1):
+            forward_layer = list(self.model.children())[idx]
+            self.layers.append(self._get_new_layer(forward_layer, idx))
+        return output
 
     def forward(self, gradients):
         """
@@ -44,10 +49,8 @@ class GradientModelInputs(torch.nn.Module):
             gradients (torch.Tensor): 2D tensor of final gradient (output of the backward pass).
         """
         assert len(gradients.shape) == 2, f"{gradients.shape=}"
-        for idx in range(self.length-1, self.layer_idx-1, -1):
-            layer = list(self.model.children())[idx]
-            new_layer = self._get_new_layer(layer, idx)
-            gradients = new_layer(gradients)
+        for layer in self.layers:
+            gradients = layer(gradients)
         return gradients
 
     def register_forward_hook(self, layer_idx, hook):
@@ -101,10 +104,8 @@ class GradientModelInputs(torch.nn.Module):
             inputs = self.memory[idx]
             assert inputs is not None, f"{idx=}"
             new_layer = self._tanh_backward(inputs)
-        elif type(layer) == torch.nn.Softmax:
-            outputs = self.memory[idx]
-            assert outputs is not None, f"{idx=}"
-            new_layer = self._softmax_backward(outputs)
+        elif type(layer) == torch.nn.Dropout:
+            new_layer = lambda x: x
         else:
             raise NotImplementedError(f"[ERROR] Layers of type {type(layer)} not implemented.")
         if isinstance(new_layer, torch.nn.Module):
@@ -116,14 +117,4 @@ class GradientModelInputs(torch.nn.Module):
         def new_layer(x):
             assert x.shape == inputs.shape, f"{x.shape=}, {inputs.shape=}"
             return x * explanation.gradients.tanh_gradient(inputs)
-        return new_layer
-
-    # TODO: test this function using for loops
-    def _softmax_backward(self, outputs):
-        def new_layer(x):
-            assert x.shape == outputs.shape
-            new_weights = (torch.bmm(torch.unsqueeze(outputs, dim=1), torch.unsqueeze(outputs, dim=2))
-                           - torch.diag_embed(outputs))
-            assert new_weights.shape == (outputs.shape[0], outputs.shape[1], outputs.shape[1])
-            return torch.squeeze(torch.bmm(new_weights, torch.unsqueeze(x, dim=2)), dim=2)
         return new_layer

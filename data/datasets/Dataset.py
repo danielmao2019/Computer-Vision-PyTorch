@@ -1,4 +1,4 @@
-import numpy as np
+import numpy
 import torch
 import copy
 
@@ -14,7 +14,7 @@ class Dataset(object):
         return len(self.core)
 
     def subset(self, indices):
-        assert type(indices) in [list, np.ndarray, torch.Tensor], f"{type(indices)=}"
+        assert type(indices) in [list, numpy.ndarray, torch.Tensor], f"{type(indices)=}"
         indices = torch.Tensor(indices).type(torch.int64)
         assert len(indices.shape) == 1, f"{indices.shape=}"
         new_dataset = copy.deepcopy(self)

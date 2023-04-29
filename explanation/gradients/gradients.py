@@ -18,9 +18,10 @@ def CE_gradient(inputs, labels, mapping=None):
         mapping = mapping.to(labels.device)
         labels = mapping[labels]
     labels = labels.item()
-    ans = torch.zeros(size=inputs.shape).to(inputs.device)
-    ans[0, labels] = -labels/inputs[0, labels]
-    return ans
+    gradient = torch.exp(inputs)
+    gradient = gradient / torch.sum(gradient)
+    gradient[:, labels] -= 1
+    return gradient
 
 
 def MSE_gradient(inputs, labels):

@@ -42,10 +42,10 @@ class LeNetLarge(torch.nn.Module):
             in_features=240, out_features=84,
         )
         self.tanh7 = torch.nn.Tanh()
+        self.dropout = torch.nn.Dropout(p=0.8)
         self.linear2 = torch.nn.Linear(
             in_features=84, out_features=out_features,
         )
-        self.softmax = torch.nn.Softmax(dim=1)
 
     def forward(self, x):
 
@@ -69,7 +69,7 @@ class LeNetLarge(torch.nn.Module):
 
         x = self.linear1(x)
         x = self.tanh7(x)  # layer_idx = 16
-
+        x = self.dropout(x)
         x = self.linear2(x)
-        x = self.softmax(x)
+
         return x

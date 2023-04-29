@@ -29,7 +29,7 @@ I started implementing these in Jan 2023 when working at the Vision and Image Pr
 
 * My convention is to use `size` for the 2-tuple (H, W) and `shape` for the 4-tuple (N, C, H, W).
 
-### 3.2. Assumptions for the tasks
+### 3.2. Assumptions on object type, tensor shape, and tensor data type for different tasks
 
 * Image type: always `torch.Tensor`.
 * Image shape: 3-D in raw datasets and 4-D after dataloader due to batching.
@@ -48,6 +48,11 @@ I started implementing these in Jan 2023 when working at the Vision and Image Pr
 
 * For raw datasets using `pytest`.
 * Immediately before return in dataloader, as part of program.
+
+### About `softmax`
+
+Classification models, including semantic segmentation models, output pre-softmax class scores.
+These scores are converted to probability distribution by the criteria (and metrics) before comparing `y_pred` and `y_true`.
 
 ## 4. Contributors
 

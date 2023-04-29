@@ -20,7 +20,7 @@ def train_loop(model, dataloader, criterion, optimizer, metric, loss_graph, scor
     device = next(model.parameters()).device
     tot_loss = 0
     tot_score = 0
-    for element in tqdm(dataloader):
+    for element in tqdm(dataloader, leave=False):
         images, labels = element[0].to(device), element[1].to(device)
         outputs = model(images)
         loss = criterion(outputs, labels)
@@ -31,11 +31,12 @@ def train_loop(model, dataloader, criterion, optimizer, metric, loss_graph, scor
         optimizer.step()
         ###
         tot_loss += loss.item()
-        tot_score += score
+        tot_score += score.item()
         loss_graph.append(loss.item())
-        score_graph.append(score)
-    avg_loss = tot_loss / len(dataloader)
-    avg_score = tot_score / len(dataloader)
+        score_graph.append(score.item())
+    # assume reductions are both 'sum'
+    avg_loss = tot_loss / dataloader.num_examples
+    avg_score = tot_score / dataloader.num_examples
     return avg_loss, avg_score
 
 
@@ -90,8 +91,7 @@ def train_model(tag, model, train_dataloader, eval_dataloader, epochs, criterion
         logger.info("Epoch {:03d}/{}, loss={:.6f}, score={:.6f}, time={:.2f}sec.".format(
             cur_epoch+1, end_epoch, train_loss, train_score, time.time()-start_time))
         if save_model and (cur_epoch+1) % (5 ** np.floor(np.log10(cur_epoch+1))) == 0:
-            eval_scores = evaluation.eval_model(model, dataloader=eval_dataloader, metrics=[metrics.Acc()])
-            eval_scores = [score.item() for score in eval_scores]
+            eval_scores = evaluation.eval_model(model, dataloader=eval_dataloader, metrics=[metric])
             logger.info(f"{eval_scores=}")
             filepath = os.path.join(models_root, "checkpoints", f'checkpoint_{cur_epoch+1:03d}.pt')
             utils.training.save_model(model=model, optimizer=optimizer, epoch=cur_epoch, filepath=filepath)
