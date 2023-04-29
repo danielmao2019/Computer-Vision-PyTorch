@@ -33,20 +33,20 @@ class LeNet(torch.nn.Module):
 
     def forward(self, x):
 
-        x = self.conv1(x)
+        x = self.conv1(x)  # layer_idx = 0
         x = self.tanh1(x)
         x = self.pool1(x)
 
-        x = self.conv2(x)
+        x = self.conv2(x)  # layer_idx = 3
         x = self.tanh2(x)
         x = self.pool2(x)
 
-        x = self.conv3(x)
+        x = self.conv3(x)  # layer_idx = 6
         x = self.tanh3(x)
         x = self.pool3(x)
 
-        x = self.linear1(x)
+        x = self.linear1(x)  # layer_idx = 9
         x = self.tanh4(x)
 
-        x = self.linear2(x)
+        x = self.linear2(x)  # layer_idx = 11
         return x

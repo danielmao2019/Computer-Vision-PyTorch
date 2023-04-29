@@ -26,6 +26,9 @@ class GradientModelInputs(torch.nn.Module):
         self.hooks = explanation.gradients.hooks.register_hooks(
             model=self.model, memory=self.memory, layer_idx=self.layer_idx,
         )
+        def forward_hook(module, inputs, outputs):
+            self.memory[layer_idx] = inputs[0].detach()
+        self.register_forward_hook(layer_idx=layer_idx, hook=forward_hook)
         self.layers = None
 
     def update(self, image):

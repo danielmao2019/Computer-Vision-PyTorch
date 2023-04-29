@@ -10,9 +10,10 @@ def tanh_gradient(x):
 
 
 def CE_gradient(y_pred, y_true, mapping=None):
-    assert len(y_pred.shape) == 2 and y_pred.shape[0] == 1, f"{y_pred.shape=}"
-    assert type(y_true) == torch.Tensor
-    assert y_true.shape == (1,), f"{y_true.shape=}"
+    assert type(y_pred) == type(y_true) == torch.Tensor
+    assert len(y_pred.shape) == 2 and len(y_true.shape) == 1
+    assert y_pred.shape[0] == y_true.shape[0] == 1, f"{y_pred.shape=}, {y_true.shape=}"
+    assert y_pred.dtype == torch.float32, f"{y_pred.dtype=}"
     assert y_true.dtype == torch.int64, f"{y_true.dtype=}"
     if mapping is not None:
         mapping = mapping.to(y_true.device)
