@@ -88,8 +88,8 @@ class GradientModelInputs(torch.nn.Module):
             new_layer.weights = torch.nn.Parameter(new_weights)
         ##################################################
         # pooling layers
-        # these layers are applicable to all images with the size, which usually is the case if images
-        # come out of the same data pipeline.
+        # these layers are applicable to all images with the same size, which usually is the case
+        # if images come out of the same data pipeline.
         ##################################################
         elif type(layer) == torch.nn.AvgPool2d:
             kernel_size = layer.kernel_size
