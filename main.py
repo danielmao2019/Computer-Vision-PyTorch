@@ -110,54 +110,137 @@ def main(args):
 
     exp_dataloader = data.Dataloader(
         task='image_classification', dataset=train_dataset,
-        batch_size=1, shuffle=True, transforms=[
+        batch_size=1, shuffle=False, transforms=[
             # data.transforms.Resize(new_size=(32, 32)),
         ])
     model.eval()
-    num_examples = 100
 
+    # num_examples = 100
+    # layer_idx = int(args.layer_idx)
+    # gmi = explanation.gradients.GradientModelInputs(model=model, layer_idx=layer_idx)
+    # iterator = iter(exp_dataloader)
+    # idx = 0
+    # pbar = tqdm(total=num_examples, leave=False)
+    # while idx < num_examples:
+    #     image, label = next(iterator)
+    #     if label.item() not in [3, 5]:
+    #         continue
+    #     image, label = image.to(device), label.to(device)
+    #     output = gmi.update(image)
+    #     activations = gmi.memory[layer_idx]
+    #     # get conflict map
+    #     gradient_tensor_list = torch.cat([
+    #         gmi(criterion_gradient(y_pred=output, y_true=label))
+    #         for criterion_gradient in criterion_gradient_list
+    #     ], dim=0)
+    #     assert gradient_tensor_list.shape == (len(criterion_gradient_list),) + activations.shape[1:4], f"{gradient_tensor_list.shape=}"
+    #     inner_products = torch.sum(torch.prod(gradient_tensor_list, dim=0, keepdim=True), dim=[2, 3], keepdim=True)
+    #     norm_products = torch.prod(torch.sqrt(torch.sum(gradient_tensor_list**2, dim=[2, 3], keepdim=True)), dim=0, keepdim=True)
+    #     conflict_scores = (inner_products / norm_products) if torch.prod(norm_products) != 0 else inner_products
+    #     assert conflict_scores.shape == (1, activations.shape[1], 1, 1), f"{conflict_scores.shape}"
+    #     conflict_map = torch.sum(activations * conflict_scores, dim=1, keepdim=True)
+    #     assert conflict_map.shape == (1, 1) + activations.shape[2:4], f"{conflict_map.shape=}"
+    #     # get Grad-CAM True
+    #     class_score_grad = torch.zeros(size=(1, model.out_features), dtype=torch.float32).to(device)
+    #     class_score_grad[0, label.item()] = 1
+    #     class_score_grad = gmi(class_score_grad)
+    #     grad_weights = torch.mean(class_score_grad, dim=[2, 3], keepdim=True)
+    #     assert grad_weights.shape == (1, activations.shape[1], 1, 1), f"{grad_weights.shape=}, {activations.shape=}"
+    #     grad_cam_true = torch.sum(activations * grad_weights, dim=1, keepdim=True)
+    #     grad_cam_true = torch.nn.functional.relu(grad_cam_true)
+    #     assert grad_cam_true.shape == (1, 1) + activations.shape[2:4], f"{grad_cam_true.shape=}"
+    #     # get Grad-CAM Pert
+    #     class_score_grad = torch.zeros(size=(1, model.out_features), dtype=torch.float32).to(device)
+    #     class_score_grad[0, criterion.criteria[1].mapping[label.item()]] = 1
+    #     class_score_grad = gmi(class_score_grad)
+    #     grad_weights = torch.mean(class_score_grad, dim=[2, 3], keepdim=True)
+    #     assert grad_weights.shape == (1, activations.shape[1], 1, 1), f"{grad_weights.shape=}, {activations.shape=}"
+    #     grad_cam_pert = torch.sum(activations * grad_weights, dim=1, keepdim=True)
+    #     grad_cam_pert = torch.nn.functional.relu(grad_cam_pert)
+    #     assert grad_cam_pert.shape == (1, 1) + activations.shape[2:4], f"{grad_cam_pert.shape=}"
+    #     # mask the conflict map
+    #     conflict_map_true = conflict_map * grad_cam_true
+    #     conflict_map_pert = conflict_map * grad_cam_pert
+    #     # plots
+    #     fig, axs = plt.subplots(nrows=3, ncols=3, figsize=(10, 10))
+    #     utils.plot.imshow_tensor(
+    #         ax=axs[0, 0], tensor=image,
+    #         title="Original Image",
+    #     )
+    #     # utils.plot.imshow_tensor(ax=axs[1, 0], tensor=conflict_map)
+    #     # axs[1, 0].set_title("Conflict Map")
+    #     utils.plot.imshow_tensor(
+    #         fig=fig, ax=axs[0, 1], tensor=conflict_map_true,
+    #         title="Conflict Map True", show_colorbar=True, show_origin=True,
+    #     )
+    #     utils.plot.imshow_tensor(
+    #         ax=axs[1, 1], tensor=utils.plot.overlay_heatmap(image=image, heatmap=(conflict_map_true < 0)),
+    #         title="Negative Region True", show_colorbar=False, show_origin=False,
+    #     )
+    #     utils.plot.imshow_tensor(
+    #         fig=fig, ax=axs[2, 1], tensor=utils.plot.overlay_heatmap(image=image, heatmap=grad_cam_true),
+    #         title="Grad-CAM True", show_colorbar=False, show_origin=False,
+    #     )
+    #     utils.plot.imshow_tensor(
+    #         fig=fig, ax=axs[0, 2], tensor=conflict_map_pert,
+    #         title="Conflict Map Pert", show_colorbar=True, show_origin=True,
+    #     )
+    #     utils.plot.imshow_tensor(
+    #         ax=axs[1, 2], tensor=utils.plot.overlay_heatmap(image=image, heatmap=(conflict_map_pert < 0)),
+    #         title="Negative Region Pert", show_colorbar=False, show_origin=False,
+    #     )
+    #     utils.plot.imshow_tensor(
+    #         fig=fig, ax=axs[2, 2], tensor=utils.plot.overlay_heatmap(image=image, heatmap=grad_cam_pert),
+    #         title="Grad-CAM Pert", show_colorbar=False, show_origin=False,
+    #     )
+    #     filepath = os.path.join(args.image_dir, f"class_{label.item()}", f"example_{idx:03d}.png")
+    #     plt.savefig(filepath)
+    #     plt.close()
+    #     idx += 1
+    #     pbar.update(1)
+    # pbar.close()
+    # print("Done generating images.")
+
+    num_examples = 100
     layer_idx = int(args.layer_idx)
-    gmi = explanation.gradients.GradientModelInputs(model=model, layer_idx=layer_idx)
     iterator = iter(exp_dataloader)
     idx = 0
     pbar = tqdm(total=num_examples, leave=False)
     while idx < num_examples:
         image, label = next(iterator)
-        if label.item() not in [3, 5]:
-            continue
         image, label = image.to(device), label.to(device)
-        output = gmi.update(image)
-        activations = gmi.memory[layer_idx]
+        first_part = torch.nn.Sequential(*list(model.children())[:layer_idx])
+        second_part = torch.nn.Sequential(*list(model.children())[layer_idx:])
+        inter = first_part(image)
+        final = second_part(inter)
         # get conflict map
         gradient_tensor_list = torch.cat([
-            gmi(criterion_gradient(y_pred=output, y_true=label))
-            for criterion_gradient in criterion_gradient_list
+            torch.autograd.grad(outputs=c_fn(final, label), inputs=inter, retain_graph=True)[0]
+            for c_fn in criterion.criteria
         ], dim=0)
-        assert gradient_tensor_list.shape == (len(criterion_gradient_list),) + activations.shape[1:4], f"{gradient_tensor_list.shape=}"
+        assert gradient_tensor_list.shape == (len(criterion_gradient_list),) + inter.shape[1:4], f"{gradient_tensor_list.shape=}"
         inner_products = torch.sum(torch.prod(gradient_tensor_list, dim=0, keepdim=True), dim=[2, 3], keepdim=True)
         norm_products = torch.prod(torch.sqrt(torch.sum(gradient_tensor_list**2, dim=[2, 3], keepdim=True)), dim=0, keepdim=True)
         conflict_scores = (inner_products / norm_products) if torch.prod(norm_products) != 0 else inner_products
-        assert conflict_scores.shape == (1, activations.shape[1], 1, 1), f"{conflict_scores.shape}"
-        conflict_map = torch.sum(activations * conflict_scores, dim=1, keepdim=True)
-        assert conflict_map.shape == (1, 1) + activations.shape[2:4], f"{conflict_map.shape=}"
+        assert conflict_scores.shape == (1, inter.shape[1], 1, 1), f"{conflict_scores.shape}"
+        conflict_map = torch.sum(inter * conflict_scores, dim=1, keepdim=True)
+        assert conflict_map.shape == (1, 1) + inter.shape[2:4], f"{conflict_map.shape=}"
         # get Grad-CAM True
-        class_score_grad = torch.zeros(size=(1, model.out_features), dtype=torch.float32).to(device)
-        class_score_grad[0, label.item()] = 1
-        class_score_grad = gmi(class_score_grad)
+        class_score_grad = torch.autograd.grad(
+            outputs=final[0, label.item()], inputs=inter, retain_graph=True)[0]
         grad_weights = torch.mean(class_score_grad, dim=[2, 3], keepdim=True)
-        assert grad_weights.shape == (1, activations.shape[1], 1, 1), f"{grad_weights.shape=}, {activations.shape=}"
-        grad_cam_true = torch.sum(activations * grad_weights, dim=1, keepdim=True)
+        assert grad_weights.shape == (1, inter.shape[1], 1, 1), f"{grad_weights.shape=}, {inter.shape=}"
+        grad_cam_true = torch.sum(inter * grad_weights, dim=1, keepdim=True)
         grad_cam_true = torch.nn.functional.relu(grad_cam_true)
-        assert grad_cam_true.shape == (1, 1) + activations.shape[2:4], f"{grad_cam_true.shape=}"
+        assert grad_cam_true.shape == (1, 1) + inter.shape[2:4], f"{grad_cam_true.shape=}"
         # get Grad-CAM Pert
-        class_score_grad = torch.zeros(size=(1, model.out_features), dtype=torch.float32).to(device)
-        class_score_grad[0, criterion.criteria[1].mapping[label.item()]] = 1
-        class_score_grad = gmi(class_score_grad)
+        class_score_grad = torch.autograd.grad(
+            outputs=final[0, criterion.criteria[1].mapping[label.item()]], inputs=inter, retain_graph=True)[0]
         grad_weights = torch.mean(class_score_grad, dim=[2, 3], keepdim=True)
-        assert grad_weights.shape == (1, activations.shape[1], 1, 1), f"{grad_weights.shape=}, {activations.shape=}"
-        grad_cam_pert = torch.sum(activations * grad_weights, dim=1, keepdim=True)
+        assert grad_weights.shape == (1, inter.shape[1], 1, 1), f"{grad_weights.shape=}, {inter.shape=}"
+        grad_cam_pert = torch.sum(inter * grad_weights, dim=1, keepdim=True)
         grad_cam_pert = torch.nn.functional.relu(grad_cam_pert)
-        assert grad_cam_pert.shape == (1, 1) + activations.shape[2:4], f"{grad_cam_pert.shape=}"
+        assert grad_cam_pert.shape == (1, 1) + inter.shape[2:4], f"{grad_cam_pert.shape=}"
         # mask the conflict map
         conflict_map_true = conflict_map * grad_cam_true
         conflict_map_pert = conflict_map * grad_cam_pert
