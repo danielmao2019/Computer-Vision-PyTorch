@@ -206,11 +206,11 @@ def main(args):
     iterator = iter(exp_dataloader)
     idx = 0
     pbar = tqdm(total=num_examples, leave=False)
+    first_part = torch.nn.Sequential(*list(model.children())[:layer_idx])
+    second_part = torch.nn.Sequential(*list(model.children())[layer_idx:])
     while idx < num_examples:
         image, label = next(iterator)
         image, label = image.to(device), label.to(device)
-        first_part = torch.nn.Sequential(*list(model.children())[:layer_idx])
-        second_part = torch.nn.Sequential(*list(model.children())[layer_idx:])
         inter = first_part(image)
         final = second_part(inter)
         # get conflict map

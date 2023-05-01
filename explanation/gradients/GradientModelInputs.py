@@ -20,15 +20,18 @@ class GradientModelInputs(torch.nn.Module):
         model.eval()
         self.model = model
         self.layer_idx = layer_idx
-        self.device = next(self.model.parameters()).device
+        self.device = next(self.model.parameters()).device if len(list(self.model.parameters())) else 'cuda:0'
         self.length = len(list(self.model.children()))
         self.memory = [None] * self.length
         self.hooks = explanation.gradients.hooks.register_hooks(
             model=self.model, memory=self.memory, layer_idx=self.layer_idx,
         )
-        def forward_hook(module, inputs, outputs):
-            self.memory[layer_idx] = inputs[0].detach()
-        self.register_forward_hook(layer_idx=layer_idx, hook=forward_hook)
+        if len(list(self.model.children())[layer_idx]._forward_hooks) == 0:
+            def forward_hook(module, inputs, outputs):
+                self.memory[layer_idx] = inputs[0].detach()
+            self.register_forward_hook(layer_idx=layer_idx, hook=forward_hook)
+        else:
+            print('a'*100 + "Warning: trying to record input of a layer that has automatically registered a hook.")
         self.layers = None
 
     def update(self, image):
@@ -41,17 +44,16 @@ class GradientModelInputs(torch.nn.Module):
 
     def forward(self, gradients):
         """
-        Forward pass of the gradient model is the backward pass of the entire computation.
+        Forward pass of the gradient model is the backward pass of the underlying model.
         Forward pass of the underlying model should be called externally prior to calling this method
         to correctly update the internal memory.
         This is similar to the U-Net architecture.
 
         Args:
-            gradients (torch.Tensor): 2D tensor of initial gradient to start with (input to the backward pass).
+            gradients (torch.Tensor): tensor of initial gradient to start with (input to the backward pass).
         Returns:
-            gradients (torch.Tensor): 2D tensor of final gradient (output of the backward pass).
+            gradients (torch.Tensor): tensor of desired gradient (output of the backward pass).
         """
-        assert len(gradients.shape) == 2, f"{gradients.shape=}"
         for layer in self.layers:
             gradients = layer(gradients)
         return gradients
@@ -77,7 +79,7 @@ class GradientModelInputs(torch.nn.Module):
                 kernel_size=(new_weights.shape[2], new_weights.shape[3]), stride=1,
                 padding=(new_weights.shape[2]-1, new_weights.shape[3]-1), bias=False,
             )
-            new_layer.weights = torch.nn.Parameter(new_weights)
+            new_layer.weight = torch.nn.Parameter(new_weights)
         elif type(layer) == torch.nn.Linear:
             new_weights = layer.weight.data.clone()
             assert len(new_weights.shape) == 2
@@ -85,7 +87,7 @@ class GradientModelInputs(torch.nn.Module):
             new_layer = torch.nn.Linear(
                 in_features=new_weights.shape[1], out_features=new_weights.shape[0], bias=False,
             )
-            new_layer.weights = torch.nn.Parameter(new_weights)
+            new_layer.weight = torch.nn.Parameter(new_weights)
         ##################################################
         # pooling layers
         # these layers are applicable to all images with the same size, which usually is the case
