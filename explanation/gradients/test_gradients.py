@@ -30,8 +30,7 @@ def test_GradientModelInputs_Linear():
         in_features=in_features, out_features=out_features,
     ))
     model.eval()
-    inputs = torch.rand(size=(1, in_features))
-    inputs.requires_grad_()
+    inputs = torch.rand(size=(1, in_features)).requires_grad_()
     labels = torch.randint(low=0, high=out_features, size=(1,)).type(torch.int64)
     # computed gradient
     gmi = explanation.gradients.GradientModelInputs(model=model, layer_idx=0)
@@ -49,8 +48,7 @@ def test_GradientModelInputs_Linear():
 def test_GradientModelInputs_tanh():
     model = torch.nn.Sequential(torch.nn.Tanh())
     model.eval()
-    inputs = torch.rand(size=(1, 3, 32, 32))
-    inputs.requires_grad_()
+    inputs = torch.rand(size=(1, 3, 32, 32)).requires_grad_()
     gmi = explanation.gradients.GradientModelInputs(model=model, layer_idx=0)
     outputs = gmi.update(inputs)
     for i in range(outputs.shape[1]):
@@ -77,7 +75,7 @@ def test_GradientModelInputs_LeNet():
     out_features=5
     model = models.LeNet(in_features=in_features, out_features=out_features)
     model.eval()
-    inputs = torch.rand(size=(1, in_features, 32, 32))
+    inputs = torch.rand(size=(1, in_features, 32, 32)).requires_grad_()
     labels = torch.randint(low=0, high=out_features, size=(1,)).type(torch.int64)
     for layer_idx in [10]:
         # computed gradient
@@ -85,7 +83,6 @@ def test_GradientModelInputs_LeNet():
         outputs = gmi.update(inputs)
         gradient_computed = gmi(explanation.gradients.CE_gradient(y_pred=outputs, y_true=labels))
         # expected gradient
-        inputs.requires_grad_()
         first_part = torch.nn.Sequential(*list(model.children())[:layer_idx])
         second_part = torch.nn.Sequential(*list(model.children())[layer_idx:])
         inter = first_part(inputs)

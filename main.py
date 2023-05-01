@@ -123,9 +123,9 @@ def main(args):
     # pbar = tqdm(total=num_examples, leave=False)
     # while idx < num_examples:
     #     image, label = next(iterator)
+    #     image, label = image.to(device), label.to(device)
     #     if label.item() not in [3, 5]:
     #         continue
-    #     image, label = image.to(device), label.to(device)
     #     output = gmi.update(image)
     #     activations = gmi.memory[layer_idx]
     #     # get conflict map
@@ -142,6 +142,7 @@ def main(args):
     #     assert conflict_map.shape == (1, 1) + activations.shape[2:4], f"{conflict_map.shape=}"
     #     # get Grad-CAM True
     #     class_score_grad = torch.zeros(size=(1, model.out_features), dtype=torch.float32).to(device)
+    #     print(f"{label.item()=}")
     #     class_score_grad[0, label.item()] = 1
     #     class_score_grad = gmi(class_score_grad)
     #     grad_weights = torch.mean(class_score_grad, dim=[2, 3], keepdim=True)
@@ -151,7 +152,8 @@ def main(args):
     #     assert grad_cam_true.shape == (1, 1) + activations.shape[2:4], f"{grad_cam_true.shape=}"
     #     # get Grad-CAM Pert
     #     class_score_grad = torch.zeros(size=(1, model.out_features), dtype=torch.float32).to(device)
-    #     class_score_grad[0, criterion.criteria[1].mapping[label.item()]] = 1
+    #     print(f"{criterion.criteria[1].mapping[label.item()].item()=}")
+    #     class_score_grad[0, criterion.criteria[1].mapping[label.item()].item()] = 1
     #     class_score_grad = gmi(class_score_grad)
     #     grad_weights = torch.mean(class_score_grad, dim=[2, 3], keepdim=True)
     #     assert grad_weights.shape == (1, activations.shape[1], 1, 1), f"{grad_weights.shape=}, {activations.shape=}"
@@ -198,6 +200,7 @@ def main(args):
     #     plt.close()
     #     idx += 1
     #     pbar.update(1)
+    #     break
     # pbar.close()
     # print("Done generating images.")
 
@@ -226,20 +229,22 @@ def main(args):
         conflict_map = torch.sum(inter * conflict_scores, dim=1, keepdim=True)
         assert conflict_map.shape == (1, 1) + inter.shape[2:4], f"{conflict_map.shape=}"
         # get Grad-CAM True
-        class_score_grad = torch.autograd.grad(
-            outputs=final[0, label.item()], inputs=inter, retain_graph=True)[0]
-        grad_weights = torch.mean(class_score_grad, dim=[2, 3], keepdim=True)
-        assert grad_weights.shape == (1, inter.shape[1], 1, 1), f"{grad_weights.shape=}, {inter.shape=}"
-        grad_cam_true = torch.sum(inter * grad_weights, dim=1, keepdim=True)
-        grad_cam_true = torch.nn.functional.relu(grad_cam_true)
+        gradient_initial = torch.zeros(size=(1, model.out_features)).to(device)
+        gradient_initial[:, label.item()] = 1
+        class_score = torch.sum(final * gradient_initial)
+        gradients = torch.autograd.grad(outputs=class_score, inputs=inter, retain_graph=True)[0]
+        gradients = torch.mean(gradients, dim=[2, 3], keepdim=True)
+        assert gradients.shape == (1, inter.shape[1], 1, 1), f"{gradients.shape=}, {inter.shape=}"
+        grad_cam_true = torch.nn.functional.relu(torch.sum(inter * gradients, dim=1, keepdim=True))
         assert grad_cam_true.shape == (1, 1) + inter.shape[2:4], f"{grad_cam_true.shape=}"
         # get Grad-CAM Pert
-        class_score_grad = torch.autograd.grad(
-            outputs=final[0, criterion.criteria[1].mapping[label.item()]], inputs=inter, retain_graph=True)[0]
-        grad_weights = torch.mean(class_score_grad, dim=[2, 3], keepdim=True)
-        assert grad_weights.shape == (1, inter.shape[1], 1, 1), f"{grad_weights.shape=}, {inter.shape=}"
-        grad_cam_pert = torch.sum(inter * grad_weights, dim=1, keepdim=True)
-        grad_cam_pert = torch.nn.functional.relu(grad_cam_pert)
+        gradient_initial = torch.zeros(size=(1, model.out_features)).to(device)
+        gradient_initial[:, criterion.criteria[1].mapping[label.item()].item()] = 1
+        class_score = torch.sum(final * gradient_initial)
+        gradients = torch.autograd.grad(outputs=class_score, inputs=inter, retain_graph=True)[0]
+        gradients = torch.mean(gradients, dim=[2, 3], keepdim=True)
+        assert gradients.shape == (1, inter.shape[1], 1, 1), f"{gradients.shape=}, {inter.shape=}"
+        grad_cam_pert = torch.nn.functional.relu(torch.sum(inter * gradients, dim=1, keepdim=True))
         assert grad_cam_pert.shape == (1, 1) + inter.shape[2:4], f"{grad_cam_pert.shape=}"
         # mask the conflict map
         conflict_map_true = conflict_map * grad_cam_true

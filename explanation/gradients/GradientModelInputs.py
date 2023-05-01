@@ -31,7 +31,9 @@ class GradientModelInputs(torch.nn.Module):
                 self.memory[layer_idx] = inputs[0].detach()
             self.register_forward_hook(layer_idx=layer_idx, hook=forward_hook)
         else:
-            print('a'*100 + "Warning: trying to record input of a layer that has automatically registered a hook.")
+            print('a'*100)
+            print("Warning: trying to record input of a layer that has automatically registered a hook.")
+            print('a'*100)
         self.layers = None
 
     def update(self, image):
