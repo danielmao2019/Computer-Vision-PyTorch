@@ -25,7 +25,7 @@ class MNISTDataset(Dataset):
         self.core = torchvision.datasets.MNIST(root=root, train=purpose=='training', download=download)
         assert isinstance(self.core, torch.utils.data.Dataset), f"{type(self.core)=}"
 
-    def __getitem__(self, idx):
+    def get_item(self, idx):
         image, label = self.core[idx]
         image = torchvision.transforms.ToTensor()(image)
         return image, label
