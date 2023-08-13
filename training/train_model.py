@@ -4,6 +4,7 @@ from tqdm import tqdm
 import os
 import time
 
+import training
 import metrics
 import evaluation
 import utils
@@ -64,7 +65,7 @@ def train_model(tag, model, train_dataloader, eval_dataloader, epochs, criterion
     start_epoch = 0
     if load_model is not None:
         filepath = os.path.join(models_root, "checkpoints", load_model)
-        model, optimizer, start_epoch = utils.training.load_model(model, optimizer, filepath=filepath)
+        model, optimizer, start_epoch = training.utils.load_model(model, optimizer, filepath=filepath)
         logger.info(f"Loaded model from {filepath}.")
     model.train()
     end_epoch = start_epoch + epochs
@@ -75,7 +76,7 @@ def train_model(tag, model, train_dataloader, eval_dataloader, epochs, criterion
     # log info
     if epochs:
         logger.info(f"Experiment tag: \"{tag}\".")
-        logger.info(f"Number of trainable parameters: {utils.training.trainable_params(model)}.")
+        logger.info(f"Number of trainable parameters: {training.utils.trainable_params(model)}.")
         utils.logging.log_criterion_info(logger=logger, criterion=criterion)
         utils.logging.log_optimizer_info(logger=logger, optimizer=optimizer)
         logger.info(f"epochs={epochs}.")
@@ -94,7 +95,7 @@ def train_model(tag, model, train_dataloader, eval_dataloader, epochs, criterion
             eval_scores = evaluation.eval_model(model, dataloader=eval_dataloader, metrics=[metric])
             logger.info(f"{eval_scores=}")
             filepath = os.path.join(models_root, "checkpoints", f'checkpoint_{cur_epoch+1:03d}.pt')
-            utils.training.save_model(model=model, optimizer=optimizer, epoch=cur_epoch, filepath=filepath)
+            training.utils.save_model(model=model, optimizer=optimizer, epoch=cur_epoch, filepath=filepath)
             logger.info(f"Saved model to {filepath}.")
         np.savetxt(
             fname=os.path.join(models_root, f"loss_graph.txt"),
