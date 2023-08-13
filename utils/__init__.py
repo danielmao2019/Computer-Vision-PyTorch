@@ -2,16 +2,14 @@
 UTILS API.
 """
 from utils import logging
+from utils import seed
 from utils import tensor_ops
 from utils import plot
-from utils import losses
-from utils import training
 
 
 __all__ = (
     "logging",
+    "seed",
     "tensor_ops",
     "plot",
-    "losses",
-    "training",
 )
