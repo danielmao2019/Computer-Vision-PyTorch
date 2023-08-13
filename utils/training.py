@@ -1,10 +1,5 @@
 import torch
-
-import logging
-logging.basicConfig(format='%(asctime)s [%(levelname)s] %(message)s', level=logging.INFO)
-
-
-INDENT = ' ' * 4
+import os
 
 
 def save_model(model, optimizer, epoch, filepath):
@@ -13,7 +8,10 @@ def save_model(model, optimizer, epoch, filepath):
         'state_dict': model.state_dict(),
         'optimizer': optimizer.state_dict(),
     }
+    if os.path.exists(filepath):
+        os.chmod(filepath, 0o600)
     torch.save(checkpoint, filepath)
+    os.chmod(filepath, 0o400)
 
 
 def load_model(model, optimizer, filepath):
@@ -26,22 +24,6 @@ def load_model(model, optimizer, filepath):
     if optimizer:
         optimizer.load_state_dict(checkpoint['optimizer'])
     return model, optimizer, checkpoint['epoch']
-
-
-def log_criterion_info(criterion):
-    logging.info(f"criterion={criterion.__class__.__name__}")
-    string = criterion.__str__().split('\n')
-    for s in string:
-        logging.info(INDENT + s)
-
-
-def log_optimizer_info(optimizer):
-    logging.info(f"optimizer={optimizer.__class__.__name__}")
-    assert len(optimizer.param_groups) == 1
-    group = optimizer.param_groups[0]
-    for key in sorted(group):
-        if key != 'params':
-            logging.info(INDENT + f"{key}={group[key]}")
 
 
 def trainable_params(model):

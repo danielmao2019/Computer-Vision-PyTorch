@@ -16,10 +16,12 @@ class Dataloader(object):
             )
         #TODO: enable this line
         # dataset = dataset.set_task(task)
+        self.num_examples = len(dataset)
+        self.batch_size = batch_size
         self.core = torch.utils.data.DataLoader(
             dataset=dataset, batch_size=batch_size, shuffle=shuffle, num_workers=num_workers, sampler=sampler,
         )
-        self.batch_size = batch_size
+        self.num_batches = len(self.core)
         self.sampler = sampler
         for t in transforms:
             t = t.set_task(task)

@@ -30,34 +30,23 @@ class LeNet(torch.nn.Module):
         self.linear2 = torch.nn.Linear(
             in_features=84, out_features=out_features,
         )
-        self.softmax = torch.nn.Softmax(dim=1)
 
     def forward(self, x):
-        assert x.shape[2:] == (32, 32), f"{x.shape=}"
 
-        x = self.conv1(x)
+        x = self.conv1(x)  # layer_idx = 0
         x = self.tanh1(x)
-        assert x.shape[1:] == (6, 28, 28), f"{x.shape=}"
         x = self.pool1(x)
-        assert x.shape[1:] == (6, 14, 14), f"{x.shape=}"
 
-        x = self.conv2(x)
+        x = self.conv2(x)  # layer_idx = 3
         x = self.tanh2(x)
-        assert x.shape[1:] == (16, 10, 10), f"{x.shape=}"
         x = self.pool2(x)
-        assert x.shape[1:] == (16, 5 ,5), f"{x.shape=}"
 
-        x = self.conv3(x)
+        x = self.conv3(x)  # layer_idx = 6
         x = self.tanh3(x)
-        assert x.shape[1:] == (120, 1, 1), f"{x.shape=}"
         x = self.pool3(x)
-        assert x.shape[1:] == (120,), f"{x.shape=}"
 
-        x = self.linear1(x)
+        x = self.linear1(x)  # layer_idx = 9
         x = self.tanh4(x)
-        assert x.shape[1:] == (84,), f"{x.shape=}"
 
-        x = self.linear2(x)
-        x = self.softmax(x)
-        assert x.shape[1:] == (self.out_features,), f"{x.shape=}"
+        x = self.linear2(x)  # layer_idx = 11
         return x

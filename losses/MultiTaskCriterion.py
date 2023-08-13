@@ -12,18 +12,18 @@ class MultiTaskCriterion(torch.nn.Module):
             weights = [1] * len(criteria)
         if len(criteria) != len(weights):
             raise ValueError(
-                f"[ERROR] Argument 'criteria' and 'weights' should have the same length. "
+                f"[ERROR] Arguments 'criteria' and 'weights' should have the same length. "
                 f"Got {len(criteria)=} and {len(weights)=}."
             )
-        weights = [w / len(weights) for w in weights]
+        weights = torch.Tensor(weights).type(torch.float32)
+        weights /= torch.sum(weights)
         self.criteria = criteria
         self.weights = weights
 
     def forward(self, inputs, labels):
         tot_loss = 0
-        onehot_labels = utils.losses.onehot_encode(shape=inputs.shape, labels=labels)
         for criterion, weight in zip(self.criteria, self.weights):
-            tot_loss += weight * criterion(inputs, onehot_labels)
+            tot_loss += weight * criterion(inputs, labels)
         return tot_loss
 
     def __str__(self):
