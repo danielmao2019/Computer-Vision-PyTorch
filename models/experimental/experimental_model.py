@@ -1,4 +1,5 @@
 import torch
+
 import models
 
 
@@ -10,23 +11,13 @@ class ExperimentalModel(torch.nn.Module):
             raise NotImplementedError(f"[ERROR] Predictor for task {task} not implemented.")
         self.task = task
         self.extractor = torch.nn.Sequential(
-            self.get_conv_layer(in_channels=in_features, out_channels=128),
-            self.get_conv_layer(in_channels=128, out_channels=256),
-            self.get_conv_layer(in_channels=256, out_channels=512),
+            models.builder.units.get_conv_unit(in_channels=in_features, out_channels=128),
+            models.builder.units.get_conv_unit(in_channels=128, out_channels=256),
+            models.builder.units.get_conv_unit(in_channels=256, out_channels=512),
         )
-        self.predictor = self.get_predictor(in_features=512, out_features=out_features)
+        self.predictor = self._get_predictor(in_features=512, out_features=out_features)
 
-    def get_conv_layer(self, in_channels, out_channels):
-        conv = torch.nn.Conv2d(
-            in_channels=in_channels, out_channels=out_channels, kernel_size=3, stride=1, padding='same',
-        )
-        batch_norm = torch.nn.BatchNorm2d(num_features=out_channels)
-        relu = torch.nn.ReLU(inplace=True)
-        return torch.nn.Sequential(
-            conv, batch_norm, relu,
-        )
-
-    def get_predictor(self, in_features, out_features):
+    def _get_predictor(self, in_features, out_features):
         if self.task == 'image_classification':
             return torch.nn.Sequential(
                 models.layers.GlobalAveragePooling2D(),

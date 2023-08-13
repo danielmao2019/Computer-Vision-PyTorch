@@ -1,5 +1,5 @@
 """
-UTILS APIs.
+UTILS API.
 """
 from utils import logging
 from utils import tensor_ops

@@ -1,5 +1,5 @@
 """
-PLOT APIs.
+PLOT API.
 """
 from utils.plot.explanation import rescale
 from utils.plot.explanation import imshow_tensor

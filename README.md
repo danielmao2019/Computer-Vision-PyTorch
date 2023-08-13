@@ -1,13 +1,16 @@
 # Computer-Vision-PyTorch <!-- omit in toc -->
 
+Last update: Sun Aug 13, 2023.
+
 ## Table of Contents <!-- omit in toc -->
 
 - [1. General info](#1-general-info)
 - [2. Setup guide](#2-setup-guide)
 - [3. Implementation notes](#3-implementation-notes)
   - [3.1. Variable naming](#31-variable-naming)
-  - [3.2. Assumptions for the tasks](#32-assumptions-for-the-tasks)
+  - [3.2. Assumptions on object type, tensor shape, and tensor data type for different tasks](#32-assumptions-on-object-type-tensor-shape-and-tensor-data-type-for-different-tasks)
   - [3.3. When checks are applied](#33-when-checks-are-applied)
+  - [3.4. About `softmax`](#34-about-softmax)
 - [4. Contributors](#4-contributors)
 - [5. See also](#5-see-also)
 
@@ -49,7 +52,7 @@ I started implementing these in Jan 2023 when working at the Vision and Image Pr
 * For raw datasets using `pytest`.
 * Immediately before return in dataloader, as part of program.
 
-### About `softmax`
+### 3.4. About `softmax`
 
 Classification models, including semantic segmentation models, output pre-softmax class scores.
 These scores are converted to probability distribution by the criteria (and metrics) before comparing `y_pred` and `y_true`.

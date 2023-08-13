@@ -10,7 +10,7 @@ def get_logger(filename):
     logger.setLevel(level=logging.INFO)
     formatter = logging.Formatter(
         fmt=f"[%(levelname)s] %(asctime)s - %(message)s",
-        datefmt="%m-%d %H:%M:%S",
+        datefmt="%Y-%m-%d %H:%M:%S",
     )
     # A more complete version of formatter
     # formatter = logging.Formatter(

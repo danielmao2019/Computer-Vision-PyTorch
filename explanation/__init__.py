@@ -1,5 +1,5 @@
 """
-EXPLANATION APIs.
+EXPLANATION API.
 """
 from explanation import gradients
 from explanation import CAM

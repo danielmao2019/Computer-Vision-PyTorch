@@ -1,5 +1,5 @@
 """
-DATA APIs.
+DATA API.
 """
 from data import datasets
 from data.dataloader.dataloader import Dataloader
