@@ -27,5 +27,5 @@ class RandomVectorsDataset(Dataset):
     def __len__(self):
         return self.num_examples
 
-    def __getitem__(self, idx):
+    def get_item(self, idx):
         return self.data[idx]

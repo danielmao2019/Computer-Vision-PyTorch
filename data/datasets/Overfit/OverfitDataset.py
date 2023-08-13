@@ -17,5 +17,5 @@ class OverfitDataset(Dataset):
             raise RuntimeError(f"Argument {task=} not handled properly.")
         self.core = [(self.image, self.label)]
 
-    def __getitem__(self, idx):
+    def get_item(self, idx):
         return self.core[idx]

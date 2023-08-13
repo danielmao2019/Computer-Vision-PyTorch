@@ -52,7 +52,7 @@ class ImageNetDataset(Dataset):
     def __len__(self):
         return len(self.samples)
 
-    def __getitem__(self, idx):
+    def get_item(self, idx):
         x = Image.open(self.samples[idx]).convert("RGB")
         if self.transform:
             x = self.transform(x)

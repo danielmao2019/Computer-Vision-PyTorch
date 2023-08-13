@@ -1,8 +1,8 @@
-import numpy as np
-import torch
-from tqdm import tqdm
 import os
 import time
+import numpy
+import torch
+from tqdm import tqdm
 
 import training
 import metrics
@@ -91,17 +91,17 @@ def train_model(tag, model, train_dataloader, eval_dataloader, epochs, criterion
         )
         logger.info("Epoch {:03d}/{}, loss={:.6f}, score={:.6f}, time={:.2f}sec.".format(
             cur_epoch+1, end_epoch, train_loss, train_score, time.time()-start_time))
-        if save_model and (cur_epoch+1) % (5 ** np.floor(np.log10(cur_epoch+1))) == 0:
+        if save_model and (cur_epoch+1) % (5 ** numpy.floor(numpy.log10(cur_epoch+1))) == 0:
             eval_scores = evaluation.eval_model(model, dataloader=eval_dataloader, metrics=[metric])
             logger.info(f"{eval_scores=}")
             filepath = os.path.join(models_root, "checkpoints", f'checkpoint_{cur_epoch+1:03d}.pt')
             training.utils.save_model(model=model, optimizer=optimizer, epoch=cur_epoch, filepath=filepath)
             logger.info(f"Saved model to {filepath}.")
-        np.savetxt(
+        numpy.savetxt(
             fname=os.path.join(models_root, f"loss_graph.txt"),
             X=torch.Tensor(loss_graph).cpu().numpy(),
         )
-        np.savetxt(
+        numpy.savetxt(
             fname=os.path.join(models_root, f"score_graph.txt"),
             X=torch.Tensor(score_graph).cpu().numpy(),
         )

@@ -44,7 +44,7 @@ class CIFARDataset(Dataset):
             raise RuntimeError(f"[ERROR] Argument {version=} not handled properly.")
         self.NUM_CLASSES = version
     
-    def __getitem__(self, idx):
+    def get_item(self, idx):
         image, label = self.core[idx]
         image = torchvision.transforms.ToTensor()(image)
         return image, label
