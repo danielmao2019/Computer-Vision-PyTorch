@@ -1,7 +1,8 @@
+import os
 import torch
 import torchvision
+
 from data.datasets import Dataset
-import os
 
 
 class MNISTDataset(Dataset):

@@ -1,5 +1,5 @@
 """
-EVALUATION APIs.
+EVALUATION API.
 """
 from evaluation.eval_model import eval_model
 

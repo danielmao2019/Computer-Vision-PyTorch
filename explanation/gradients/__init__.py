@@ -1,5 +1,5 @@
 """
-GRADIENTs APIs.
+GRADIENTs API.
 """
 from explanation.gradients import hooks
 from explanation.gradients.gradients import tanh_gradient, CE_gradient, MSE_gradient

@@ -11,7 +11,7 @@ import utils
 
 def train_loop(model, dataloader, criterion, optimizer, metric, loss_graph, score_graph):
     """
-    Parameters:
+    Args:
         loss_graph (list of float): Full list of loss for all iterations during training. Will be modified.
     Returns:
         avg_loss (float): average loss across all samples in the dataloader for current epoch.
@@ -44,7 +44,7 @@ def train_model(tag, model, train_dataloader, eval_dataloader, epochs, criterion
                 save_model, load_model,
                 ):
     """
-    Parameters:
+    Args:
         tag (str):
         model (torch.nn.Module):
         train_dataloader (torch.utils.data.DataLoader):

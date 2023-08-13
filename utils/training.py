@@ -16,7 +16,7 @@ def save_model(model, optimizer, epoch, filepath):
 
 def load_model(model, optimizer, filepath):
     """
-    Parameters:
+    Args:
         optimizer (None|torch.optim): could be None, in which case loading the model is for inference use rather than training.
     """
     checkpoint = torch.load(filepath)

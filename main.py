@@ -42,7 +42,7 @@ def main(args):
     ##################################################
 
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-    model = models.LeNetLarge(in_features=3, out_features=10)
+    model = models.experimental.LeNetLarge(in_features=3, out_features=10)
     # model = models.LeNet(in_features=3, out_features=10)
     model.to(device)
 

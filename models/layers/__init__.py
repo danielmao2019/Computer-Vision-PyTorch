@@ -1,5 +1,5 @@
 """
-LAYERS APIs.
+LAYERS API.
 """
 from models.layers.global_average_pooling import GlobalAveragePooling2D
 

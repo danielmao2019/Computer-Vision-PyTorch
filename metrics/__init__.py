@@ -1,5 +1,5 @@
 """
-METRICS APIs.
+METRICS API.
 """
 from metrics.acc import Acc
 
