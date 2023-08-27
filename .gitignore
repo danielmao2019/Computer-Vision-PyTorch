@@ -5,3 +5,4 @@ downloads
 *.pt
 loss_graph.txt
 score_graph.txt
+*png
